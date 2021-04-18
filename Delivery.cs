@@ -8,10 +8,10 @@ namespace FoodDelivery21
 {
     public class Delivery
     {
-        public  int Id;
-        public string Method;
-        public decimal Price;
-        
+        public  int Id { get; set; }
+        public string Method { get; set; }
+        public decimal Price { get; set; }
+
         public void SetDeliveryPrice(string Method, decimal Price)
         {
         }

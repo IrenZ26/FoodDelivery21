@@ -8,15 +8,15 @@ namespace FoodDelivery21
 {
     public class Order
     {
-        public int Id;
-        public string ProductName;
-        public int ProductValue;
-        public decimal ProductPrice;
-        public string DeliveryMethod;
-        public decimal DeliveryPrice;
-        public decimal PrivateDiscount;
-        public decimal ProductDiscount;
-        public decimal TotalPrice;
+        public int Id { get; set; }
+        public string ProductName { get; set; }
+        public int ProductValue { get; set; }
+        public decimal ProductPrice { get; set; }
+        public string DeliveryMethod { get; set; }
+        public decimal DeliveryPrice { get; set; }
+        public decimal PrivateDiscount { get; set; }
+        public decimal ProductDiscount { get; set; }
+        public decimal TotalPrice { get; set; }
 
         public void CreateOrder() { }
         public void UpdateOrder() { }

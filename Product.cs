@@ -8,21 +8,18 @@ namespace FoodDelivery21
 {
     public class Product
     {
-        public int Id;
-        public string Name;
-        public string CompanyName;
-        public decimal Price;
-        public string DiscountPromoCode;
-        public decimal ProductDiscount;
-        public decimal PersonalDiscount;
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string CompanyName { get; set; }
+        public decimal Price { get; set; }
+        public string DiscountPromoCode { get; set; }
+        public decimal ProductDiscount { get; set; }
+        public decimal PersonalDiscount { get; set; }
 
-        public object ProductName { get; set; }
-        public object ProductPrice { get; set; }
-
-        public Product(object productName, object productPrice, decimal productDiscount, decimal personalDiscount)
+        public Product(string productName, decimal productPrice, decimal productDiscount, decimal personalDiscount)
         {
-            ProductName = productName;
-            ProductPrice = productPrice;
+            Name = productName;
+            Price = productPrice;
             ProductDiscount = productDiscount;
             PersonalDiscount = personalDiscount;
         }
@@ -32,7 +29,7 @@ namespace FoodDelivery21
         public void DeleteProduct() { }
         public Product AddProductToOrder()
         {
-            var product = new Product(ProductName, ProductPrice, ProductDiscount, PersonalDiscount);
+            var product = new Product(Name, Price, ProductDiscount, PersonalDiscount);
             return product;
         }
     }

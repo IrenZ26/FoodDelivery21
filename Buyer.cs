@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace FoodDelivery21
 {
-    class Buyer
+    public class Buyer
     {
-        public int Id;
-        public string Name;
-        public string Address;
-        public string DiscountPromoCode;
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Address { get; set; }
+        public string DiscountPromoCode { get; set; }
         public void CreateOrder() { }
         public void UpdateOrder() { }
         public void DeleteOrder() { }
