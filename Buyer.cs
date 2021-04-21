@@ -12,11 +12,7 @@ namespace FoodDelivery21
         public string Name { get; set; }
         public string Address { get; set; }
         public string DiscountPromoCode { get; set; }
-        public void CreateOrder() 
-        {
-            Order order = new Order();
-            order.CreateOrder();
-        }
+        public void CreateOrder() { }
         public void UpdateOrder() { }
         public void DeleteOrder() { }
     }
