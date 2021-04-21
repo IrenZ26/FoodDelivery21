@@ -13,6 +13,9 @@ namespace FoodDelivery21
         public string Address { get; set; }
         public void CreateProduct() 
         {
+            Product product = new Product();
+            product = product.CreateProduct();
+            Console.WriteLine("Name "+product.Name+" Company "+product.CompanyName+" Price "+product.Price+" Promo code "+product.DiscountPromoCode+" Product discount "+product.ProductDiscount+" Personal discount "+product.PersonalDiscount);
         }
         public void UpdateProduct()
         {

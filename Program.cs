@@ -6,7 +6,10 @@ namespace FoodDelivery21
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Seller seller = new Seller();
+            seller.CreateProduct();
+            //Buyer buyer = new Buyer();
+            //buyer.CreateOrder();
         }
     }
 }
