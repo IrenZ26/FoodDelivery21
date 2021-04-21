@@ -15,21 +15,28 @@ namespace FoodDelivery21
         public string DiscountPromoCode { get; set; }
         public decimal ProductDiscount { get; set; }
         public decimal PersonalDiscount { get; set; }
+        public IList<Product> Products { get; set; }
 
-        public Product(string productName, decimal productPrice, decimal productDiscount, decimal personalDiscount)
+        public Product()
         {
+            Products = new List<Product>();
+        }
+        public Product(int productId, string productName, string companyName, decimal productPrice, string discountPromoCode, decimal productDiscount, decimal personalDiscount)
+        {
+            Id = productId;
             Name = productName;
+            CompanyName = companyName;
             Price = productPrice;
+            DiscountPromoCode = discountPromoCode;
             ProductDiscount = productDiscount;
             PersonalDiscount = personalDiscount;
         }
-
         public void CreateProduct() { }
         public void UpdateProduct() { }
         public void DeleteProduct() { }
         public Product AddProductToOrder()
         {
-            var product = new Product(Name, Price, ProductDiscount, PersonalDiscount);
+            var product = new Product(Id,Name, CompanyName, Price, DiscountPromoCode, ProductDiscount, PersonalDiscount);
             return product;
         }
     }
