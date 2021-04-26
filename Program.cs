@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FoodDelivery21.UI;
+using System;
 
 namespace FoodDelivery21
 {
@@ -6,10 +7,8 @@ namespace FoodDelivery21
     {
         static void Main(string[] args)
         {
-            Seller seller = new Seller();
-            seller.CreateProduct();
-            Buyer buyer = new Buyer();
-            buyer.CreateOrder();
+            Identification identification = new Identification();
+            identification.Start();
         }
     }
 }

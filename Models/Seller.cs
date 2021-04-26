@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FoodDelivery21.Data;
+using FoodDelivery21.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,18 +8,17 @@ using System.Threading.Tasks;
 
 namespace FoodDelivery21
 {
-    public class Buyer
+    public class Seller
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
-        public string DiscountPromoCode { get; set; }
-        public void CreateOrder()
+        public Seller(int id, string name, string address)
         {
-            Order order = new Order();
-            order.CreateOrder();
+            Id = id;
+            Name = name;
+            Address = address;
         }
-        public void UpdateOrder() { }
-        public void DeleteOrder() { }
     }
 }
+
