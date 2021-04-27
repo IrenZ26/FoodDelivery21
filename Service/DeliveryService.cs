@@ -6,7 +6,7 @@ using System.Text;
 
 namespace FoodDelivery21.Service
 {
-    class DeliveryService
+    public class DeliveryService
     {
         public decimal GetDelivery()
         {

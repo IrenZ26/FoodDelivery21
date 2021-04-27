@@ -6,7 +6,7 @@ using System.Text;
 
 namespace FoodDelivery21.UI
 {
-    class Identification : IUser
+    public class Identification : IUser
 
     {
         public void Start()

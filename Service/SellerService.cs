@@ -6,7 +6,7 @@ using System.Text;
 
 namespace FoodDelivery21.Service
 {
-    class SellerService
+    public class SellerService
     {
         public void CreateSeller(int id, string name,string address) 
         {

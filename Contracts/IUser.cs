@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FoodDelivery21.Contracts
 {
-    interface IUser
+    public interface IUser
     {
         void Start();
     }

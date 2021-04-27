@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FoodDelivery21.Service
 {
-    class Validator
+    public class Validator
     {
         public int IsValidInt(string s) 
         {

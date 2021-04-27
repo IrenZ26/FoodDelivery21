@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FoodDelivery21.Data
 {
-    class DeliveryData
+    public class DeliveryData
     {
         public IList<Delivery> Deliveries { get; set; }
         public DeliveryData()

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace FoodDelivery21.Service
 {
-    class ProductService
+    public class ProductService
     {
 
         public decimal UpdateProduct(ProductData productData,int productId,decimal value,string action) 

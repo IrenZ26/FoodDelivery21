@@ -6,7 +6,7 @@ using System.Text;
 
 namespace FoodDelivery21.UI
 {
-    class BuyerClient
+    public class BuyerClient
     {
         public int GetProductId(ProductData productData)
         {
