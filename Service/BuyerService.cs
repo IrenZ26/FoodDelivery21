@@ -11,7 +11,5 @@ namespace FoodDelivery21.Service
             var order = new OrderService();
             order.CreateOrder();
         }
-        public void UpdateOrder() { }
-        public void DeleteOrder() { }
     }
 }
