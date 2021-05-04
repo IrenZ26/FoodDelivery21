@@ -16,7 +16,7 @@ namespace FoodDelivery21.UI
             }
             Console.WriteLine("Enter products`s id");
             string ans = Console.ReadLine();
-            Validator validator = new Validator();
+            var validator = new Validator();
             int k = validator.IsValidInt(ans);
             return k;
         }
@@ -35,7 +35,7 @@ namespace FoodDelivery21.UI
         {
             Console.WriteLine("Enter how many items you want to buy");
             string ans = Console.ReadLine();
-            Validator validator = new Validator();
+            var validator = new Validator();
             decimal val = validator.IsValidDecimal(ans);
             return val;
         }
@@ -62,7 +62,7 @@ namespace FoodDelivery21.UI
             }
             Console.WriteLine("Enter delivery method`s id");
             string ans = Console.ReadLine();
-            Validator validator = new Validator();
+            var validator = new Validator();
             int k = validator.IsValidInt(ans);
             return k; 
         }

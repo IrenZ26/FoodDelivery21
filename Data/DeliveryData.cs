@@ -13,9 +13,9 @@ namespace FoodDelivery21.Data
         }
         public void DeliveryListInit()
         {
-            Delivery delivery = new Delivery("deliver by courier", 15);
+            var delivery = new Delivery("deliver by courier", 15);
             Deliveries.Add(delivery);
-            Delivery delivery1 = new Delivery("deliver to the post office", 10);
+            var delivery1 = new Delivery("deliver to the post office", 10);
             Deliveries.Add(delivery1);
         }
     }

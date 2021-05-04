@@ -25,7 +25,7 @@ namespace FoodDelivery21.Service
                         }
                         else
                         {
-                            BuyerClient buyerClient = new BuyerClient();
+                            var buyerClient = new BuyerClient();
                             buyerClient.ShowQuantErrMassage(item.AvailableValue);
                             result = item.AvailableValue;
                             item.AvailableValue = 0;
@@ -46,7 +46,7 @@ namespace FoodDelivery21.Service
         public void DeleteProduct() { }
         public Product AddProductToOrder(ProductData productData)
         {
-            BuyerClient buyerClient = new BuyerClient();
+            var buyerClient = new BuyerClient();
             int k = buyerClient.GetProductId(productData);
             var product = productData.Products[k - 1];
             return product;

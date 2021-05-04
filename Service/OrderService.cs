@@ -11,9 +11,9 @@ namespace FoodDelivery21.Service
         public void CreateOrder()
         {
             bool f = true;
-            BuyerClient buyerClient = new BuyerClient();
-            OrderData orderData = new OrderData();
-            ProductData productData = new ProductData();
+            var buyerClient = new BuyerClient();
+            var orderData = new OrderData();
+            var productData = new ProductData();
             productData.ProductsInit();
             while (f)
             {
@@ -21,17 +21,17 @@ namespace FoodDelivery21.Service
                 f = buyerClient.Continue();
             }
             decimal totalPrice = 0;
-            DeliveryService deliveryService = new DeliveryService();
+            var deliveryService = new DeliveryService();
             totalPrice += deliveryService.GetDelivery();
             
             buyerClient.ShowOrder(orderData, totalPrice);            
         }
         public Order AddOrderItem(ProductData productData)
         {
-            Product product = new Product();
-            ProductService productService = new ProductService();
+            var product = new Product();
+            var productService = new ProductService();
             product = productService.AddProductToOrder(productData);
-            BuyerClient buyerClient = new BuyerClient();
+            var buyerClient = new BuyerClient();
             decimal totalPrice = product.Price;
             decimal val = buyerClient.GetItemsCount();
             decimal value = productService.UpdateProduct(productData,product.Id, val,"dec");
@@ -44,7 +44,7 @@ namespace FoodDelivery21.Service
             }
             else { }
             totalPrice = GetDiscount(totalPrice, discount);
-            Order order = new Order(product, value, discount, totalPrice);
+            var order = new Order(product, value, discount, totalPrice);
             return order;
         }
         private decimal GetDiscount(decimal price, decimal discount)

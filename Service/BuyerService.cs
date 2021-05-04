@@ -8,7 +8,7 @@ namespace FoodDelivery21.Service
     {
         public void CreateOrder()
         {
-            OrderService order = new OrderService();
+            var order = new OrderService();
             order.CreateOrder();
         }
         public void UpdateOrder() { }

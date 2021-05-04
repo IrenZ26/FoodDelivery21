@@ -18,16 +18,16 @@ namespace FoodDelivery21.UI
             string address = Console.ReadLine();
             Console.WriteLine("Enter 1 if you are a buyer or 2 if you are a seller");
             string role = Console.ReadLine();
-            Validator validator = new Validator();
+            var validator = new Validator();
             int r = validator.IsValidInt(role);
             if (r == 1)
             {
-                BuyerService buyer = new BuyerService();
+                var buyer = new BuyerService();
                 buyer.CreateOrder();
             }
             else if (r == 2)
             { 
-                SellerClient seller = new SellerClient();
+                var seller = new SellerClient();
                 seller.Start(name);
             }
             else
