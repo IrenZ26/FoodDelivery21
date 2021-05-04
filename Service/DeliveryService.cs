@@ -10,23 +10,23 @@ namespace FoodDelivery21.Service
     {
         public decimal GetDelivery()
         {
-            DeliveryData deliveryData = new DeliveryData();
+            var deliveryData = new DeliveryData();
             deliveryData.DeliveryListInit();
             decimal price = default;
-            BuyerClient buyerClient = new BuyerClient();
+            var buyerClient = new BuyerClient();
             int k = buyerClient.ShowDelivery(deliveryData);
             price = GetDeliveryPrice(deliveryData.Deliveries[k - 1].Method);
             return price;
         }
         public void SetDeliveryPrice(string Method, decimal Price)
         {
-            DeliveryData deliveryData = new DeliveryData();
-            Delivery delivery = new Delivery(Method, Price);
+            var deliveryData = new DeliveryData();
+            var delivery = new Delivery(Method, Price);
             deliveryData.Deliveries.Add(delivery);
         }
         public decimal GetDeliveryPrice(string Method)
         {
-            DeliveryData deliveryData = new DeliveryData();
+            var deliveryData = new DeliveryData();
             deliveryData.DeliveryListInit();
             decimal price = default;
             foreach (var item in deliveryData.Deliveries)

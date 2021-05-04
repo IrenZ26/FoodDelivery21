@@ -12,7 +12,7 @@ namespace FoodDelivery21.UI
         {
             Console.WriteLine("Enter product id");
             string i = Console.ReadLine();
-            Validator validator = new Validator();
+            var validator = new Validator();
             int id = validator.IsValidInt(i);
             Console.WriteLine("Enter product name");
             string productName = Console.ReadLine();
@@ -30,7 +30,7 @@ namespace FoodDelivery21.UI
             Console.WriteLine("Enter personal discount");
             string s3 = Console.ReadLine().Replace(".", ",");
             decimal personalDiscount = validator.IsValidDecimal(s3);
-            Product product = new Product(id,productName, companyName, price, availableValue, promoCode, productDiscount, personalDiscount);
+            var product = new Product(id,productName, companyName, price, availableValue, promoCode, productDiscount, personalDiscount);
             Console.WriteLine("The product was succsesfully create:");
             Console.WriteLine("id:"+product.Id+"Name: " + product.Name + " Company: " + product.CompanyName + " Price: " + product.Price + "$ Avalible: " + product.AvailableValue + "items Promo code: " + product.DiscountPromoCode + " Product discount: " + product.ProductDiscount + " Personal discount: " + product.PersonalDiscount);
 
@@ -38,9 +38,9 @@ namespace FoodDelivery21.UI
         }
         public void Start(string companyName)
         {
-            ProductData productData = new ProductData();
+            var productData = new ProductData();
             productData.ProductsInit();
-            SellerClient sellerClient = new SellerClient();
+            var sellerClient = new SellerClient();
             bool isExist=false;
             foreach (var item in productData.Products)
             {
@@ -53,7 +53,7 @@ namespace FoodDelivery21.UI
             {
                 Console.WriteLine("If you want to update your products enter 1\nIf you want to add new products enter 2\nIf you want to delete your products enter 3");
                 string ans = Console.ReadLine();
-                Validator validator = new Validator();
+                var validator = new Validator();
                 int a = validator.IsValidInt(ans);
                 if (a == 1)
                 {
@@ -65,7 +65,7 @@ namespace FoodDelivery21.UI
                 }
                 if (a == 2)
                 {
-                    Product product = new Product();
+                    var product = new Product();
                     product = sellerClient.CreateProduct(companyName);
                     productData.Products.Add(product);
                 }
@@ -77,7 +77,7 @@ namespace FoodDelivery21.UI
             }
             else 
             {
-                Product product = new Product();
+                var product = new Product();
                 product=sellerClient.CreateProduct(companyName);
                 productData.Products.Add(product);
             }
@@ -85,19 +85,19 @@ namespace FoodDelivery21.UI
 
         public void UpdateProduct(ProductData productData, int productId, decimal value)
         {
-            SellerService sellerService = new SellerService();
+            var sellerService = new SellerService();
             sellerService.UpdateProduct(productData, productId, value);   
         }
         public void DeleteProduct(ProductData productData, int productId)
         {
-            SellerService sellerService = new SellerService();
+            var sellerService = new SellerService();
             sellerService.DeleteProduct(productData, productId);
         }
 
 
         private int GetProduct(ProductData productData,string companyName)
         {
-            Validator validator = new Validator();
+            var validator = new Validator();
             Console.WriteLine("Chose product and enter it`s id:");
             foreach (var item in productData.Products)
             {

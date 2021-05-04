@@ -15,7 +15,7 @@ namespace FoodDelivery21.UI
             Console.WriteLine("Enter your personal or company name");
             string name = Console.ReadLine();
             bool addressValid = false;
-            Validator validator = new Validator();
+            var validator = new Validator();
             while (!addressValid)
             {
                 Console.WriteLine("Enter yor address");
@@ -36,12 +36,12 @@ namespace FoodDelivery21.UI
             int r = validator.IsValidInt(role);
             if (r == 1)
             {
-                BuyerService buyer = new BuyerService();
+                var buyer = new BuyerService();
                 buyer.CreateOrder();
             }
             else if (r == 2)
             { 
-                SellerClient seller = new SellerClient();
+                var seller = new SellerClient();
                 seller.Start(name);
             }
             else

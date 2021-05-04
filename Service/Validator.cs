@@ -38,27 +38,14 @@ namespace FoodDelivery21.Service
 
         public bool AddressValidation(string address)
         {
-            bool result = false;
-            string addressMatch = @"[а-яА-Я0-9]{1,8}\s[а-яА-Я0-9]{1,20}\s[а-яА-Я0-9]{1,3}\s\d{1,5}\s[а-яА-Я0-9]{1,8}\s\d{1,5}";
-            string addressMatch1 = @"[а-яА-Я0-9]{1,8}\s[а-яА-Я0-9]{1,20}\,\s[а-яА-Я0-9]{1,3}\s\d{1,5}\,\s[а-яА-Я0-9]{1,8}\s\d{1,5}";
-            string addressMatch2 = @"[а-яА-Я0-9]{1,8}\s[а-яА-Я0-9]{1,20}\,\s[а-яА-Я0-9]{1,3}\.\s\d{1,5}\,\s[а-яА-Я0-9]{1,8}\.\s\d{1,5}";
-            string addressMatch3 = @"[а-яА-Я0-9]{1,8}\s[а-яА-Я0-9]{1,20}\.\s[а-яА-Я0-9]{1,3}\.\d{1,5}\,\s[а-яА-Я0-9]{1,8}\.\d{1,5}";
-            string addressMatch4 = @"[а-яА-Я0-9]{1,8}\.[а-яА-Я0-9]{1,20}\.[а-яА-Я0-9]{1,3}\.\d{1,5}\,[а-яА-Я0-9]{1,8}\.\d{1,5}";
-            string addressMatch5 = @"[а-яА-Я0-9]{1,8}\.[а-яА-Я0-9]{1,20}\.[а-яА-Я0-9]{1,3}\.\d{1,5}";
-            string addressMatch6 = @"[а-яА-Я0-9]{1,8}\.[а-яА-Я0-9]{1,20}\.[а-яА-Я0-9]{1,3}\s\d{1,5}\,\s[а-яА-Я0-9]{1,8}\s\d{1,5}";
-            if ((Regex.IsMatch(address, addressMatch)) || (Regex.IsMatch(address, addressMatch1))|| (Regex.IsMatch(address, addressMatch2)) 
-                || (Regex.IsMatch(address, addressMatch3))|| (Regex.IsMatch(address, addressMatch4)) || (Regex.IsMatch(address, addressMatch5)) || (Regex.IsMatch(address, addressMatch6))) { result = true; }
-            return result;
+            string addressMatch = @"[а-яА-Я0-9]{1,8}\.?\s?[а-яА-Я0-9]{1,20}\.?\,?\s?[а-яА-Я0-9]{1,3}\.?\s?\d{1,5}\,?\s?[а-яА-Я0-9]{0,8}\.?\s?\d{0,5}";
+            return Regex.IsMatch(address, addressMatch);
         }
         public bool TelephoneValidation(string telephone)
         {
-            bool result = false;
-            string match = @"\d{10}";
-            string match1 = @"\d{3}\s\d{3}\s\d{2}\s\d{2}";
-            string match2 = @"\+\d{12}";
-            string match3 = @"\+\d{3}\(\d{2}\)\d{3}\s\d{2}\s\d{2}";
-            if((Regex.IsMatch(telephone, match))||(Regex.IsMatch(telephone, match1))||(Regex.IsMatch(telephone, match2))|| (Regex.IsMatch(telephone, match3))){ result = true; }
-            return result;
+            
+            string match = @"\+?\d{3,5}\s?\(?\d{2,3}\)?\s?\d{0,3}\d{2}\s?\d{2}";
+            return Regex.IsMatch(telephone, match);
         }
     }
 }
