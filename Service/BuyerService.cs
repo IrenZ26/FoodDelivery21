@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FoodDelivery21.Service
+namespace FoodDelivery21.UI
 {
     public class BuyerService
     {
         public void CreateOrder()
         {
-            var order = new OrderService();
+            var order = new OrderUI();
             order.CreateOrder();
         }
     }

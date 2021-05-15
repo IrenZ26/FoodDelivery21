@@ -8,48 +8,43 @@ namespace FoodDelivery21.Service
 {
     public class ProductService
     {
-
-        public decimal UpdateProduct(ProductData productData,int productId,decimal value,string action) 
+        public bool DecrementProducts(ProductData productData, decimal value1, out decimal value, int productId) 
         {
-            decimal result=0;
-            foreach (var item in productData.Products) 
-            {
-                if(action=="dec")
-                { 
-                    if (item.Id==productId)
-                    {
-                        if (item.AvailableValue >= value)
-                        {
-                            item.AvailableValue = item.AvailableValue - value;
-                            result = value;
-                        }
-                        else
-                        {
-                            var buyerClient = new BuyerClient();
-                            buyerClient.ShowQuantErrMassage(item.AvailableValue);
-                            result = item.AvailableValue;
-                            item.AvailableValue = 0;
-                        }
-                    }
-                } 
-                else if (action == "inc")
+            bool result = false;
+            decimal val = default;
+            foreach (var item in productData.Products)
+            if (item.Id == productId)
                 {
-                    if (item.Id == productId)
+                    if (item.AvailableValue >= value1)
+                    {
+                        item.AvailableValue = item.AvailableValue - value1;
+                        val = value1;
+                        result= true;
+                    }
+                    else
+                    {
+                        val = item.AvailableValue;
+                        item.AvailableValue = 0;
+                        result = false;
+                    }
+            }
+            value = val;
+            return result;
+        }
+        public decimal IncrementProducts(ProductData productData, decimal value, int productId)
+        {
+            decimal result = default;
+            foreach (var item in productData.Products)
+                if (item.Id == productId)
+                {
+                    if (item.AvailableValue >= value)
                     {
                         item.AvailableValue = item.AvailableValue + value;
-                        result = value;
+                        result = item.AvailableValue;
                     }
                 }
-            }
             return result;
         }
         public void DeleteProduct() { }
-        public Product AddProductToOrder(ProductData productData)
-        {
-            var buyerClient = new BuyerClient();
-            int k = buyerClient.GetProductId(productData);
-            var product = productData.Products[k - 1];
-            return product;
-        }
     }
 }

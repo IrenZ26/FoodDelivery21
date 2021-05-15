@@ -8,36 +8,19 @@ namespace FoodDelivery21.Service
 {
     public class OrderService
     {
-        public void CreateOrder()
-        {
-            bool f = true;
-            var buyerClient = new BuyerClient();
-            var orderData = new OrderData();
-            var productData = new ProductData();
-            productData.ProductsInit();
-            while (f)
-            {
-                orderData.Orders.Add(AddOrderItem(productData));
-                f = buyerClient.Continue();
-            }
-            decimal totalPrice = 0;
-            var deliveryService = new DeliveryService();
-            totalPrice += deliveryService.GetDelivery();
-            
-            buyerClient.ShowOrder(orderData, totalPrice);            
-        }
         public Order AddOrderItem(ProductData productData)
         {
             var product = new Product();
-            var productService = new ProductService();
-            product = productService.AddProductToOrder(productData);
-            var buyerClient = new BuyerClient();
-            decimal totalPrice = product.Price;
-            decimal val = buyerClient.GetItemsCount();
-            decimal value = productService.UpdateProduct(productData,product.Id, val,"dec");
+            var productUI = new ProductUI();
+            product = productUI.AddProductToOrder(productData);
+            var buyerClient = new BuyerInterface();
+            var orderUI = new OrderUI();
+            var totalPrice = product.Price;
+            var val = orderUI.GetItemsCount();
+            var value = productUI.UpdateProduct(productData,product.Id, val,"dec");
             totalPrice *= value;
-            string promo = buyerClient.GetPromo();
-            decimal discount = product.ProductDiscount;
+            var promo = buyerClient.GetPromo();
+            var discount = product.ProductDiscount;
             if (product.DiscountPromoCode.Equals(promo))
             {
                 discount += product.PersonalDiscount;

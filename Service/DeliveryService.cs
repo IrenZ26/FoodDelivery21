@@ -8,16 +8,6 @@ namespace FoodDelivery21.Service
 {
     public class DeliveryService
     {
-        public decimal GetDelivery()
-        {
-            var deliveryData = new DeliveryData();
-            deliveryData.DeliveryListInit();
-            decimal price = default;
-            var buyerClient = new BuyerClient();
-            int k = buyerClient.ShowDelivery(deliveryData);
-            price = GetDeliveryPrice(deliveryData.Deliveries[k - 1].Method);
-            return price;
-        }
         public void SetDeliveryPrice(string Method, decimal Price)
         {
             var deliveryData = new DeliveryData();
