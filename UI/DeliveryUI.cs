@@ -18,17 +18,13 @@ namespace FoodDelivery21.UI
             var result = validator.IntValidation(answer);
             return result;
         }
-        public decimal GetDelivery()
+        public decimal GetDelivery(DeliveryData deliveryData)
         {
-            var deliveryData = new DeliveryData();
             deliveryData.DeliveryListInit();
             decimal price = default;
             var delivery = new DeliveryService();
             int k = ShowDelivery(deliveryData);
-            price = delivery.GetDeliveryPrice(deliveryData.Deliveries[k - 1].Method);
-            var logger = new Logger();
-            var loggerMassage = "The delivery method selected";
-            logger.SaveIntoFile(loggerMassage);
+            price = delivery.GetDeliveryPrice(deliveryData, deliveryData.Deliveries[k - 1].Method);
             return price;
         }
     }

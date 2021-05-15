@@ -14,10 +14,9 @@ namespace FoodDelivery21.Service
             var delivery = new Delivery(Method, Price);
             deliveryData.Deliveries.Add(delivery);
         }
-        public decimal GetDeliveryPrice(string Method)
+
+        public decimal GetDeliveryPrice(DeliveryData deliveryData, string Method)
         {
-            var deliveryData = new DeliveryData();
-            deliveryData.DeliveryListInit();
             decimal price = default;
             foreach (var item in deliveryData.Deliveries)
             {
