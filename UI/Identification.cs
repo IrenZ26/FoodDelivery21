@@ -14,23 +14,11 @@ namespace FoodDelivery21.UI
             Console.WriteLine("Welcome to the food delivery service. Please, identify yourself");
             Console.WriteLine("Enter your personal or company name");
             var name = Console.ReadLine();
-            bool addressValid = false;
+            Console.WriteLine("Enter your address");
+            var address = Console.ReadLine();
+            Console.WriteLine("Enter your telephone number");
+            var telephone = Console.ReadLine();
             var validator = new Validator();
-            while (!addressValid)
-            {
-                Console.WriteLine("Enter your address");
-                var address = Console.ReadLine();
-                addressValid = validator.AddressValidation(address);
-                if (!addressValid) { Console.WriteLine("Your address isn`t valid. Try again"); }
-            }
-            bool telephoneValid = false;
-            while (!telephoneValid)
-            {
-                Console.WriteLine("Enter your telephone number");
-                var telephone = Console.ReadLine();
-                telephoneValid = validator.TelephoneValidation(telephone);
-                if (!telephoneValid) { Console.WriteLine("Your telephone number isn`t valid. Try again"); }
-            }
             bool roleValid = false;
             while (!roleValid)
             {
