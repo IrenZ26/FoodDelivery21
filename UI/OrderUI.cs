@@ -25,7 +25,8 @@ namespace FoodDelivery21.UI
             }
             decimal totalPrice = 0;
             var delivery = new DeliveryUI();
-            totalPrice += delivery.GetDelivery();
+            var deliveryData = new DeliveryData();
+            totalPrice += delivery.GetDelivery(deliveryData);
 
             buyerClient.ShowOrder(orderData, totalPrice);
         }
