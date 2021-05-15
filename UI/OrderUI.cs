@@ -26,7 +26,9 @@ namespace FoodDelivery21.UI
             decimal totalPrice = 0;
             var delivery = new DeliveryUI();
             totalPrice += delivery.GetDelivery();
-
+            var logger = new Logger();
+            var loggerMassage = "The total order`s price was calculated";
+            logger.SaveIntoFile(loggerMassage);
             buyerClient.ShowOrder(orderData, totalPrice);
         }
         public decimal GetItemsCount()

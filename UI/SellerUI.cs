@@ -32,24 +32,31 @@ namespace FoodDelivery21.UI
             productData.ProductsInit();
             var answer = Start(companyName);
             var sellerService = new SellerService();
+            var logger = new Logger();
+            var loggerMassage = "";
             if (answer == 1)
             {
                 var productId = GetProductId(productData, companyName);
                 var productValue = GetProductValue();
-
+                loggerMassage = "The seller choose to change the product quantity";
+                logger.SaveIntoFile(loggerMassage);
                 sellerService.UpdateProduct(productData, productId, productValue);
             }
             if (answer == 2)
             {
                 var product = new Product();
-                product = sellerService.CreateProduct(companyName);
+                loggerMassage = "The seller choose to create the new product";
+                logger.SaveIntoFile(loggerMassage);
                 productData.Products.Add(product);
+                product = sellerService.CreateProduct(companyName);
             }
             if (answer == 3)
             {
                 var productId = GetProductId(productData, companyName);
                 var product = new Product();
                 product = GetProduct(productData, productId);
+                loggerMassage = "The seller choose to delete the product";
+                logger.SaveIntoFile(loggerMassage);
                 sellerService.DeleteProduct(productData, product);
             }
         }
@@ -84,6 +91,11 @@ namespace FoodDelivery21.UI
             var productData = new ProductData();
             productData.ProductsInit();
             bool isExist = IsExist(companyName);
+            var logger = new Logger();
+            var loggerMassage = "";
+            if (isExist) {  loggerMassage = "Seller is already exist"; }
+            else {  loggerMassage = "It`s a new seller"; }
+            logger.SaveIntoFile(loggerMassage);
             var result = GetResult(isExist);
             return result;
         }

@@ -17,6 +17,9 @@ namespace FoodDelivery21.Service
             var orderUI = new OrderUI();
             var totalPrice = product.Price;
             var val = orderUI.GetItemsCount();
+            var logger = new Logger();
+            var loggerMassage = "New item was added to the order";
+            logger.SaveIntoFile(loggerMassage);
             var value = productUI.UpdateProduct(productData,product.Id, val,"dec");
             totalPrice *= value;
             var promo = buyerClient.GetPromo();

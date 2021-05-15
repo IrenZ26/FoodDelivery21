@@ -26,6 +26,9 @@ namespace FoodDelivery21.UI
             var delivery = new DeliveryService();
             int k = ShowDelivery(deliveryData);
             price = delivery.GetDeliveryPrice(deliveryData.Deliveries[k - 1].Method);
+            var logger = new Logger();
+            var loggerMassage = "The delivery method selected";
+            logger.SaveIntoFile(loggerMassage);
             return price;
         }
     }
