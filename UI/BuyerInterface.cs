@@ -6,65 +6,60 @@ using System.Text;
 
 namespace FoodDelivery21.UI
 {
-    public class BuyerClient
+    public class BuyerInterface
     {
-        public int GetProductId(ProductData productData)
+        public string ShowProducts(ProductData productData) 
         {
             foreach (var item in productData.Products)
             {
                 Console.WriteLine(item.Name + " from " + item.CompanyName + " costs " + item.Price + "$." + "Available: " + item.AvailableValue + " items");
             }
             Console.WriteLine("Enter products`s id");
-            string ans = Console.ReadLine();
-            var validator = new Validator();
-            int k = validator.IsValidInt(ans);
-            return k;
+            var result = Console.ReadLine();
+            return result;
         }
+       
         public void ShowOrder(OrderData orderData, decimal totalPrice) 
         {
             Console.WriteLine("Your order: ");
             foreach (var item in orderData.Orders)
             {
-                decimal discount = item.Discount * 100;
+                var discount = item.Discount * 100;
                 Console.WriteLine(item.Product.Name + " " + item.ProductValue + " items, costs " + item.Product.Price + "$ for one item.\nDiscount = " + discount + "%. Total price = " + item.TotalPrice + "$");
                 totalPrice += item.TotalPrice;
             }
             Console.WriteLine("Total price of the whole order with delivery = " + totalPrice + "$");
         }
-        public decimal GetItemsCount()
+        public string ItemsMassage() 
         {
             Console.WriteLine("Enter how many items you want to buy");
-            string ans = Console.ReadLine();
-            var validator = new Validator();
-            decimal val = validator.IsValidDecimal(ans);
-            return val;
+            var result = Console.ReadLine();
+            return result;
         }
         public string GetPromo()
         {
             Console.WriteLine("Enter your promocode. If you don`t have any promo code, just press 'Enter'");
-            string promo = Console.ReadLine();
+            var promo = Console.ReadLine();
             return promo;
         }
         public bool Continue()
         {
-            bool f = false;
+            bool result = false;
             Console.WriteLine("If you want to continue shopping enter 'Y/y'.\nIf your order is complete, enter any other key.");
-            string ans = Console.ReadLine();
-            if (ans == "Y") { f = true; }
-            else if (ans == "y") { f = true; }
-            return f;
+            var answer = Console.ReadLine();
+            if (answer == "Y") { result = true; }
+            else if (answer == "y") { result = true; }
+            return result;
         }
-        public int ShowDelivery(DeliveryData deliveryData)
+        public string ShowDeliveries(DeliveryData deliveryData)
         {
             foreach (var item in deliveryData.Deliveries)
             {
                 Console.WriteLine(item.Method + " costs " + item.Price + "$");
             }
             Console.WriteLine("Enter delivery method`s id");
-            string ans = Console.ReadLine();
-            var validator = new Validator();
-            int k = validator.IsValidInt(ans);
-            return k; 
+            var result = Console.ReadLine();
+            return result;
         }
         public void ShowQuantErrMassage(decimal value)
         {

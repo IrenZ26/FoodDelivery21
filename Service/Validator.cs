@@ -7,7 +7,7 @@ namespace FoodDelivery21.Service
 {
     public class Validator
     {
-        public int IsValidInt(string s) 
+        public int IntValidation(string s) 
         {
             int result = 0;
             try
@@ -21,7 +21,7 @@ namespace FoodDelivery21.Service
             }
             return result;
         }
-        public decimal IsValidDecimal(string s)
+        public decimal DecimalValidation(string s)
         {
             decimal result = 0;
             try
@@ -35,7 +35,7 @@ namespace FoodDelivery21.Service
             }
             return result;
         }
-
+        
         public bool AddressValidation(string address)
         {
             string addressMatch = @"[а-яА-Я0-9]{1,8}\.?\s?[а-яА-Я0-9]{1,20}\.?\,?\s?[а-яА-Я0-9]{1,3}\.?\s?\d{1,5}\,?\s?[а-яА-Я0-9]{0,8}\.?\s?\d{0,5}";

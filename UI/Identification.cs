@@ -13,40 +13,46 @@ namespace FoodDelivery21.UI
         {
             Console.WriteLine("Welcome to the food delivery service. Please, identify yourself");
             Console.WriteLine("Enter your personal or company name");
-            string name = Console.ReadLine();
+            var name = Console.ReadLine();
             bool addressValid = false;
             var validator = new Validator();
             while (!addressValid)
             {
-                Console.WriteLine("Enter yor address");
-                string address = Console.ReadLine();
+                Console.WriteLine("Enter your address");
+                var address = Console.ReadLine();
                 addressValid = validator.AddressValidation(address);
                 if (!addressValid) { Console.WriteLine("Your address isn`t valid. Try again"); }
             }
             bool telephoneValid = false;
             while (!telephoneValid)
             {
-                Console.WriteLine("Enter yor telephone number");
-                string telephone = Console.ReadLine();
+                Console.WriteLine("Enter your telephone number");
+                var telephone = Console.ReadLine();
                 telephoneValid = validator.TelephoneValidation(telephone);
                 if (!telephoneValid) { Console.WriteLine("Your telephone number isn`t valid. Try again"); }
             }
-            Console.WriteLine("Enter 1 if you are a buyer or 2 if you are a seller");
-            string role = Console.ReadLine();         
-            int r = validator.IsValidInt(role);
-            if (r == 1)
+            bool roleValid = false;
+            while (!roleValid)
             {
-                var buyer = new BuyerService();
-                buyer.CreateOrder();
-            }
-            else if (r == 2)
-            { 
-                var seller = new SellerClient();
-                seller.Start(name);
-            }
-            else
-            {
-                throw new NotImplementedException();
+                Console.WriteLine("Enter 1 if you are a buyer or 2 if you are a seller");
+                var role = Console.ReadLine();
+                var r = validator.IntValidation(role);
+                if (r == 1)
+                {
+                    roleValid = true;
+                    var buyer = new BuyerService();
+                    buyer.CreateOrder();
+                }
+                else if (r == 2)
+                {
+                    roleValid = true;
+                    var seller = new SellerUI();
+                    seller.StartWorking(name);
+                }
+                else
+                {
+                    Console.WriteLine("Your role isn`t valid. Try again");
+                }
             }
         }
       
