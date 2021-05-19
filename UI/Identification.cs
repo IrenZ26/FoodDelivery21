@@ -28,8 +28,8 @@ namespace FoodDelivery21.UI
                 if (r == 1)
                 {
                     roleValid = true;
-                    var buyer = new BuyerService();
-                    buyer.CreateOrder();
+                    var order = new OrderUI();
+                    order.CreateOrder();
                 }
                 else if (r == 2)
                 {
