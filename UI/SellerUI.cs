@@ -38,9 +38,10 @@ namespace FoodDelivery21.UI
             {
                 var productId = GetProductId(productData, companyName);
                 var productValue = GetProductValue();
-                loggerMassage = "The seller choose to change the product quantity";
+                loggerMassage = "The seller choose to change the quantity of " + productData.Products.ElementAt(productId-1).Name;
                 logger.SaveIntoFile(loggerMassage);
                 sellerService.UpdateProduct(productData, productId, productValue);
+
             }
             if (answer == 2)
             {

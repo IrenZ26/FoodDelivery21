@@ -14,7 +14,7 @@ namespace FoodDelivery21.Service
             var sellerClient = new SellerInterface();
             product = sellerClient.CreateProduct(companyName);
             var logger = new Logger();
-            var loggerMassage = "New product was successfully created";
+            var loggerMassage = "New product "+ product.Name +" was successfully created";
             logger.SaveIntoFile(loggerMassage);
             return product;            
         }
@@ -30,7 +30,7 @@ namespace FoodDelivery21.Service
         {
             productData.Products.Remove(product);
             var logger = new Logger();
-            var loggerMassage = "The product was successfully deleted";
+            var loggerMassage = "The product " + product.Name + " was successfully deleted";
             logger.SaveIntoFile(loggerMassage);
         }
     }

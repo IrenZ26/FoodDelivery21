@@ -8,19 +8,18 @@ namespace FoodDelivery21.Service
 {
     public class DeliveryService
     {
-        public void SetDeliveryPrice(string Method, decimal Price)
+        public void SetDeliveryPrice(DeliveryData deliveryData, string method, decimal price)
         {
-            var deliveryData = new DeliveryData();
-            var delivery = new Delivery(Method, Price);
+            var delivery = new Delivery(method, price);
             deliveryData.Deliveries.Add(delivery);
         }
 
-        public decimal GetDeliveryPrice(DeliveryData deliveryData, string Method)
+        public decimal GetDeliveryPrice(DeliveryData deliveryData, string method)
         {
             decimal price = default;
             foreach (var item in deliveryData.Deliveries)
             {
-                if (item.Method == Method) { price = item.Price; }
+                if (item.Method == method) { price = item.Price; }
             }
             return price;
         }

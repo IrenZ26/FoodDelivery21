@@ -15,7 +15,7 @@ namespace FoodDelivery21.UI
             var byer = new BuyerInterface();
             var answer = byer.ShowDeliveries(deliveryData);
             var validator = new Validator();
-            var result = validator.IntValidation(answer);
+            var result = validator.IntValidation(answer);            
             return result;
         }
         public decimal GetDelivery(DeliveryData deliveryData)
@@ -25,6 +25,9 @@ namespace FoodDelivery21.UI
             var delivery = new DeliveryService();
             int k = ShowDelivery(deliveryData);
             price = delivery.GetDeliveryPrice(deliveryData, deliveryData.Deliveries[k - 1].Method);
+            var logger = new Logger();
+            var loggerMassage = "The delivery method was selected as " + deliveryData.Deliveries.ElementAt(k-1).Method;
+            logger.SaveIntoFile(loggerMassage);
             return price;
         }
     }

@@ -30,10 +30,12 @@ namespace FoodDelivery21.UI
                 if (r == 1)
                 {
                     roleValid = true;
-                    var buyer = new BuyerService();
                     loggerMassage = "New session was strarted in buyer mode";
                     logger.SaveIntoFile(loggerMassage);
-                    buyer.CreateOrder();
+                    var order = new OrderUI();
+                    order.CreateOrder();
+                    loggerMassage = "New order was successfully saved";
+                    logger.SaveIntoFile(loggerMassage);
                 }
                 else if (r == 2)
                 {

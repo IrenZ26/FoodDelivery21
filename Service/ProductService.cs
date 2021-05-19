@@ -30,7 +30,7 @@ namespace FoodDelivery21.Service
             }
             value = val;
             var logger = new Logger();
-            var loggerMassage = "The product was successfully taken from the stock";
+            var loggerMassage = val + " items of the product was successfully taken from the stock";
             logger.SaveIntoFile(loggerMassage);
             return result;
         }
@@ -47,7 +47,7 @@ namespace FoodDelivery21.Service
                     }
                 }
             var logger = new Logger();
-            var loggerMassage = "The product was successfully added to the stock";
+            var loggerMassage = value + " items of the product was successfully added to the stock";
             logger.SaveIntoFile(loggerMassage);
             return result;
         }

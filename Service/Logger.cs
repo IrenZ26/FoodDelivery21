@@ -10,7 +10,7 @@ namespace FoodDelivery21.Service
     class Logger
     {
         public void SaveIntoFile(string massage)
-        {//Логироваться должны запросы на добавление, на удаление и на изменение данных.
+        {
             var now = DateTime.Now;
             string path = now.ToString("d") + "-log.txt";
             using var writer = new StreamWriter(path, true);
