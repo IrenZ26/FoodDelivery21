@@ -20,6 +20,10 @@ namespace FoodDelivery21.UI
             var telephone = Console.ReadLine();
             var validator = new Validator();
             bool roleValid = false;
+            var initializator = new Initializator();
+            var deliveryData = initializator.DeserializeDelivery();
+            var orderData = initializator.DeserializeOrders();
+            var productData = initializator.DeserializeProducts();
             while (!roleValid)
             {
                 Console.WriteLine("Enter 1 if you are a buyer or 2 if you are a seller");
@@ -27,21 +31,26 @@ namespace FoodDelivery21.UI
                 var r = validator.IntValidation(role);
                 if (r == 1)
                 {
+                    var buyerUI = new BuyerUI();
+                    var buyer = buyerUI.CreateBuyer(name, address, telephone);
                     roleValid = true;
-                    var order = new OrderUI();
-                    order.CreateOrder();
+                    buyerUI.CreateOrder(deliveryData, orderData, productData, buyer);
                 }
                 else if (r == 2)
                 {
                     roleValid = true;
                     var seller = new SellerUI();
-                    seller.StartWorking(name);
+                    seller.StartWorking(name, productData,orderData);
                 }
                 else
                 {
                     Console.WriteLine("Your role isn`t valid. Try again");
                 }
             }
+            Console.WriteLine("Thank you for using our Delivery Service");
+            initializator.SerializeDelivery(deliveryData);
+            initializator.SerializeOrders(orderData);
+            initializator.SerializeProducts(productData);
         }
       
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FoodDelivery21.UI
 {
-    class SellerUI
+    public class SellerUI
     {
         public void CreateSeller(int id, string name, string address, string telephone)
         {
@@ -26,11 +26,9 @@ namespace FoodDelivery21.UI
             }
             return product;
         }
-        public void StartWorking(string companyName)
+        public void StartWorking(string companyName, ProductData productData,OrderData orderData)
         {
-            var productData = new ProductData();
-            productData.ProductsInit();
-            var answer = Start(companyName);
+            var answer = Start(companyName, productData);
             var sellerService = new SellerService();
             if (answer == 1)
             {
@@ -42,7 +40,7 @@ namespace FoodDelivery21.UI
             if (answer == 2)
             {
                 var product = new Product();
-                product = sellerService.CreateProduct(companyName);
+                product = sellerService.CreateProduct(companyName,productData);
                 productData.Products.Add(product);
             }
             if (answer == 3)
@@ -52,11 +50,13 @@ namespace FoodDelivery21.UI
                 product = GetProduct(productData, productId);
                 sellerService.DeleteProduct(productData, product);
             }
+            if (answer == 4)
+            {
+                sellerService.UpdateStatus(orderData, companyName);
+            }
         }
-        public bool IsExist(string companyName)
+        public bool IsExist(ProductData productData, string companyName)
         {
-            var productData = new ProductData();
-            productData.ProductsInit();
             bool result = false;
             foreach (var item in productData.Products)
             {
@@ -79,11 +79,9 @@ namespace FoodDelivery21.UI
             }
             return result;
         }
-        public int Start(string companyName)
+        public int Start(string companyName, ProductData productData)
         {
-            var productData = new ProductData();
-            productData.ProductsInit();
-            bool isExist = IsExist(companyName);
+            bool isExist = IsExist(productData,companyName);
             var result = GetResult(isExist);
             return result;
         }

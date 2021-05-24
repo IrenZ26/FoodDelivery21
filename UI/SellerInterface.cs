@@ -8,12 +8,10 @@ namespace FoodDelivery21.UI
 {
     public class SellerInterface
     {
-        public Product CreateProduct(string companyName)
+        public Product CreateProduct(string companyName,ProductData productData)
         {
-            Console.WriteLine("Enter product id");
-            var i = Console.ReadLine();
             var validator = new Validator();
-            var id = validator.IntValidation(i);
+            var id = GetId(productData);
             Console.WriteLine("Enter product name");
             var productName = Console.ReadLine();
             Console.WriteLine("Enter company price");
@@ -36,9 +34,21 @@ namespace FoodDelivery21.UI
 
             return product;
         }
+        public int GetId(ProductData productData)
+        {
+            int result = 0;
+            foreach (var item in productData.Products)
+            {
+                result = item.Id + 1;
+            }
+            return result;
+        }
         public string ExistMassage()
         {
-            Console.WriteLine("If you want to update your products enter 1\nIf you want to add new products enter 2\nIf you want to delete your products enter 3");
+            Console.WriteLine("If you want to update your products enter 1\n" +
+                "If you want to add new products enter 2\n" +
+                "If you want to delete your products enter 3\n" +
+                "If you want to see your product`s orders enter 4");
             var result = Console.ReadLine();
             return result;
         }
@@ -58,6 +68,29 @@ namespace FoodDelivery21.UI
                     Console.WriteLine(item.Id + " " + item.Name);
                 }
             }
+            var result = Console.ReadLine();
+            return result;
+        }
+        public string ShowOrdersStatus(OrderData orderData, string companyName)
+        {
+            foreach (var item in orderData.Orders)
+            {
+                if (item.Product.CompanyName == companyName)
+                {
+                    Console.WriteLine(item.Id + " product: " + item.Product.Name + " status: " + item.Status);
+                }
+            }
+            Console.WriteLine("Enter the order`s id which status you want to change");
+            string result = Console.ReadLine();
+            return result;
+        }
+        public string ShowStatusMessage()
+        {
+            Console.WriteLine("What is a new status of selected order?\n" +
+               "Enter 1 if the status is Cancelled\n" +
+               "Enter 2 if the status is Packed\n" +
+               "Enter 3 if the status is Delivered\n" +
+               "Enter any other number if you dont want to change the status");
             var result = Console.ReadLine();
             return result;
         }

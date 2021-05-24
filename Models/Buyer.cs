@@ -14,5 +14,11 @@ namespace FoodDelivery21
         public string Address { get; set; }
         public string Telephone { get; set; }
 
+        public Buyer(string name,string address,string telephone) 
+        {
+            Name = name;
+            Address = address;
+            Telephone = telephone;
+        }
     }
 }

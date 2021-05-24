@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FoodDelivery21.UI
 {
-    class ProductUI
+    public class ProductUI
     {
         public decimal UpdateProduct(ProductData productData, int productId, decimal value, string action)
         {

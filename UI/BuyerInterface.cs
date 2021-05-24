@@ -8,7 +8,7 @@ namespace FoodDelivery21.UI
 {
     public class BuyerInterface
     {
-        public string ShowProducts(ProductData productData) 
+       public string ShowProducts(ProductData productData) 
         {
             foreach (var item in productData.Products)
             {
@@ -18,18 +18,32 @@ namespace FoodDelivery21.UI
             var result = Console.ReadLine();
             return result;
         }
-       
-        public void ShowOrder(OrderData orderData, decimal totalPrice) 
+       public string ExistMassage()
         {
+            Console.WriteLine("You have existing orders. If you want to watch their status, enter 1. Or enter 2 to create a new one");
+            var result = Console.ReadLine();
+            return result;
+        }
+        public void ShowOrder(OrderData orderData, decimal totalPrice,Buyer buyer,bool isCreate) 
+        {
+            if (!isCreate)
+            {
+                var delivery = new DeliveryUI();
+                totalPrice += delivery.GetDeliveryPrice(orderData, buyer);
+            }
             Console.WriteLine("Your order: ");
             foreach (var item in orderData.Orders)
             {
-                var discount = item.Discount * 100;
-                Console.WriteLine(item.Product.Name + " " + item.ProductValue + " items, costs " + item.Product.Price + "$ for one item.\nDiscount = " + discount + "%. Total price = " + item.TotalPrice + "$");
-                totalPrice += item.TotalPrice;
+                if ((item.Buyer.Name == buyer.Name) && (item.Buyer.Address == buyer.Address) && (item.Buyer.Telephone == buyer.Telephone))
+                {
+                    var discount = item.Discount * 100;
+                    Console.WriteLine(item.Product.Name + " " + item.ProductValue + " items, costs " + item.Product.Price + "$ for one item.\nDiscount = " + discount + "%. Total price = " + item.TotalPrice + "$" + " Order status - "+item.Status);
+                    totalPrice += item.TotalPrice;
+                }
             }
             Console.WriteLine("Total price of the whole order with delivery = " + totalPrice + "$");
         }
+
         public string ItemsMassage() 
         {
             Console.WriteLine("Enter how many items you want to buy");

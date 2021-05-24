@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FoodDelivery21.UI
 {
-    class DeliveryUI
+    public class DeliveryUI
     {
         public int ShowDelivery(DeliveryData deliveryData)
         {
@@ -20,12 +20,41 @@ namespace FoodDelivery21.UI
         }
         public decimal GetDelivery(DeliveryData deliveryData)
         {
-            deliveryData.DeliveryListInit();
             decimal price = default;
             var delivery = new DeliveryService();
             int k = ShowDelivery(deliveryData);
             price = delivery.GetDeliveryPrice(deliveryData, deliveryData.Deliveries[k - 1].Method);
             return price;
+        }
+        public void SetDeliveryPrice(OrderData orderData, Buyer buyer, decimal deliveryPrice)
+        {
+            foreach (var item in orderData.Orders)
+            {
+                if ((item.Buyer.Name == buyer.Name) && (item.Buyer.Address == buyer.Address) && (item.Buyer.Telephone == buyer.Telephone))
+                {
+                    if (item.Status == Order.OrderStatus.Undefined) { item.DeliveryPrice = deliveryPrice; item.Status = Order.OrderStatus.Purchased; }
+                }
+            }
+        }
+        public decimal GetDeliveryPrice(OrderData orderData, Buyer buyer)
+        {
+            decimal result = 0;
+            int id = 0;
+            foreach (var item in orderData.Orders)
+            {
+                if ((item.Buyer.Name == buyer.Name) && (item.Buyer.Address == buyer.Address) && (item.Buyer.Telephone == buyer.Telephone))
+                {
+                    if ((item.Status != Order.OrderStatus.Undefined)) 
+                    {
+                        if (item.Id == id)
+                        {
+                            result += item.DeliveryPrice;
+                            id = item.Id+1;
+                        }
+                    }
+                }
+            }
+            return result;
         }
     }
 }
