@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FoodDelivery21.UI
 {
-    class SellerUI
+     public class SellerUI
     {
         public void CreateSeller(int id, string name, string address, string telephone)
         {

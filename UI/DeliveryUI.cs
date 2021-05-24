@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FoodDelivery21.UI
 {
-    class DeliveryUI
+    public class DeliveryUI
     {
         public int ShowDelivery(DeliveryData deliveryData)
         {
