@@ -14,7 +14,6 @@ namespace FoodDelivery21.Service
         private const string delivery = "Delivery.json";
         private const string orders = "Orders.json";
         private const string products = "Products.json";
-
         public DeliveryData DeserializeDelivery()
         {
             var deliveryData = new DeliveryData();
