@@ -12,6 +12,7 @@ namespace FoodDelivery21
         public string Method { get; set; }
         public decimal Price { get; set; }
         public IList<Delivery> Deliveries { get; set; }
+
         public Delivery(string method, decimal price)
         {
             Method = method;

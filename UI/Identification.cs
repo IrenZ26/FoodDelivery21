@@ -7,7 +7,6 @@ using System.Text;
 namespace FoodDelivery21.UI
 {
     public class Identification : IUser
-
     {
         public void Start()
         {
@@ -23,15 +22,15 @@ namespace FoodDelivery21.UI
             while (!roleValid)
             {
                 Console.WriteLine("Enter 1 if you are a buyer or 2 if you are a seller");
-                var role = Console.ReadLine();
-                var r = validator.IntValidation(role);
-                if (r == 1)
+                var answer = Console.ReadLine();
+                var role = validator.CheckInt(answer);
+                if (role == 1)
                 {
                     roleValid = true;
                     var order = new OrderUI();
                     order.CreateOrder();
                 }
-                else if (r == 2)
+                else if (role == 2)
                 {
                     roleValid = true;
                     var seller = new SellerUI();
@@ -43,7 +42,5 @@ namespace FoodDelivery21.UI
                 }
             }
         }
-      
-
     }
 }

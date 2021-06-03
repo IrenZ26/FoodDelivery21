@@ -12,16 +12,16 @@ namespace FoodDelivery21.UI
     {  
         public void CreateOrder()
         {
-            bool f = true;
+            bool isContinue = true;
             var buyerClient = new BuyerInterface();
             var orderData = new OrderData();
             var productData = new ProductData();
             var orderService = new OrderService();
             productData.ProductsInit();
-            while (f)
+            while (isContinue)
             {
                 orderData.Orders.Add(orderService.AddOrderItem(productData));
-                f = buyerClient.Continue();
+                isContinue = buyerClient.Continue();
             }
             decimal totalPrice = 0;
             var delivery = new DeliveryUI();
@@ -35,7 +35,7 @@ namespace FoodDelivery21.UI
             var buyer = new BuyerInterface();
             string answer = buyer.ItemsMassage();
             var validator = new Validator();
-            decimal val = validator.DecimalValidation(answer);
+            decimal val = validator.CheckDecimal(answer);
             return val;
         }
     }

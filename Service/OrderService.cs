@@ -25,7 +25,6 @@ namespace FoodDelivery21.Service
             {
                 discount += product.PersonalDiscount;
             }
-            else { }
             totalPrice = GetDiscount(totalPrice, discount);
             var order = new Order(product, value, discount, totalPrice);
             return order;

@@ -75,7 +75,7 @@ namespace FoodDelivery21.UI
                 var sellerClient = new SellerInterface();
                 var answer = sellerClient.ExistMassage();
                 var validator = new Validator();
-                result = validator.IntValidation(answer);
+                result = validator.CheckInt(answer);
             }
             return result;
         }
@@ -92,7 +92,7 @@ namespace FoodDelivery21.UI
             var sellerClient = new SellerInterface();
             var answer = sellerClient.ProductValueMassage();
             var validator = new Validator();
-            var value = validator.DecimalValidation(answer);
+            var value = validator.CheckDecimal(answer);
             return value;
         }
 
@@ -101,7 +101,7 @@ namespace FoodDelivery21.UI
             var validator = new Validator();
             var sellerClient = new SellerInterface();
             var answer = sellerClient.ShowProducts(productData, companyName);
-            var result = validator.IntValidation(answer);
+            var result = validator.CheckInt(answer);
             return result;
         }
     }

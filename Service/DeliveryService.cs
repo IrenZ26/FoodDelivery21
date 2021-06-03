@@ -16,9 +16,12 @@ namespace FoodDelivery21.Service
         public decimal GetDeliveryPrice(DeliveryData deliveryData, string method)
         {
             decimal price = default;
-            foreach (var item in deliveryData.Deliveries)
+            foreach (var delivery in deliveryData.Deliveries)
             {
-                if (item.Method == method) { price = item.Price; }
+                if (delivery.Method == method) 
+                {
+                    price = delivery.Price; 
+                }
             }
             return price;
         }

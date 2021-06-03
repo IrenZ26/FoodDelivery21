@@ -7,10 +7,12 @@ namespace FoodDelivery21.Data
     public class DeliveryData
     {
         public IList<Delivery> Deliveries { get; set; }
+
         public DeliveryData()
         {
             Deliveries = new List<Delivery>();
         }
+
         public void DeliveryListInit()
         {
             var deliveryCourier = new Delivery("deliver by courier", 15);

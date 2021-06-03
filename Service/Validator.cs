@@ -7,7 +7,7 @@ namespace FoodDelivery21.Service
 {
     public class Validator
     {
-        public int IntValidation(string s) 
+        public int CheckInt(string s) 
         {
             int result = 0;
             try
@@ -16,12 +16,11 @@ namespace FoodDelivery21.Service
             }
             catch (FormatException)
             {
-
                 Console.WriteLine("Input Error");
             }
             return result;
         }
-        public decimal DecimalValidation(string s)
+        public decimal CheckDecimal(string s)
         {
             decimal result = 0;
             try
@@ -30,7 +29,6 @@ namespace FoodDelivery21.Service
             }
             catch (FormatException)
             {
-
                 Console.WriteLine("Input Error");
             }
             return result;

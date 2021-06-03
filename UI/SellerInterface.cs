@@ -11,29 +11,28 @@ namespace FoodDelivery21.UI
         public Product CreateProduct(string companyName)
         {
             Console.WriteLine("Enter product id");
-            var i = Console.ReadLine();
+            var answer = Console.ReadLine();
             var validator = new Validator();
-            var id = validator.IntValidation(i);
+            var id = validator.CheckInt(answer);
             Console.WriteLine("Enter product name");
             var productName = Console.ReadLine();
             Console.WriteLine("Enter company price");
-            var s = Console.ReadLine().Replace(".", ",");            
-            var price = validator.DecimalValidation(s);
+            answer = Console.ReadLine().Replace(".", ",");            
+            var price = validator.CheckDecimal(answer);
             Console.WriteLine("Enter quantity of products");
-            var s1 = Console.ReadLine().Replace(".", ",");
-            var availableValue = validator.DecimalValidation(s1);
+            answer = Console.ReadLine().Replace(".", ",");
+            var availableValue = validator.CheckDecimal(answer);
             Console.WriteLine("Enter discount promo code");
             var promoCode = Console.ReadLine();
             Console.WriteLine("Enter product discount");
-            var s2 = Console.ReadLine().Replace(".", ",");
-            var productDiscount = validator.DecimalValidation(s2);
+            answer = Console.ReadLine().Replace(".", ",");
+            var productDiscount = validator.CheckDecimal(answer);
             Console.WriteLine("Enter personal discount");
-            var s3 = Console.ReadLine().Replace(".", ",");
-            var personalDiscount = validator.DecimalValidation(s3);
+            answer = Console.ReadLine().Replace(".", ",");
+            var personalDiscount = validator.CheckDecimal(answer);
             var product = new Product(id,productName, companyName, price, availableValue, promoCode, productDiscount, personalDiscount);
             Console.WriteLine("The product was succsesfully create:");
             Console.WriteLine("id:"+product.Id+" Name: " + product.Name + " Company: " + product.CompanyName + " Price: " + product.Price + "$ Avalible: " + product.AvailableValue + "items Promo code: " + product.DiscountPromoCode + " Product discount: " + product.ProductDiscount + " Personal discount: " + product.PersonalDiscount);
-
             return product;
         }
         public string ExistMassage()
