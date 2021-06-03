@@ -20,7 +20,7 @@ namespace FoodDelivery21.UI
             {
                 Console.WriteLine("Enter your address");
                 var address = Console.ReadLine();
-                addressValid = validator.AddressValidation(address);
+                addressValid = validator.ValidateAddress(address);
                 if (!addressValid) { Console.WriteLine("Your address isn`t valid. Try again"); }
             }
             bool telephoneValid = false;
@@ -28,7 +28,7 @@ namespace FoodDelivery21.UI
             {
                 Console.WriteLine("Enter your telephone number");
                 var telephone = Console.ReadLine();
-                telephoneValid = validator.TelephoneValidation(telephone);
+                telephoneValid = validator.ValidateTelephone(telephone);
                 if (!telephoneValid) { Console.WriteLine("Your telephone number isn`t valid. Try again"); }
             }
             bool roleValid = false;
