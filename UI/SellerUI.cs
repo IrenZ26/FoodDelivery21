@@ -38,16 +38,14 @@ namespace FoodDelivery21.UI
             {
                 var productId = GetProductId(productData, companyName);
                 var productValue = GetProductValue();
-                loggerMassage = "The seller choose to change the quantity of " + productData.Products.ElementAt(productId-1).Name;
-                logger.SaveIntoFile(loggerMassage);
+                logger.SaveIntoFile("The seller choose to change the quantity of " + productData.Products.ElementAt(productId - 1).Name);
                 sellerService.UpdateProduct(productData, productId, productValue);
 
             }
             if (answer == 2)
             {
                 var product = new Product();
-                loggerMassage = "The seller choose to create the new product";
-                logger.SaveIntoFile(loggerMassage);
+                logger.SaveIntoFile("The seller choose to create the new product");
                 productData.Products.Add(product);
                 product = sellerService.CreateProduct(companyName);
             }
@@ -56,8 +54,7 @@ namespace FoodDelivery21.UI
                 var productId = GetProductId(productData, companyName);
                 var product = new Product();
                 product = GetProduct(productData, productId);
-                loggerMassage = "The seller choose to delete the product";
-                logger.SaveIntoFile(loggerMassage);
+                logger.SaveIntoFile("The seller choose to delete the product");
                 sellerService.DeleteProduct(productData, product);
             }
         }
@@ -93,10 +90,14 @@ namespace FoodDelivery21.UI
             productData.ProductsInit();
             bool isExist = IsExist(companyName);
             var logger = new Logger();
-            var loggerMassage = "";
-            if (isExist) {  loggerMassage = "Seller is already exist"; }
-            else {  loggerMassage = "It`s a new seller"; }
-            logger.SaveIntoFile(loggerMassage);
+            if (isExist) 
+            {
+                logger.SaveIntoFile("Seller is already exist");
+            }
+            else
+            {
+                logger.SaveIntoFile("It`s a new seller");
+            }
             var result = GetResult(isExist);
             return result;
         }

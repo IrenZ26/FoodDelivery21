@@ -30,8 +30,7 @@ namespace FoodDelivery21.Service
             }
             value = val;
             var logger = new Logger();
-            var loggerMassage = val + " items of the product was successfully taken from the stock";
-            logger.SaveIntoFile(loggerMassage);
+            logger.SaveIntoFile(val + " items of the product was successfully taken from the stock");
             return result;
         }
         public decimal IncrementProducts(ProductData productData, decimal value, int productId)
@@ -47,8 +46,7 @@ namespace FoodDelivery21.Service
                     }
                 }
             var logger = new Logger();
-            var loggerMassage = value + " items of the product was successfully added to the stock";
-            logger.SaveIntoFile(loggerMassage);
+            logger.SaveIntoFile(value + " items of the product was successfully added to the stock");
             return result;
         }
         public void DeleteProduct() { }

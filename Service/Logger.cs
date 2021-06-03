@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FoodDelivery21.Contracts;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace FoodDelivery21.Service
 {
-    class Logger
+    public class Logger:ILogger
     {
-        public void SaveIntoFile(string massage)
+        public void SaveIntoFile(string message)
         {
             var now = DateTime.Now;
             string path = now.ToString("d") + "-log.txt";
             using var writer = new StreamWriter(path, true);
-            string time = now.ToString("T");
-            writer.WriteLine(time + " " + massage);
+            var time = now.ToString("T");
+            writer.WriteLine(time + " " + message);
             writer.Close();
         }
     }

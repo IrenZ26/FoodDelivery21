@@ -11,16 +11,6 @@ namespace FoodDelivery21
     {
         static void Main(string[] args)
         {
-            //var deliveryData = new DeliveryData();
-            //deliveryData.DeliveryListInit();
-
-            ////var temp = new List<string> { "Q", "W", "E", "R", "T", "Y" };
-            ////var s = temp.ElementAt(2);
-            ////var d = temp[1];
-            ////Console.WriteLine(s + " " + d);
-
-            //var del = deliveryData.Deliveries.ElementAt(1);
-            //Console.WriteLine(del.Method);
             var identification = new Identification();
             identification.Start();
         }

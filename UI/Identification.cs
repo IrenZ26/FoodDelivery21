@@ -30,27 +30,23 @@ namespace FoodDelivery21.UI
                 if (r == 1)
                 {
                     roleValid = true;
-                    loggerMassage = "New session was strarted in buyer mode";
-                    logger.SaveIntoFile(loggerMassage);
+                    logger.SaveIntoFile("New session was strarted in buyer mode");
                     var order = new OrderUI();
                     order.CreateOrder();
-                    loggerMassage = "New order was successfully saved";
-                    logger.SaveIntoFile(loggerMassage);
+                   logger.SaveIntoFile("New order was successfully saved");
                 }
                 else if (r == 2)
                 {
                     roleValid = true;
                     var seller = new SellerUI();
-                    loggerMassage = "New session was strarted in seller mode";
-                    logger.SaveIntoFile(loggerMassage);
+                    logger.SaveIntoFile("New session was strarted in seller mode");
                     seller.StartWorking(name);
                 }
                 else
                 {
                     Console.WriteLine("Your role isn`t valid. Try again");
                 }
-                loggerMassage = "The session was successfully finished";
-                logger.SaveIntoFile(loggerMassage);
+                logger.SaveIntoFile("The session was successfully finished");
             }
         }
       
