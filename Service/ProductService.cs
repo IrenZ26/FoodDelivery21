@@ -15,8 +15,6 @@ namespace FoodDelivery21.Service
             decimal val = default;
             foreach (var item in productData.Products.Where(x => x.Id == productId))
             { 
-                //if (item.Id == productId)
-                {
                     if (item.AvailableValue >= value1)
                     {
                         item.AvailableValue = item.AvailableValue - value1;
@@ -29,7 +27,6 @@ namespace FoodDelivery21.Service
                         item.AvailableValue = 0;
                         result = false;
                     }
-                }
             }
             value = val;
             return result;
