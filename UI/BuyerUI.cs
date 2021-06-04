@@ -42,14 +42,14 @@ namespace FoodDelivery21.UI
             if (answer == 2) 
             {
                 order.CreateOrder(deliveryData, orderData, productData, buyer);
-                var initializator = new Initializator();
-                initializator.SerializeOrders(orderData);
+                var initializator = new DataInitializator();
+                initializator.SaveData<OrderData>(orderData);
             }
         }
         public int GetResult()
         {
             var buyer = new BuyerInterface();
-            var answer = buyer.ExistMassage();
+            var answer = buyer.ExistMessage();
             var validator = new Validator();
             var result = validator.IntValidation(answer);
             return result;

@@ -1,4 +1,5 @@
 ﻿using FoodDelivery21.Contracts;
+using FoodDelivery21.Data;
 using FoodDelivery21.Service;
 using System;
 using System.Collections.Generic;
@@ -19,10 +20,10 @@ namespace FoodDelivery21.UI
             var telephone = Console.ReadLine();
             var validator = new Validator();
             bool roleValid = false;
-            var initializator = new Initializator();
-            var deliveryData = initializator.DeserializeDelivery();
-            var orderData = initializator.DeserializeOrders();
-            var productData = initializator.DeserializeProducts();
+            var initializator = new DataInitializator();
+            var deliveryData = initializator.GetDeliveryData();
+            var orderData = initializator.GetOrdersData();
+            var productData = initializator.GetProductsData();
             while (!roleValid)
             {
                 Console.WriteLine("Enter 1 if you are a buyer or 2 if you are a seller");
@@ -47,9 +48,9 @@ namespace FoodDelivery21.UI
                 }
             }
             Console.WriteLine("Thank you for using our Delivery Service");
-            initializator.SerializeDelivery(deliveryData);
-            initializator.SerializeOrders(orderData);
-            initializator.SerializeProducts(productData);
+            initializator.SaveData<DeliveryData>(deliveryData);
+            initializator.SaveData<OrderData>(orderData);
+            initializator.SaveData<ProductData>(productData);
         }
       
 

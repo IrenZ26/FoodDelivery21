@@ -18,7 +18,7 @@ namespace FoodDelivery21.UI
             var result = Console.ReadLine();
             return result;
         }
-       public string ExistMassage()
+       public string ExistMessage()
         {
             Console.WriteLine("You have existing orders. If you want to watch their status, enter 1. Or enter 2 to create a new one");
             var result = Console.ReadLine();
