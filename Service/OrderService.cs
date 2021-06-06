@@ -29,12 +29,11 @@ namespace FoodDelivery21.Service
             var order = new Order(product, value, discount, totalPrice);
             return order;
         }
+
         private decimal GetDiscount(decimal price, decimal discount)
         {
             decimal result = Math.Round(price - (price * discount), 2);
             return result;
         }
-        public void UpdateOrder() { }
-        public void DeleteOrder() { }
     }
 }

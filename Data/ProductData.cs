@@ -7,10 +7,12 @@ namespace FoodDelivery21.Data
     public class ProductData
     {
         public IList<Product> Products { get; set; }
+
         public ProductData()
         {
             Products = new List<Product>();
         }
+
         public void ProductsInit()
         {
             var product = new Product(1,"Milk", "Milk factory", 12, 100, "white", 0.1m, 0.12m);

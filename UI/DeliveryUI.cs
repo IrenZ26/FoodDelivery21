@@ -18,6 +18,7 @@ namespace FoodDelivery21.UI
             var result = validator.CheckInt(answer);
             return result;
         }
+
         public decimal GetDelivery(DeliveryData deliveryData)
         {
             deliveryData.DeliveryListInit();

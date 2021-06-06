@@ -14,6 +14,7 @@ namespace FoodDelivery21.UI
         {
             var seller = new Seller(id, name, address, telephone);
         }
+
         public Product GetProduct(ProductData productData, int productId)
         {
             var product = new Product();
@@ -26,6 +27,7 @@ namespace FoodDelivery21.UI
             }
             return product;
         }
+
         public void StartWorking(string companyName)
         {
             var productData = new ProductData();
@@ -53,6 +55,7 @@ namespace FoodDelivery21.UI
                 sellerService.DeleteProduct(productData, product);
             }
         }
+
         public bool IsExist(string companyName)
         {
             var productData = new ProductData();
@@ -67,6 +70,7 @@ namespace FoodDelivery21.UI
             }
             return result;
         }
+
         public int GetResult(bool isExist)
         {
             var result = 2;
@@ -79,6 +83,7 @@ namespace FoodDelivery21.UI
             }
             return result;
         }
+
         public int Start(string companyName)
         {
             var productData = new ProductData();
@@ -87,6 +92,7 @@ namespace FoodDelivery21.UI
             var result = GetResult(isExist);
             return result;
         }
+
         public decimal GetProductValue()
         {
             var sellerClient = new SellerInterface();

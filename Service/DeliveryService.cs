@@ -13,6 +13,7 @@ namespace FoodDelivery21.Service
             var delivery = new Delivery(method, price);
             deliveryData.Deliveries.Add(delivery);
         }
+
         public decimal GetDeliveryPrice(DeliveryData deliveryData, string method)
         {
             decimal price = default;

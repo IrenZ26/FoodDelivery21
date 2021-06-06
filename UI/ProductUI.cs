@@ -16,8 +16,8 @@ namespace FoodDelivery21.UI
             decimal result = 0;
             if (action == "dec")
             {
-                var f = product.DecrementProducts(productData, value, out value, productId);
-                if (!f)
+                var isEnough = product.DecrementProducts(productData, value, out value, productId);
+                if (!isEnough)
                 {
                     BuyerInterface buyerClient = new BuyerInterface();
                     buyerClient.ShowQuantErrMassage(value);
@@ -30,12 +30,14 @@ namespace FoodDelivery21.UI
             }
             return result;
         }
+
         public Product AddProductToOrder(ProductData productData)
         {
-            int k = GetProductId(productData);
-            var product = productData.Products[k - 1];
+            int id = GetProductId(productData);
+            var product = productData.Products[id - 1];
             return product;
         }
+
         public int GetProductId(ProductData productData)
         {
             var buyer = new BuyerInterface();

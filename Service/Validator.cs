@@ -20,6 +20,7 @@ namespace FoodDelivery21.Service
             }
             return result;
         }
+
         public decimal CheckDecimal(string s)
         {
             decimal result = 0;

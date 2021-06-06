@@ -30,18 +30,21 @@ namespace FoodDelivery21.UI
             }
             Console.WriteLine("Total price of the whole order with delivery = " + totalPrice + "$");
         }
+
         public string ItemsMassage() 
         {
             Console.WriteLine("Enter how many items you want to buy");
             var result = Console.ReadLine();
             return result;
         }
+
         public string GetPromo()
         {
             Console.WriteLine("Enter your promocode. If you don`t have any promo code, just press 'Enter'");
             var promo = Console.ReadLine();
             return promo;
         }
+
         public bool Continue()
         {
             bool result = false;
@@ -51,6 +54,7 @@ namespace FoodDelivery21.UI
             else if (answer == "y") { result = true; }
             return result;
         }
+
         public string ShowDeliveries(DeliveryData deliveryData)
         {
             foreach (var item in deliveryData.Deliveries)
@@ -61,6 +65,7 @@ namespace FoodDelivery21.UI
             var result = Console.ReadLine();
             return result;
         }
+
         public void ShowQuantErrMassage(decimal value)
         {
             Console.WriteLine("Sorry we don`t have that many items in stock.\n Quantity of ordered products is: " + value);

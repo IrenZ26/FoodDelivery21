@@ -17,6 +17,7 @@ namespace FoodDelivery21
         public Product()
         {         
         }
+
         public Product(int id, string productName, string companyName, decimal productPrice, decimal availableValue, string discountPromoCode, decimal productDiscount, decimal personalDiscount)
         {
             Id = id;

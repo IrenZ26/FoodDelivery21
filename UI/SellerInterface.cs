@@ -35,18 +35,21 @@ namespace FoodDelivery21.UI
             Console.WriteLine("id:"+product.Id+" Name: " + product.Name + " Company: " + product.CompanyName + " Price: " + product.Price + "$ Avalible: " + product.AvailableValue + "items Promo code: " + product.DiscountPromoCode + " Product discount: " + product.ProductDiscount + " Personal discount: " + product.PersonalDiscount);
             return product;
         }
+
         public string ExistMassage()
         {
             Console.WriteLine("If you want to update your products enter 1\nIf you want to add new products enter 2\nIf you want to delete your products enter 3");
             var result = Console.ReadLine();
             return result;
         }
+
         public string ProductValueMassage()
         {
             Console.WriteLine("Enter how many items do you want to add");
             var result = Console.ReadLine();
             return result;
         }
+
         public string ShowProducts(ProductData productData, string companyName)
         {
             Console.WriteLine("Chose product and enter it`s id:");

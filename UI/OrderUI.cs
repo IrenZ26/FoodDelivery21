@@ -30,6 +30,7 @@ namespace FoodDelivery21.UI
 
             buyerClient.ShowOrder(orderData, totalPrice);
         }
+
         public decimal GetItemsCount()
         {
             var buyer = new BuyerInterface();

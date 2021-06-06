@@ -15,11 +15,13 @@ namespace FoodDelivery21.Service
             product = sellerClient.CreateProduct(companyName);
             return product;            
         }
+
         public void UpdateProduct(ProductData productData, int productId, decimal value)
         {
             var productUI = new ProductUI();
             productUI.UpdateProduct(productData, productId, value, "inc");
         }
+
         public void DeleteProduct(ProductData productData, Product product)
         {
             productData.Products.Remove(product);
