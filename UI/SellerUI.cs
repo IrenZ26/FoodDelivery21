@@ -26,15 +26,14 @@ namespace FoodDelivery21.UI
             }
             return product;
         }
-        public void StartWorking(string companyName, ProductData productData,OrderData orderData)
+        public void StartWorking(string companyName, ProductData cacheProductData, ProductData productData, OrderData orderData)
         {
-            var answer = Start(companyName, productData);
+            var answer = Start(companyName, cacheProductData);
             var sellerService = new SellerService();
             if (answer == 1)
             {
-                var productId = GetProductId(productData, companyName);
+                var productId = GetProductId(cacheProductData, companyName);
                 var productValue = GetProductValue();
-
                 sellerService.UpdateProduct(productData, productId, productValue);
             }
             if (answer == 2)
@@ -45,9 +44,9 @@ namespace FoodDelivery21.UI
             }
             if (answer == 3)
             {
-                var productId = GetProductId(productData, companyName);
+                var productId = GetProductId(cacheProductData, companyName);
                 var product = new Product();
-                product = GetProduct(productData, productId);
+                product = GetProduct(cacheProductData, productId);
                 sellerService.DeleteProduct(productData, product);
             }
             if (answer == 4)
