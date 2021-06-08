@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
+<<<<<<< HEAD:FoodDelivery21.sln
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodDelivery21", "FoodDelivery21.csproj", "{2161F040-B002-4761-ABD8-0A4CF19A8F0C}"
+=======
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodDelivery21", "FoodDelivery21.csproj", "{22C557C2-F649-482F-BC3E-27F1CA24F9BB}"
+>>>>>>> e7e222b9e9c5ca9a5e1cf1ded5f9792813d321d7:FoodDelivery.sln
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +15,26 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+<<<<<<< HEAD:FoodDelivery21.sln
 		{2161F040-B002-4761-ABD8-0A4CF19A8F0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2161F040-B002-4761-ABD8-0A4CF19A8F0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2161F040-B002-4761-ABD8-0A4CF19A8F0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2161F040-B002-4761-ABD8-0A4CF19A8F0C}.Release|Any CPU.Build.0 = Release|Any CPU
+=======
+		{22C557C2-F649-482F-BC3E-27F1CA24F9BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22C557C2-F649-482F-BC3E-27F1CA24F9BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22C557C2-F649-482F-BC3E-27F1CA24F9BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22C557C2-F649-482F-BC3E-27F1CA24F9BB}.Release|Any CPU.Build.0 = Release|Any CPU
+>>>>>>> e7e222b9e9c5ca9a5e1cf1ded5f9792813d321d7:FoodDelivery.sln
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
+<<<<<<< HEAD:FoodDelivery21.sln
 		SolutionGuid = {BA1F1726-CAE3-4AE0-8FA7-07EC89C143B6}
+=======
+		SolutionGuid = {434D5E59-796E-46D8-85F8-BAFB4ED9D9CB}
+>>>>>>> e7e222b9e9c5ca9a5e1cf1ded5f9792813d321d7:FoodDelivery.sln
 	EndGlobalSection
 EndGlobal
