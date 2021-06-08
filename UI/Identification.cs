@@ -9,6 +9,28 @@ namespace FoodDelivery21.UI
 {
     public class Identification : IUser
     {
+        private bool firstTime = true;
+        public bool IsContinue()
+        {
+            bool result = false;
+            if (!firstTime)
+            {
+                Console.WriteLine("Thank you for using our Delivery Service");
+                Console.WriteLine("If you want to continue enter Y/y. If you want to exit enter any other key");
+                var continueAnswer = Console.ReadLine();
+                if ((continueAnswer == "Y") || (continueAnswer == "y")) 
+                {
+                    result = true; 
+                }
+            }
+            else 
+            {
+                firstTime = false;
+                result = true;
+            }
+            return result;
+        }
+
         public void Start()
         {
             Console.WriteLine("Welcome to the food delivery service. Please, identify yourself");
@@ -19,12 +41,19 @@ namespace FoodDelivery21.UI
             Console.WriteLine("Enter your telephone number");
             var telephone = Console.ReadLine();
             var validator = new Validator();
-            bool roleValid = false;
             var initializator = new DataInitializator();
             var deliveryData = initializator.GetDeliveryData();
             var orderData = initializator.GetOrdersData();
             var productData = initializator.GetProductsData();
-            while (!roleValid)
+            var cache = new CacheMaker();
+            cache.StartCaching(productData, orderData, deliveryData);
+            bool IsCont = true;
+            while (IsCont)
+            {
+                bool roleValid = false;
+                IsCont = false;
+                firstTime = false;
+                while (!roleValid)
             {
                 Console.WriteLine("Enter 1 if you are a buyer or 2 if you are a seller");
                 var answer = Console.ReadLine();
@@ -34,25 +63,24 @@ namespace FoodDelivery21.UI
                     var buyerUI = new BuyerUI();
                     var buyer = buyerUI.CreateBuyer(name, address, telephone);
                     roleValid = true;
-                    buyerUI.CreateOrder(deliveryData, orderData, productData, buyer);
+                    buyerUI.CreateOrder(cache.cacheDeliveryData, cache.cacheOrderData, cache.cacheProductData, orderData, productData, buyer);
                 }
                 else if (role == 2)
                 {
                     roleValid = true;
                     var seller = new SellerUI();
-                    seller.StartWorking(name, productData,orderData);
+                    seller.StartWorking(name, cache.cacheProductData, productData, orderData);
                 }
                 else
                 {
                     Console.WriteLine("Your role isn`t valid. Try again");
                 }
             }
-            Console.WriteLine("Thank you for using our Delivery Service");
             initializator.SaveData<DeliveryData>(deliveryData);
             initializator.SaveData<OrderData>(orderData);
             initializator.SaveData<ProductData>(productData);
+            IsCont = IsContinue();            
         }
-      
-
+        }
     }
 }

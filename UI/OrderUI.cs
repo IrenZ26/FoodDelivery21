@@ -10,18 +10,18 @@ namespace FoodDelivery21.UI
 {
     public class OrderUI
     {  
-        public void CreateOrder(DeliveryData deliveryData,OrderData orderData,ProductData productData, Buyer buyer)
+        public void CreateOrder(DeliveryData deliveryData, OrderData cacheOrderData, ProductData cacheProductData, OrderData orderData,ProductData productData, Buyer buyer)
         {
-            bool f = true;
+            bool IsContinue = true;
             var buyerClient = new BuyerInterface();
             var orderService = new OrderService();
             var delivery = new DeliveryUI();
-            int id = GetId(orderData);
-            while (f)
+            int id = GetId(cacheOrderData);
+            while (IsContinue)
             {
-                orderData.Orders.Add(orderService.AddOrderItem(productData, buyer,id));
-                f = buyerClient.Continue();
-            }
+                orderData.Orders.Add(orderService.AddOrderItem(productData, cacheProductData, buyer,id));
+                IsContinue = buyerClient.Continue();
+            }            
             decimal totalPrice = delivery.GetDeliveryPrice(orderData, buyer);
             decimal deliveryPrice = delivery.GetDelivery(deliveryData);
             delivery.SetDeliveryPrice(orderData, buyer, deliveryPrice);
@@ -38,6 +38,7 @@ namespace FoodDelivery21.UI
             }
             return result;
         }
+
         public int GetOrderID(OrderData orderData, string companyName)
         {
             var seller = new SellerInterface();
@@ -46,6 +47,7 @@ namespace FoodDelivery21.UI
             int result = validator.IntValidation(answer);
             return result;
         }
+
         public int GetNewStatus()
         {
             var seller = new SellerInterface();
@@ -54,6 +56,7 @@ namespace FoodDelivery21.UI
             int result = validator.IntValidation(answer);
             return result;
         }
+
         public void SetNewStatus(OrderData orderData, int id, int status)
         {
             foreach (var item in orderData.Orders)
@@ -77,6 +80,7 @@ namespace FoodDelivery21.UI
                 }
             }
         }
+
         public decimal GetItemsCount()
         {
             var buyer = new BuyerInterface();

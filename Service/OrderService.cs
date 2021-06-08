@@ -8,11 +8,11 @@ namespace FoodDelivery21.Service
 {
     public class OrderService
     {
-        public Order AddOrderItem(ProductData productData, Buyer buyer, int id)
+        public Order AddOrderItem(ProductData productData, ProductData cacheProductData, Buyer buyer, int id)
         {
             var product = new Product();
             var productUI = new ProductUI();
-            product = productUI.AddProductToOrder(productData);
+            product = productUI.AddProductToOrder(cacheProductData);
             var buyerClient = new BuyerInterface();
             var orderUI = new OrderUI();
             var totalPrice = product.Price;
@@ -30,6 +30,7 @@ namespace FoodDelivery21.Service
             var order = new Order(id,product, value, discount, 0.0m, totalPrice, Order.OrderStatus.Undefined, buyer);
             return order;
         }
+
         private decimal GetDiscount(decimal price, decimal discount)
         {
             decimal result = Math.Round(price - (price * discount), 2);
