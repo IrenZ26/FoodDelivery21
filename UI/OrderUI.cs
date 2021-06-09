@@ -12,49 +12,23 @@ namespace FoodDelivery21.UI
     {  
         public void CreateOrder(DeliveryData deliveryData,OrderData orderData,ProductData productData, Buyer buyer)
         {
-<<<<<<< HEAD
             bool isContinue = true;
-=======
-            bool f = true;
->>>>>>> regexValidation
             var buyerClient = new BuyerInterface();
             var orderService = new OrderService();
-<<<<<<< HEAD
-            productData.ProductsInit();
-<<<<<<< HEAD
-            while (isContinue)
-            {
-                orderData.Orders.Add(orderService.AddOrderItem(productData));
-                isContinue = buyerClient.Continue();
-=======
-=======
             var delivery = new DeliveryUI();
             int id = GetId(orderData);
->>>>>>> jsonSerialization
-            while (f)
+            while (isContinue)
             {
-                orderData.Orders.Add(orderService.AddOrderItem(productData, buyer,id));
-                f = buyerClient.Continue();
->>>>>>> regexValidation
+                orderData.Orders.Add(orderService.AddOrderItem(productData, buyer, id));
+                isContinue = buyerClient.Continue();
             }
-<<<<<<< HEAD
-            decimal totalPrice = 0;
-            var delivery = new DeliveryUI();
-            var deliveryData = new DeliveryData();
-            totalPrice += delivery.GetDelivery(deliveryData);
-<<<<<<< HEAD
-
-=======
-            var logger = new Logger();
-            logger.SaveIntoFile("The total order`s price was calculated");
->>>>>>> logger
-            buyerClient.ShowOrder(orderData, totalPrice);
-=======
             decimal totalPrice = delivery.GetDeliveryPrice(orderData, buyer);
             decimal deliveryPrice = delivery.GetDelivery(deliveryData);
             delivery.SetDeliveryPrice(orderData, buyer, deliveryPrice);
             totalPrice += deliveryPrice;
-            buyerClient.ShowOrder(orderData, totalPrice, buyer,true);
+            buyerClient.ShowOrder(orderData, totalPrice, buyer, true);
+            var logger = new Logger();
+            logger.SaveIntoFile("The total order`s price was calculated");
         }
 
         public int GetId(OrderData orderData)
@@ -66,22 +40,25 @@ namespace FoodDelivery21.UI
             }
             return result;
         }
+
         public int GetOrderID(OrderData orderData, string companyName)
         {
             var seller = new SellerInterface();
             var answer = seller.ShowOrdersStatus(orderData, companyName);
-            var validator = new Validator();
-            int result = validator.IntValidation(answer);
+            int result;
+            int.TryParse(answer, out result);
             return result;
         }
+
         public int GetNewStatus()
         {
             var seller = new SellerInterface();
             var answer = seller.ShowStatusMessage();
-            var validator = new Validator();
-            int result = validator.IntValidation(answer);
+            int result;
+            int.TryParse(answer, out result);
             return result;
         }
+
         public void SetNewStatus(OrderData orderData, int id, int status)
         {
             foreach (var item in orderData.Orders)
@@ -104,25 +81,15 @@ namespace FoodDelivery21.UI
                     }
                 }
             }
->>>>>>> jsonSerialization
         }
-<<<<<<< HEAD
 
-=======
->>>>>>> regexValidation
         public decimal GetItemsCount()
         {
             var buyer = new BuyerInterface();
             string answer = buyer.ItemsMassage();
-<<<<<<< HEAD
-            var validator = new Validator();
-            decimal val = validator.CheckDecimal(answer);
-            return val;
-=======
             decimal result;
             decimal.TryParse(answer, out result);
             return result;
->>>>>>> regexValidation
         }
     }
 }

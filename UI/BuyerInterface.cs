@@ -43,14 +43,7 @@ namespace FoodDelivery21.UI
             }
             Console.WriteLine("Total price of the whole order with delivery = " + totalPrice + "$");
         }
-<<<<<<< HEAD
-<<<<<<< HEAD:UI/BuyerInterface.cs
 
-=======
->>>>>>> regexValidation:UI/BuyerClient.cs
-=======
-
->>>>>>> jsonSerialization
         public string ItemsMassage() 
         {
             Console.WriteLine("Enter how many items you want to buy");
@@ -74,10 +67,7 @@ namespace FoodDelivery21.UI
             else if (answer == "y") { result = true; }
             return result;
         }
-<<<<<<< HEAD:UI/BuyerInterface.cs
 
-=======
->>>>>>> regexValidation:UI/BuyerClient.cs
         public string ShowDeliveries(DeliveryData deliveryData)
         {
             foreach (var item in deliveryData.Deliveries)

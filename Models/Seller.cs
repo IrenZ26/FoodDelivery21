@@ -14,10 +14,7 @@ namespace FoodDelivery21
         public string Name { get; set; }
         public string Address { get; set; }
         public string Telephone { get; set; }
-<<<<<<< HEAD
 
-=======
->>>>>>> regexValidation
         public Seller(int id, string name, string address, string telephone)
         {
             Id = id;
