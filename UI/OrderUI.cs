@@ -10,7 +10,7 @@ namespace FoodDelivery21.UI
 {
     public class OrderUI
     {  
-        public void CreateOrder(DeliveryData deliveryData,OrderData orderData,ProductData productData, Buyer buyer)
+        public async Task CreateOrder(DeliveryData deliveryData,OrderData orderData,ProductData productData, Buyer buyer)
         {
             bool f = true;
             var buyerClient = new BuyerInterface();
@@ -26,7 +26,7 @@ namespace FoodDelivery21.UI
             decimal deliveryPrice = delivery.GetDelivery(deliveryData);
             delivery.SetDeliveryPrice(orderData, buyer, deliveryPrice);
             totalPrice += deliveryPrice;
-            buyerClient.ShowOrder(orderData, totalPrice, buyer,true);
+           await buyerClient.ShowOrder(orderData, totalPrice, buyer,true);
         }
 
         public int GetId(OrderData orderData)

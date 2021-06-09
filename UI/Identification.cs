@@ -4,12 +4,13 @@ using FoodDelivery21.Service;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace FoodDelivery21.UI
 {
     public class Identification : IUser
     {
-        public void Start()
+        public async Task Start()
         {
             Console.WriteLine("Welcome to the food delivery service. Please, identify yourself");
             Console.WriteLine("Enter your personal or company name");
@@ -34,7 +35,7 @@ namespace FoodDelivery21.UI
                     var buyerUI = new BuyerUI();
                     var buyer = buyerUI.CreateBuyer(name, address, telephone);
                     roleValid = true;
-                    buyerUI.CreateOrder(deliveryData, orderData, productData, buyer);
+                   await buyerUI.CreateOrder(deliveryData, orderData, productData, buyer);
                 }
                 else if (role == 2)
                 {

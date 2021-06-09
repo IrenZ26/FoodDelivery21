@@ -3,6 +3,7 @@ using FoodDelivery21.Service;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace FoodDelivery21.UI
 {
@@ -12,7 +13,7 @@ namespace FoodDelivery21.UI
         {
             foreach (var item in productData.Products)
             {
-                Console.WriteLine(item.Name + " from " + item.CompanyName + " costs " + item.Price + "$." + "Available: " + item.AvailableValue + " items");
+                Console.WriteLine(item.Name + " from " + item.CompanyName + " costs " + item.Price + "Available: " + item.AvailableValue + " items");
             }
             Console.WriteLine("Enter products`s id");
             var result = Console.ReadLine();
@@ -24,7 +25,7 @@ namespace FoodDelivery21.UI
             var result = Console.ReadLine();
             return result;
         }
-        public void ShowOrder(OrderData orderData, decimal totalPrice,Buyer buyer,bool isCreate) 
+        public async Task ShowOrder(OrderData orderData, decimal totalPrice,Buyer buyer,bool isCreate) 
         {
             if (!isCreate)
             {
@@ -37,11 +38,36 @@ namespace FoodDelivery21.UI
                 if ((item.Buyer.Name == buyer.Name) && (item.Buyer.Address == buyer.Address) && (item.Buyer.Telephone == buyer.Telephone))
                 {
                     var discount = item.Discount * 100;
-                    Console.WriteLine(item.Product.Name + " " + item.ProductValue + " items, costs " + item.Product.Price + "$ for one item.\nDiscount = " + discount + "%. Total price = " + item.TotalPrice + "$" + " Order status - "+item.Status);
+                    Console.WriteLine(item.Product.Name + " " + item.ProductValue + " items, costs " + item.Product.Price + "for one item.\nDiscount = " + discount + "%. Total price = " + item.TotalPrice + " Order status - "+item.Status);
                     totalPrice += item.TotalPrice;
                 }
             }
-            Console.WriteLine("Total price of the whole order with delivery = " + totalPrice + "$");
+            var currency = GetCurrency();
+            if (currency != "") 
+            {
+                var currencyConverter = new CurrencyConverter();
+               await currencyConverter.Convert(totalPrice, currency);
+                totalPrice = currencyConverter.currency;
+            }
+            Console.WriteLine("Total price of the whole order with delivery = " + totalPrice + " "+currency);
+        }
+        public string GetCurrency()
+        {
+            var answer = GetCurrencyMessage();
+            var result = "";
+            if (answer == "1") { result = "EUR"; }
+            if (answer == "2") { result = "GBP"; }
+            if (answer == "3") { result = "USD"; }
+            return result;
+        }
+        public string GetCurrencyMessage()
+        {
+            Console.WriteLine("If you want to see order`s price in EUR Enter 1");
+            Console.WriteLine("If you want to see order`s price in GBP Enter 2");
+            Console.WriteLine("If you want to see order`s price in USD Enter 3");
+            Console.WriteLine("If you want to see order`s price in UAH Enter any other key");
+            var result = Console.ReadLine();
+            return result;
         }
 
         public string ItemsMassage() 
@@ -69,7 +95,7 @@ namespace FoodDelivery21.UI
         {
             foreach (var item in deliveryData.Deliveries)
             {
-                Console.WriteLine(item.Method + " costs " + item.Price + "$");
+                Console.WriteLine(item.Method + " costs " + item.Price);
             }
             Console.WriteLine("Enter delivery method`s id");
             var result = Console.ReadLine();
