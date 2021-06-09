@@ -15,12 +15,25 @@ namespace FoodDelivery21.UI
             Console.WriteLine("Welcome to the food delivery service. Please, identify yourself");
             Console.WriteLine("Enter your personal or company name");
             var name = Console.ReadLine();
-<<<<<<< HEAD
-            Console.WriteLine("Enter your address");
-            var address = Console.ReadLine();
-            Console.WriteLine("Enter your telephone number");
-            var telephone = Console.ReadLine();
+            bool addressValid = false;
             var validator = new Validator();
+            string telephone = "";
+            string address = "";
+            while (!addressValid)
+            {
+                Console.WriteLine("Enter your address");
+                address = Console.ReadLine();
+                addressValid = validator.ValidateAddress(address);
+                if (!addressValid) { Console.WriteLine("Your address isn`t valid. Try again"); }
+            }
+            bool telephoneValid = false;
+            while (!telephoneValid)
+            {
+                Console.WriteLine("Enter your telephone number");
+                telephone = Console.ReadLine();
+                telephoneValid = validator.ValidateTelephone(telephone);
+                if (!telephoneValid) { Console.WriteLine("Your telephone number isn`t valid. Try again"); }
+            }
             bool roleValid = false;
             var initializator = new DataInitializator();
             var deliveryData = initializator.GetDeliveryData();
@@ -29,75 +42,24 @@ namespace FoodDelivery21.UI
             while (!roleValid)
             {
                 Console.WriteLine("Enter 1 if you are a buyer or 2 if you are a seller");
-<<<<<<< HEAD
-<<<<<<< HEAD
-                var answer = Console.ReadLine();
-                var role = validator.CheckInt(answer);
-=======
-            bool addressValid = false;
-            var validator = new Validator();
-            while (!addressValid)
-            {
-                Console.WriteLine("Enter your address");
-                var address = Console.ReadLine();
-                addressValid = validator.ValidateAddress(address);
-                if (!addressValid) { Console.WriteLine("Your address isn`t valid. Try again"); }
-            }
-            bool telephoneValid = false;
-            while (!telephoneValid)
-            {
-                Console.WriteLine("Enter your telephone number");
-                var telephone = Console.ReadLine();
-                telephoneValid = validator.ValidateTelephone(telephone);
-                if (!telephoneValid) { Console.WriteLine("Your telephone number isn`t valid. Try again"); }
-            }
-            bool roleValid = false;
-            while (!roleValid)
-            {
-                Console.WriteLine("Enter 1 if you are a buyer or 2 if you are a seller");
                 var answer = Console.ReadLine();
                 int role;
                 int.TryParse(answer, out role);
->>>>>>> regexValidation
                 if (role == 1)
-                {
-                    roleValid = true;
-                    var order = new OrderUI();
-                    order.CreateOrder();
-=======
-                var role = Console.ReadLine();
-                var r = validator.IntValidation(role);
-                var loggerMassage = "";
-                if (r == 1)
-=======
-                var answer = Console.ReadLine();
-                var role = validator.IntValidation(answer);
-                if (role == 1)
->>>>>>> jsonSerialization
                 {
                     var buyerUI = new BuyerUI();
                     var buyer = buyerUI.CreateBuyer(name, address, telephone);
-                    roleValid = true;
-<<<<<<< HEAD
                     logger.SaveIntoFile("New session was strarted in buyer mode");
-                    var order = new OrderUI();
-                    order.CreateOrder();
-                   logger.SaveIntoFile("New order was successfully saved");
->>>>>>> logger
-=======
+                    roleValid = true;
                     buyerUI.CreateOrder(deliveryData, orderData, productData, buyer);
->>>>>>> jsonSerialization
+                    logger.SaveIntoFile("New order was successfully saved");
                 }
                 else if (role == 2)
                 {
                     roleValid = true;
                     var seller = new SellerUI();
-<<<<<<< HEAD
                     logger.SaveIntoFile("New session was strarted in seller mode");
-                    seller.StartWorking(name);
-=======
-                    seller.StartWorking(name, productData,orderData);
->>>>>>> jsonSerialization
+                    seller.StartWorking(name, productData, orderData);
                 }
                 else
                 {

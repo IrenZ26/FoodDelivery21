@@ -12,13 +12,9 @@ namespace FoodDelivery21.Service
         {
             var product = new Product();
             var sellerClient = new SellerInterface();
-<<<<<<< HEAD
-            product = sellerClient.CreateProduct(companyName);
+            product = sellerClient.CreateProduct(companyName,productData);
             var logger = new Logger();
             logger.SaveIntoFile("New product " + product.Name + " was successfully created");
-=======
-            product = sellerClient.CreateProduct(companyName,productData);
->>>>>>> jsonSerialization
             return product;            
         }
 
@@ -29,10 +25,7 @@ namespace FoodDelivery21.Service
             var logger = new Logger();
             logger.SaveIntoFile("The product`s quantity was successfully changed");
         }
-<<<<<<< HEAD
 
-=======
->>>>>>> regexValidation
         public void DeleteProduct(ProductData productData, Product product)
         {
             productData.Products.Remove(product);
