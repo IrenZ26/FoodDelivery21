@@ -16,6 +16,15 @@ namespace FoodDelivery21
 <<<<<<< HEAD
 =======
 
+<<<<<<< HEAD
 >>>>>>> regexValidation
+=======
+        public Buyer(string name,string address,string telephone) 
+        {
+            Name = name;
+            Address = address;
+            Telephone = telephone;
+        }
+>>>>>>> jsonSerialization
     }
 }

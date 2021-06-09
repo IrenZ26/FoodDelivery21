@@ -1,4 +1,5 @@
 ﻿using FoodDelivery21.Contracts;
+using FoodDelivery21.Data;
 using FoodDelivery21.Service;
 using System;
 using System.Collections.Generic;
@@ -21,9 +22,14 @@ namespace FoodDelivery21.UI
             var telephone = Console.ReadLine();
             var validator = new Validator();
             bool roleValid = false;
+            var initializator = new DataInitializator();
+            var deliveryData = initializator.GetDeliveryData();
+            var orderData = initializator.GetOrdersData();
+            var productData = initializator.GetProductsData();
             while (!roleValid)
             {
                 Console.WriteLine("Enter 1 if you are a buyer or 2 if you are a seller");
+<<<<<<< HEAD
 <<<<<<< HEAD
                 var answer = Console.ReadLine();
                 var role = validator.CheckInt(answer);
@@ -63,20 +69,35 @@ namespace FoodDelivery21.UI
                 var r = validator.IntValidation(role);
                 var loggerMassage = "";
                 if (r == 1)
+=======
+                var answer = Console.ReadLine();
+                var role = validator.IntValidation(answer);
+                if (role == 1)
+>>>>>>> jsonSerialization
                 {
+                    var buyerUI = new BuyerUI();
+                    var buyer = buyerUI.CreateBuyer(name, address, telephone);
                     roleValid = true;
+<<<<<<< HEAD
                     logger.SaveIntoFile("New session was strarted in buyer mode");
                     var order = new OrderUI();
                     order.CreateOrder();
                    logger.SaveIntoFile("New order was successfully saved");
 >>>>>>> logger
+=======
+                    buyerUI.CreateOrder(deliveryData, orderData, productData, buyer);
+>>>>>>> jsonSerialization
                 }
                 else if (role == 2)
                 {
                     roleValid = true;
                     var seller = new SellerUI();
+<<<<<<< HEAD
                     logger.SaveIntoFile("New session was strarted in seller mode");
                     seller.StartWorking(name);
+=======
+                    seller.StartWorking(name, productData,orderData);
+>>>>>>> jsonSerialization
                 }
                 else
                 {
@@ -84,6 +105,10 @@ namespace FoodDelivery21.UI
                 }
                 logger.SaveIntoFile("The session was successfully finished");
             }
+            Console.WriteLine("Thank you for using our Delivery Service");
+            initializator.SaveData<DeliveryData>(deliveryData);
+            initializator.SaveData<OrderData>(orderData);
+            initializator.SaveData<ProductData>(productData);
         }
     }
 }

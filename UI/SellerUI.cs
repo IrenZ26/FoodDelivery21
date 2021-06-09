@@ -10,6 +10,7 @@ namespace FoodDelivery21.UI
 {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public class SellerUI
 =======
      public class SellerUI
@@ -17,6 +18,9 @@ namespace FoodDelivery21.UI
 =======
     public class SellerUI
 >>>>>>> logger
+=======
+    public class SellerUI
+>>>>>>> jsonSerialization
     {
         public void CreateSeller(int id, string name, string address, string telephone)
         {
@@ -39,14 +43,16 @@ namespace FoodDelivery21.UI
             return product;
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> regexValidation
         public void StartWorking(string companyName)
+=======
+        public void StartWorking(string companyName, ProductData productData,OrderData orderData)
+>>>>>>> jsonSerialization
         {
-            var productData = new ProductData();
-            productData.ProductsInit();
-            var answer = Start(companyName);
+            var answer = Start(companyName, productData);
             var sellerService = new SellerService();
             var logger = new Logger();
             var loggerMassage = "";
@@ -61,7 +67,11 @@ namespace FoodDelivery21.UI
             if (answer == 2)
             {
                 var product = new Product();
+<<<<<<< HEAD
                 logger.SaveIntoFile("The seller choose to create the new product");
+=======
+                product = sellerService.CreateProduct(companyName,productData);
+>>>>>>> jsonSerialization
                 productData.Products.Add(product);
                 product = sellerService.CreateProduct(companyName);
             }
@@ -73,15 +83,21 @@ namespace FoodDelivery21.UI
                 logger.SaveIntoFile("The seller choose to delete the product");
                 sellerService.DeleteProduct(productData, product);
             }
+            if (answer == 4)
+            {
+                sellerService.UpdateStatus(orderData, companyName);
+            }
         }
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 =======
 >>>>>>> regexValidation
         public bool IsExist(string companyName)
+=======
+        public bool IsExist(ProductData productData, string companyName)
+>>>>>>> jsonSerialization
         {
-            var productData = new ProductData();
-            productData.ProductsInit();
             bool result = false;
             foreach (var item in productData.Products)
             {
@@ -115,6 +131,7 @@ namespace FoodDelivery21.UI
             }
             return result;
         }
+<<<<<<< HEAD
 >>>>>>> regexValidation
         public int Start(string companyName)
         {
@@ -130,6 +147,11 @@ namespace FoodDelivery21.UI
             {
                 logger.SaveIntoFile("It`s a new seller");
             }
+=======
+        public int Start(string companyName, ProductData productData)
+        {
+            bool isExist = IsExist(productData,companyName);
+>>>>>>> jsonSerialization
             var result = GetResult(isExist);
             return result;
         }

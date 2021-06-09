@@ -28,6 +28,7 @@ namespace FoodDelivery21.Service
             {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 if (delivery.Method == method) 
                 {
                     price = delivery.Price; 
@@ -38,6 +39,9 @@ namespace FoodDelivery21.Service
 =======
                 if (item.Method == method) { price = item.Price; }
 >>>>>>> logger
+=======
+                if (delivery.Method == method) { price = delivery.Price; }
+>>>>>>> jsonSerialization
             }
             return price;
         }
