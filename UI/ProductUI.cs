@@ -16,8 +16,13 @@ namespace FoodDelivery21.UI
             decimal result = 0;
             if (action == "dec")
             {
+<<<<<<< HEAD
                 var isEnough = product.DecrementProducts(productData, value, out value, productId);
                 if (!isEnough)
+=======
+                var f = product.DecrementProducts(productData, value, out value, productId);
+                if (!f)
+>>>>>>> regexValidation
                 {
                     BuyerInterface buyerClient = new BuyerInterface();
                     buyerClient.ShowQuantErrMassage(value);
@@ -30,6 +35,7 @@ namespace FoodDelivery21.UI
             }
             return result;
         }
+<<<<<<< HEAD
 
         public Product AddProductToOrder(ProductData productData)
         {
@@ -38,12 +44,25 @@ namespace FoodDelivery21.UI
             return product;
         }
 
+=======
+        public Product AddProductToOrder(ProductData productData)
+        {
+            int k = GetProductId(productData);
+            var product = productData.Products[k - 1];
+            return product;
+        }
+>>>>>>> regexValidation
         public int GetProductId(ProductData productData)
         {
             var buyer = new BuyerInterface();
             var answer = buyer.ShowProducts(productData);
+<<<<<<< HEAD
             var validator = new Validator();
             var result = validator.CheckInt(answer);
+=======
+            int result;
+            int.TryParse(answer, out result);
+>>>>>>> regexValidation
             return result;
         }
     }

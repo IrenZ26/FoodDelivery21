@@ -13,6 +13,7 @@ namespace FoodDelivery21.UI
             Console.WriteLine("Welcome to the food delivery service. Please, identify yourself");
             Console.WriteLine("Enter your personal or company name");
             var name = Console.ReadLine();
+<<<<<<< HEAD
             Console.WriteLine("Enter your address");
             var address = Console.ReadLine();
             Console.WriteLine("Enter your telephone number");
@@ -24,6 +25,32 @@ namespace FoodDelivery21.UI
                 Console.WriteLine("Enter 1 if you are a buyer or 2 if you are a seller");
                 var answer = Console.ReadLine();
                 var role = validator.CheckInt(answer);
+=======
+            bool addressValid = false;
+            var validator = new Validator();
+            while (!addressValid)
+            {
+                Console.WriteLine("Enter your address");
+                var address = Console.ReadLine();
+                addressValid = validator.ValidateAddress(address);
+                if (!addressValid) { Console.WriteLine("Your address isn`t valid. Try again"); }
+            }
+            bool telephoneValid = false;
+            while (!telephoneValid)
+            {
+                Console.WriteLine("Enter your telephone number");
+                var telephone = Console.ReadLine();
+                telephoneValid = validator.ValidateTelephone(telephone);
+                if (!telephoneValid) { Console.WriteLine("Your telephone number isn`t valid. Try again"); }
+            }
+            bool roleValid = false;
+            while (!roleValid)
+            {
+                Console.WriteLine("Enter 1 if you are a buyer or 2 if you are a seller");
+                var answer = Console.ReadLine();
+                int role;
+                int.TryParse(answer, out role);
+>>>>>>> regexValidation
                 if (role == 1)
                 {
                     roleValid = true;

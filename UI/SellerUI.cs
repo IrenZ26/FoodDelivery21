@@ -8,13 +8,20 @@ using System.Threading.Tasks;
 
 namespace FoodDelivery21.UI
 {
+<<<<<<< HEAD
     public class SellerUI
+=======
+     public class SellerUI
+>>>>>>> regexValidation
     {
         public void CreateSeller(int id, string name, string address, string telephone)
         {
             var seller = new Seller(id, name, address, telephone);
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> regexValidation
         public Product GetProduct(ProductData productData, int productId)
         {
             var product = new Product();
@@ -27,7 +34,10 @@ namespace FoodDelivery21.UI
             }
             return product;
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> regexValidation
         public void StartWorking(string companyName)
         {
             var productData = new ProductData();
@@ -55,7 +65,10 @@ namespace FoodDelivery21.UI
                 sellerService.DeleteProduct(productData, product);
             }
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> regexValidation
         public bool IsExist(string companyName)
         {
             var productData = new ProductData();
@@ -70,7 +83,10 @@ namespace FoodDelivery21.UI
             }
             return result;
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> regexValidation
         public int GetResult(bool isExist)
         {
             var result = 2;
@@ -78,12 +94,19 @@ namespace FoodDelivery21.UI
             {
                 var sellerClient = new SellerInterface();
                 var answer = sellerClient.ExistMassage();
+<<<<<<< HEAD
                 var validator = new Validator();
                 result = validator.CheckInt(answer);
             }
             return result;
         }
 
+=======
+                int.TryParse(answer, out result);
+            }
+            return result;
+        }
+>>>>>>> regexValidation
         public int Start(string companyName)
         {
             var productData = new ProductData();
@@ -92,22 +115,38 @@ namespace FoodDelivery21.UI
             var result = GetResult(isExist);
             return result;
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> regexValidation
         public decimal GetProductValue()
         {
             var sellerClient = new SellerInterface();
             var answer = sellerClient.ProductValueMassage();
+<<<<<<< HEAD
             var validator = new Validator();
             var value = validator.CheckDecimal(answer);
             return value;
+=======
+            decimal result;
+            decimal.TryParse(answer, out result);
+            return result;
+>>>>>>> regexValidation
         }
 
         public int GetProductId(ProductData productData, string companyName)
         {
+<<<<<<< HEAD
             var validator = new Validator();
             var sellerClient = new SellerInterface();
             var answer = sellerClient.ShowProducts(productData, companyName);
             var result = validator.CheckInt(answer);
+=======
+            var sellerClient = new SellerInterface();
+            var answer = sellerClient.ShowProducts(productData, companyName);
+            int result;
+            int.TryParse(answer, out result);
+>>>>>>> regexValidation
             return result;
         }
     }

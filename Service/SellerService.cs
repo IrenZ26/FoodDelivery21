@@ -21,7 +21,10 @@ namespace FoodDelivery21.Service
             var productUI = new ProductUI();
             productUI.UpdateProduct(productData, productId, value, "inc");
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> regexValidation
         public void DeleteProduct(ProductData productData, Product product)
         {
             productData.Products.Remove(product);

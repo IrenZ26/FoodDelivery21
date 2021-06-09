@@ -13,16 +13,23 @@ namespace FoodDelivery21.Service
             var delivery = new Delivery(method, price);
             deliveryData.Deliveries.Add(delivery);
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> regexValidation
         public decimal GetDeliveryPrice(DeliveryData deliveryData, string method)
         {
             decimal price = default;
             foreach (var delivery in deliveryData.Deliveries)
             {
+<<<<<<< HEAD
                 if (delivery.Method == method) 
                 {
                     price = delivery.Price; 
                 }
+=======
+                if (item.Method == method) { price = item.Price; }
+>>>>>>> regexValidation
             }
             return price;
         }

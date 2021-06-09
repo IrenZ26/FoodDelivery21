@@ -14,11 +14,18 @@ namespace FoodDelivery21.UI
         {
             var byer = new BuyerInterface();
             var answer = byer.ShowDeliveries(deliveryData);
+<<<<<<< HEAD
             var validator = new Validator();
             var result = validator.CheckInt(answer);
             return result;
         }
 
+=======
+            int result;
+            int.TryParse(answer, out result);
+            return result;
+        }
+>>>>>>> regexValidation
         public decimal GetDelivery(DeliveryData deliveryData)
         {
             deliveryData.DeliveryListInit();
