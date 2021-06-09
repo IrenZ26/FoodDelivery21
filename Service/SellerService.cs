@@ -13,6 +13,8 @@ namespace FoodDelivery21.Service
             var product = new Product();
             var sellerClient = new SellerInterface();
             product = sellerClient.CreateProduct(companyName);
+            var logger = new Logger();
+            logger.SaveIntoFile("New product " + product.Name + " was successfully created");
             return product;            
         }
 
@@ -20,6 +22,8 @@ namespace FoodDelivery21.Service
         {
             var productUI = new ProductUI();
             productUI.UpdateProduct(productData, productId, value, "inc");
+            var logger = new Logger();
+            logger.SaveIntoFile("The product`s quantity was successfully changed");
         }
 <<<<<<< HEAD
 
@@ -28,6 +32,8 @@ namespace FoodDelivery21.Service
         public void DeleteProduct(ProductData productData, Product product)
         {
             productData.Products.Remove(product);
+            var logger = new Logger();
+            logger.SaveIntoFile("The product " + product.Name + " was successfully deleted");
         }
     }
 }

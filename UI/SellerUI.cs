@@ -9,10 +9,14 @@ using System.Threading.Tasks;
 namespace FoodDelivery21.UI
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
     public class SellerUI
 =======
      public class SellerUI
 >>>>>>> regexValidation
+=======
+    public class SellerUI
+>>>>>>> logger
     {
         public void CreateSeller(int id, string name, string address, string telephone)
         {
@@ -44,24 +48,29 @@ namespace FoodDelivery21.UI
             productData.ProductsInit();
             var answer = Start(companyName);
             var sellerService = new SellerService();
+            var logger = new Logger();
+            var loggerMassage = "";
             if (answer == 1)
             {
                 var productId = GetProductId(productData, companyName);
                 var productValue = GetProductValue();
-
+                logger.SaveIntoFile("The seller choose to change the quantity of " + productData.Products.ElementAt(productId - 1).Name);
                 sellerService.UpdateProduct(productData, productId, productValue);
+
             }
             if (answer == 2)
             {
                 var product = new Product();
-                product = sellerService.CreateProduct(companyName);
+                logger.SaveIntoFile("The seller choose to create the new product");
                 productData.Products.Add(product);
+                product = sellerService.CreateProduct(companyName);
             }
             if (answer == 3)
             {
                 var productId = GetProductId(productData, companyName);
                 var product = new Product();
                 product = GetProduct(productData, productId);
+                logger.SaveIntoFile("The seller choose to delete the product");
                 sellerService.DeleteProduct(productData, product);
             }
         }
@@ -112,6 +121,15 @@ namespace FoodDelivery21.UI
             var productData = new ProductData();
             productData.ProductsInit();
             bool isExist = IsExist(companyName);
+            var logger = new Logger();
+            if (isExist) 
+            {
+                logger.SaveIntoFile("Seller is already exist");
+            }
+            else
+            {
+                logger.SaveIntoFile("It`s a new seller");
+            }
             var result = GetResult(isExist);
             return result;
         }

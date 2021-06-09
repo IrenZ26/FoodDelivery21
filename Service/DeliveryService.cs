@@ -14,14 +14,19 @@ namespace FoodDelivery21.Service
             deliveryData.Deliveries.Add(delivery);
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> regexValidation
+=======
+
+>>>>>>> logger
         public decimal GetDeliveryPrice(DeliveryData deliveryData, string method)
         {
             decimal price = default;
             foreach (var delivery in deliveryData.Deliveries)
             {
+<<<<<<< HEAD
 <<<<<<< HEAD
                 if (delivery.Method == method) 
                 {
@@ -30,6 +35,9 @@ namespace FoodDelivery21.Service
 =======
                 if (item.Method == method) { price = item.Price; }
 >>>>>>> regexValidation
+=======
+                if (item.Method == method) { price = item.Price; }
+>>>>>>> logger
             }
             return price;
         }

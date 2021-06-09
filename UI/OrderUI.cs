@@ -38,7 +38,12 @@ namespace FoodDelivery21.UI
             var delivery = new DeliveryUI();
             var deliveryData = new DeliveryData();
             totalPrice += delivery.GetDelivery(deliveryData);
+<<<<<<< HEAD
 
+=======
+            var logger = new Logger();
+            logger.SaveIntoFile("The total order`s price was calculated");
+>>>>>>> logger
             buyerClient.ShowOrder(orderData, totalPrice);
         }
 <<<<<<< HEAD

@@ -10,6 +10,7 @@ namespace FoodDelivery21.UI
     {
         public void Start()
         {
+            var logger = new Logger();
             Console.WriteLine("Welcome to the food delivery service. Please, identify yourself");
             Console.WriteLine("Enter your personal or company name");
             var name = Console.ReadLine();
@@ -23,6 +24,7 @@ namespace FoodDelivery21.UI
             while (!roleValid)
             {
                 Console.WriteLine("Enter 1 if you are a buyer or 2 if you are a seller");
+<<<<<<< HEAD
                 var answer = Console.ReadLine();
                 var role = validator.CheckInt(answer);
 =======
@@ -56,17 +58,31 @@ namespace FoodDelivery21.UI
                     roleValid = true;
                     var order = new OrderUI();
                     order.CreateOrder();
+=======
+                var role = Console.ReadLine();
+                var r = validator.IntValidation(role);
+                var loggerMassage = "";
+                if (r == 1)
+                {
+                    roleValid = true;
+                    logger.SaveIntoFile("New session was strarted in buyer mode");
+                    var order = new OrderUI();
+                    order.CreateOrder();
+                   logger.SaveIntoFile("New order was successfully saved");
+>>>>>>> logger
                 }
                 else if (role == 2)
                 {
                     roleValid = true;
                     var seller = new SellerUI();
+                    logger.SaveIntoFile("New session was strarted in seller mode");
                     seller.StartWorking(name);
                 }
                 else
                 {
                     Console.WriteLine("Your role isn`t valid. Try again");
                 }
+                logger.SaveIntoFile("The session was successfully finished");
             }
         }
     }
