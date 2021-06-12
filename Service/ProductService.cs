@@ -9,7 +9,7 @@ namespace FoodDelivery21.Service
 {
     public class ProductService
     {
-        public bool DecrementProducts(ProductData productData, decimal value1, out decimal value, int productId)
+        public bool DecrementProducts(ProductData productData, decimal value1, out decimal value, int productId, Logger logger)
         {
             bool result = false;
             decimal val = default;
@@ -29,10 +29,11 @@ namespace FoodDelivery21.Service
                     }
             }
             value = val;
+            logger.SaveIntoFile(val + " items of the product was successfully taken from the stock");
             return result;
         }
 
-        public decimal IncrementProducts(ProductData productData, decimal value, int productId)
+        public decimal IncrementProducts(ProductData productData, decimal value, int productId, Logger logger)
         {
             decimal result = default;
             foreach (var item in productData.Products) 
@@ -43,6 +44,7 @@ namespace FoodDelivery21.Service
                         result = item.AvailableValue;
                 }
             }
+            logger.SaveIntoFile(value + " items of the product was successfully added to the stock");
             return result;
         }
     }

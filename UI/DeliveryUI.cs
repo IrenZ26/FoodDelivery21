@@ -19,12 +19,13 @@ namespace FoodDelivery21.UI
             return result;
         }
 
-        public decimal GetDelivery(DeliveryData deliveryData)
+        public decimal GetDelivery(DeliveryData deliveryData,Logger logger)
         {
             decimal price = default;
             var delivery = new DeliveryService();
             int k = ShowDelivery(deliveryData);
             price = delivery.GetDeliveryPrice(deliveryData, deliveryData.Deliveries[k - 1].Method);
+            logger.SaveIntoFile("The delivery method was selected as " + deliveryData.Deliveries.ElementAt(k - 1).Method);
             return price;
         }
 
