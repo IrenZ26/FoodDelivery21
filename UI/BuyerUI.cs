@@ -10,11 +10,6 @@ namespace FoodDelivery21.UI
 {
     public class BuyerUI
     {
-        public  Buyer CreateBuyer(string name, string address, string telephone)
-        {
-            var buyer = new Buyer(name, address, telephone);
-            return buyer;
-        }
         public bool IsExist(OrderData orderData, Buyer buyer)
         {
             var result = false;
@@ -25,6 +20,7 @@ namespace FoodDelivery21.UI
             }
             return result;
         }
+
         public void CreateOrder(DeliveryData deliveryData, OrderData orderData, ProductData productData, Buyer buyer)
         {
             bool isExist = IsExist(orderData, buyer);
@@ -37,13 +33,11 @@ namespace FoodDelivery21.UI
             if (answer == 1) 
             {
                 var buyerClient = new BuyerInterface();
-                buyerClient.ShowOrder(orderData, default, buyer,false);
+                buyerClient.ShowOrder(orderData, default);
             }
             if (answer == 2) 
             {
-                order.CreateOrder(deliveryData, orderData, productData, buyer);
-                var initializator = new DataInitializator();
-                initializator.SaveData<OrderData>(orderData);
+                order.CreateOrder(deliveryData, orderData, productData);
             }
         }
         public int GetResult()

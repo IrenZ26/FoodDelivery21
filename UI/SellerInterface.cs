@@ -10,11 +10,14 @@ namespace FoodDelivery21.UI
     {
         public Product CreateProduct(string companyName,ProductData productData)
         {
-            var id = GetId(productData);
+            Console.WriteLine("Enter product id");
+            var answer = Console.ReadLine();
+            int id;
+            int.TryParse(answer, out id);
             Console.WriteLine("Enter product name");
             var productName = Console.ReadLine();
             Console.WriteLine("Enter company price");
-            var answer = Console.ReadLine().Replace(".", ",");
+            answer = Console.ReadLine().Replace(".", ",");
             decimal price;
             decimal.TryParse(answer, out price);
             Console.WriteLine("Enter quantity of products");
@@ -35,16 +38,6 @@ namespace FoodDelivery21.UI
             Console.WriteLine("The product was succsesfully create:");
             Console.WriteLine("id:"+product.Id+" Name: " + product.Name + " Company: " + product.CompanyName + " Price: " + product.Price + "$ Avalible: " + product.AvailableValue + "items Promo code: " + product.DiscountPromoCode + " Product discount: " + product.ProductDiscount + " Personal discount: " + product.PersonalDiscount);
             return product;
-        }
-
-        public int GetId(ProductData productData)
-        {
-            int result = 0;
-            foreach (var item in productData.Products)
-            {
-                result = item.Id + 1;
-            }
-            return result;
         }
 
         public string ExistMassage()
@@ -77,21 +70,19 @@ namespace FoodDelivery21.UI
             var result = Console.ReadLine();
             return result;
         }
-
         public string ShowOrdersStatus(OrderData orderData, string companyName)
         {
             foreach (var item in orderData.Orders)
             {
                 if (item.Product.CompanyName == companyName)
                 {
-                    Console.WriteLine(item.Id + " product: " + item.Product.Name + " status: " + item.Status);
+                    Console.WriteLine(item.Id + " product: " + item.Product.Name);
                 }
             }
             Console.WriteLine("Enter the order`s id which status you want to change");
             string result = Console.ReadLine();
             return result;
         }
-
         public string ShowStatusMessage()
         {
             Console.WriteLine("What is a new status of selected order?\n" +

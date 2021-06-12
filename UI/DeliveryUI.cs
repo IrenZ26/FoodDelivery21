@@ -25,8 +25,6 @@ namespace FoodDelivery21.UI
             var delivery = new DeliveryService();
             int k = ShowDelivery(deliveryData);
             price = delivery.GetDeliveryPrice(deliveryData, deliveryData.Deliveries[k - 1].Method);
-            var logger = new Logger();
-            logger.SaveIntoFile("The delivery method was selected as " + deliveryData.Deliveries.ElementAt(k - 1).Method);
             return price;
         }
 
@@ -34,10 +32,7 @@ namespace FoodDelivery21.UI
         {
             foreach (var item in orderData.Orders)
             {
-                if ((item.Buyer.Name == buyer.Name) && (item.Buyer.Address == buyer.Address) && (item.Buyer.Telephone == buyer.Telephone))
-                {
-                    if (item.Status == Order.OrderStatus.Undefined) { item.DeliveryPrice = deliveryPrice; item.Status = Order.OrderStatus.Purchased; }
-                }
+                item.DeliveryPrice = deliveryPrice;
             }
         }
 
@@ -49,14 +44,11 @@ namespace FoodDelivery21.UI
             {
                 if ((item.Buyer.Name == buyer.Name) && (item.Buyer.Address == buyer.Address) && (item.Buyer.Telephone == buyer.Telephone))
                 {
-                    if ((item.Status != Order.OrderStatus.Undefined)) 
-                    {
-                        if (item.Id == id)
+                    if (item.Id == id)
                         {
                             result += item.DeliveryPrice;
                             id = item.Id+1;
                         }
-                    }
                 }
             }
             return result;
