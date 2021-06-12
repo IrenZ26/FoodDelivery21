@@ -10,11 +10,6 @@ namespace FoodDelivery21.UI
 {
     public class SellerUI
     {
-        public void CreateSeller(int id, string name, string address, string telephone)
-        {
-            var seller = new Seller(id, name, address, telephone);
-        }
-
         public Product GetProduct(ProductData productData, int productId)
         {
             var product = new Product();
@@ -27,42 +22,33 @@ namespace FoodDelivery21.UI
             }
             return product;
         }
-
-        public void StartWorking(string companyName, ProductData productData,OrderData orderData)
+        public void StartWorking(string companyName, ProductData productData)
         {
             var answer = Start(companyName, productData);
             var sellerService = new SellerService();
-            var logger = new Logger();
             if (answer == 1)
             {
                 var productId = GetProductId(productData, companyName);
                 var productValue = GetProductValue();
-                logger.SaveIntoFile("The seller choose to change the quantity of " + productData.Products.ElementAt(productId - 1).Name);
                 sellerService.UpdateProduct(productData, productId, productValue);
 
             }
             if (answer == 2)
             {
                 var product = new Product();
-                logger.SaveIntoFile("The seller choose to create the new product");
-                product = sellerService.CreateProduct(companyName,productData);
                 productData.Products.Add(product);
+                product = sellerService.CreateProduct(companyName, productData);
             }
             if (answer == 3)
             {
                 var productId = GetProductId(productData, companyName);
                 var product = new Product();
                 product = GetProduct(productData, productId);
-                logger.SaveIntoFile("The seller choose to delete the product");
                 sellerService.DeleteProduct(productData, product);
-            }
-            if (answer == 4)
-            {
-                sellerService.UpdateStatus(orderData, companyName);
             }
         }
 
-        public bool IsExist(ProductData productData, string companyName)
+        public bool IsExist(string companyName, ProductData productData)
         {
             bool result = false;
             foreach (var item in productData.Products)
@@ -82,23 +68,15 @@ namespace FoodDelivery21.UI
             {
                 var sellerClient = new SellerInterface();
                 var answer = sellerClient.ExistMassage();
-                int.TryParse(answer, out result);
+                var validator = new Validator();
+                result = validator.CheckInt(answer);
             }
             return result;
         }
 
         public int Start(string companyName, ProductData productData)
         {
-            bool isExist = IsExist(productData,companyName);
-            var logger = new Logger();
-            if (isExist) 
-            {
-                logger.SaveIntoFile("Seller is already exist");
-            }
-            else
-            {
-                logger.SaveIntoFile("It`s a new seller");
-            }
+            bool isExist = IsExist(companyName, productData);
             var result = GetResult(isExist);
             return result;
         }
@@ -107,17 +85,18 @@ namespace FoodDelivery21.UI
         {
             var sellerClient = new SellerInterface();
             var answer = sellerClient.ProductValueMassage();
-            decimal result;
-            decimal.TryParse(answer, out result);
-            return result;
+            var validator = new Validator();
+            var value = validator.CheckDecimal(answer);
+            return value;
+
         }
 
         public int GetProductId(ProductData productData, string companyName)
         {
+            var validator = new Validator();
             var sellerClient = new SellerInterface();
             var answer = sellerClient.ShowProducts(productData, companyName);
-            int result;
-            int.TryParse(answer, out result);
+            var result = validator.CheckInt(answer);
             return result;
         }
     }
