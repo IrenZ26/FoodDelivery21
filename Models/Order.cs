@@ -21,10 +21,10 @@ namespace FoodDelivery21
         public decimal TotalPrice { get; set; }
         public decimal Discount { get; set; }
 
-        public Order(int id, Product product, decimal productValue, decimal discount, decimal deliveryPrice, decimal totalPrice, OrderStatus status,Buyer buyer)
+        public Order(int id, Product product, decimal productValue, decimal discount, decimal deliveryPrice, decimal totalPrice, OrderStatus status, Buyer buyer)
         {
             Id = id;
-            Product = product;           
+            Product = product;
             ProductValue = productValue;
             Discount = discount;
             DeliveryPrice = deliveryPrice;

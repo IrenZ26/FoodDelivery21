@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 namespace FoodDelivery21.UI
 {
     public class OrderUI
-    {  
-        public void CreateOrder(DeliveryData deliveryData,OrderData orderData,ProductData productData, Buyer buyer)
+    {
+        public void CreateOrder(DeliveryData deliveryData, OrderData orderData, ProductData productData, Buyer buyer)
         {
             bool isContinue = true;
             var buyerClient = new BuyerInterface();
@@ -27,38 +27,41 @@ namespace FoodDelivery21.UI
             delivery.SetDeliveryPrice(orderData, buyer, deliveryPrice);
             totalPrice += deliveryPrice;
             buyerClient.ShowOrder(orderData, totalPrice, buyer, true);
-            var logger = new Logger();
-            logger.SaveIntoFile("The total order`s price was calculated");
         }
 
+        public decimal GetItemsCount()
+        {
+            var buyer = new BuyerInterface();
+            string answer = buyer.ItemsMessage();
+            var validator = new Validator();
+            decimal val = validator.CheckDecimal(answer);
+            return val;
+        }
         public int GetId(OrderData orderData)
         {
             int result = 0;
             foreach (var item in orderData.Orders)
             {
-                result = item.Id+1;
+                result = item.Id + 1;
             }
             return result;
         }
-
         public int GetOrderID(OrderData orderData, string companyName)
         {
             var seller = new SellerInterface();
             var answer = seller.ShowOrdersStatus(orderData, companyName);
-            int result;
-            int.TryParse(answer, out result);
+            var validator = new Validator();
+            int result = validator.CheckInt(answer);
             return result;
         }
-
         public int GetNewStatus()
         {
             var seller = new SellerInterface();
             var answer = seller.ShowStatusMessage();
-            int result;
-            int.TryParse(answer, out result);
+            var validator = new Validator();
+            int result = validator.CheckInt(answer);
             return result;
         }
-
         public void SetNewStatus(OrderData orderData, int id, int status)
         {
             foreach (var item in orderData.Orders)
@@ -81,15 +84,6 @@ namespace FoodDelivery21.UI
                     }
                 }
             }
-        }
-
-        public decimal GetItemsCount()
-        {
-            var buyer = new BuyerInterface();
-            string answer = buyer.ItemsMassage();
-            decimal result;
-            decimal.TryParse(answer, out result);
-            return result;
         }
     }
 }

@@ -17,8 +17,6 @@ namespace FoodDelivery21.Service
             var orderUI = new OrderUI();
             var totalPrice = product.Price;
             var val = orderUI.GetItemsCount();
-            var logger = new Logger();
-            logger.SaveIntoFile(product.Name + " was added to the order");
             var value = productUI.UpdateProduct(productData,product.Id, val,"dec");
             totalPrice *= value;
             var promo = buyerClient.GetPromo();
@@ -28,7 +26,7 @@ namespace FoodDelivery21.Service
                 discount += product.PersonalDiscount;
             }
             totalPrice = GetDiscount(totalPrice, discount);
-            var order = new Order(id,product, value, discount, 0.0m, totalPrice, Order.OrderStatus.Undefined, buyer);
+            var order = new Order(id, product, value, discount, 0.0m, totalPrice, Order.OrderStatus.Undefined, buyer);
             return order;
         }
 

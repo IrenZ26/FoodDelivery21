@@ -25,7 +25,7 @@ namespace FoodDelivery21.Service
             }
             return result;
         }
-       
+
         private string GetPath<T>(T data)
         {
             var path = "";
@@ -40,31 +40,31 @@ namespace FoodDelivery21.Service
         {
             var deliveryData = new DeliveryData();
             var IsExist = DataDeserialize<DeliveryData>(ref deliveryData);
-            if(!IsExist) 
+            if (!IsExist)
             {
                 deliveryData.DeliveryListInit();
             }
             return deliveryData;
         }
-   
-        public OrderData GetOrdersData() 
+
+        public OrderData GetOrdersData()
         {
             var orderData = new OrderData();
             DataDeserialize<OrderData>(ref orderData);
             return orderData;
         }
-       
+
         public ProductData GetProductsData()
         {
             var productData = new ProductData();
             var IsExist = DataDeserialize<ProductData>(ref productData);
-            if (!IsExist) 
+            if (!IsExist)
             {
                 productData.ProductsInit();
             }
             return productData;
         }
-   
+
         public void SaveData<T>(T data)
         {
             var path = GetPath<T>(data);

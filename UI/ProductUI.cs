@@ -20,7 +20,7 @@ namespace FoodDelivery21.UI
                 if (!isEnough)
                 {
                     BuyerInterface buyerClient = new BuyerInterface();
-                    buyerClient.ShowQuantErrMassage(value);
+                    buyerClient.ShowQuantErrMessage(value);
                 }
                 result = value;
             }
@@ -42,8 +42,8 @@ namespace FoodDelivery21.UI
         {
             var buyer = new BuyerInterface();
             var answer = buyer.ShowProducts(productData);
-            int result;
-            int.TryParse(answer, out result);
+            var validator = new Validator();
+            var result = validator.CheckInt(answer);
             return result;
         }
     }

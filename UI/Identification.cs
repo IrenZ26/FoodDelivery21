@@ -11,29 +11,14 @@ namespace FoodDelivery21.UI
     {
         public void Start()
         {
-            var logger = new Logger();
             Console.WriteLine("Welcome to the food delivery service. Please, identify yourself");
             Console.WriteLine("Enter your personal or company name");
             var name = Console.ReadLine();
-            bool addressValid = false;
+            Console.WriteLine("Enter your address");
+            var address = Console.ReadLine();
+            Console.WriteLine("Enter your telephone number");
+            var telephone = Console.ReadLine();
             var validator = new Validator();
-            string telephone = "";
-            string address = "";
-            while (!addressValid)
-            {
-                Console.WriteLine("Enter your address");
-                address = Console.ReadLine();
-                addressValid = validator.ValidateAddress(address);
-                if (!addressValid) { Console.WriteLine("Your address isn`t valid. Try again"); }
-            }
-            bool telephoneValid = false;
-            while (!telephoneValid)
-            {
-                Console.WriteLine("Enter your telephone number");
-                telephone = Console.ReadLine();
-                telephoneValid = validator.ValidateTelephone(telephone);
-                if (!telephoneValid) { Console.WriteLine("Your telephone number isn`t valid. Try again"); }
-            }
             bool roleValid = false;
             var initializator = new DataInitializator();
             var deliveryData = initializator.GetDeliveryData();
@@ -43,34 +28,29 @@ namespace FoodDelivery21.UI
             {
                 Console.WriteLine("Enter 1 if you are a buyer or 2 if you are a seller");
                 var answer = Console.ReadLine();
-                int role;
-                int.TryParse(answer, out role);
+                var role = validator.CheckInt(answer);
                 if (role == 1)
                 {
+                    roleValid = true;
                     var buyerUI = new BuyerUI();
                     var buyer = buyerUI.CreateBuyer(name, address, telephone);
-                    logger.SaveIntoFile("New session was strarted in buyer mode");
-                    roleValid = true;
                     buyerUI.CreateOrder(deliveryData, orderData, productData, buyer);
-                    logger.SaveIntoFile("New order was successfully saved");
                 }
                 else if (role == 2)
                 {
                     roleValid = true;
                     var seller = new SellerUI();
-                    logger.SaveIntoFile("New session was strarted in seller mode");
                     seller.StartWorking(name, productData, orderData);
                 }
                 else
                 {
                     Console.WriteLine("Your role isn`t valid. Try again");
                 }
-                logger.SaveIntoFile("The session was successfully finished");
             }
+            initializator.SaveData(deliveryData);
+            initializator.SaveData(orderData);
+            initializator.SaveData(productData);
             Console.WriteLine("Thank you for using our Delivery Service");
-            initializator.SaveData<DeliveryData>(deliveryData);
-            initializator.SaveData<OrderData>(orderData);
-            initializator.SaveData<ProductData>(productData);
         }
     }
 }

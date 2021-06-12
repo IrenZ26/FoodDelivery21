@@ -18,13 +18,15 @@ namespace FoodDelivery21.UI
             var result = Console.ReadLine();
             return result;
         }
+
        public string ExistMessage()
         {
             Console.WriteLine("You have existing orders. If you want to watch their status, enter 1. Or enter 2 to create a new one");
             var result = Console.ReadLine();
             return result;
         }
-        public void ShowOrder(OrderData orderData, decimal totalPrice,Buyer buyer,bool isCreate) 
+
+        public void ShowOrder(OrderData orderData, decimal totalPrice, Buyer buyer, bool isCreate)
         {
             if (!isCreate)
             {
@@ -34,17 +36,14 @@ namespace FoodDelivery21.UI
             Console.WriteLine("Your order: ");
             foreach (var item in orderData.Orders)
             {
-                if ((item.Buyer.Name == buyer.Name) && (item.Buyer.Address == buyer.Address) && (item.Buyer.Telephone == buyer.Telephone))
-                {
                     var discount = item.Discount * 100;
-                    Console.WriteLine(item.Product.Name + " " + item.ProductValue + " items, costs " + item.Product.Price + "$ for one item.\nDiscount = " + discount + "%. Total price = " + item.TotalPrice + "$" + " Order status - "+item.Status);
-                    totalPrice += item.TotalPrice;
-                }
+                Console.WriteLine(item.Product.Name + " " + item.ProductValue + " items, costs " + item.Product.Price + "$ for one item.\nDiscount = " + discount + "%. Total price = " + item.TotalPrice + "$" + " Order status - " + item.Status);
+                totalPrice += item.TotalPrice;
             }
             Console.WriteLine("Total price of the whole order with delivery = " + totalPrice + "$");
         }
 
-        public string ItemsMassage() 
+        public string ItemsMessage() 
         {
             Console.WriteLine("Enter how many items you want to buy");
             var result = Console.ReadLine();
@@ -79,7 +78,7 @@ namespace FoodDelivery21.UI
             return result;
         }
 
-        public void ShowQuantErrMassage(decimal value)
+        public void ShowQuantErrMessage(decimal value)
         {
             Console.WriteLine("Sorry we don`t have that many items in stock.\n Quantity of ordered products is: " + value);
         }

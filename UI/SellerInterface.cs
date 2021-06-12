@@ -10,41 +10,28 @@ namespace FoodDelivery21.UI
     {
         public Product CreateProduct(string companyName,ProductData productData)
         {
+            var validator = new Validator();
             var id = GetId(productData);
             Console.WriteLine("Enter product name");
             var productName = Console.ReadLine();
             Console.WriteLine("Enter company price");
-            var answer = Console.ReadLine().Replace(".", ",");
-            decimal price;
-            decimal.TryParse(answer, out price);
+            var answer = Console.ReadLine().Replace(".", ",");            
+            var price = validator.CheckDecimal(answer);
             Console.WriteLine("Enter quantity of products");
             answer = Console.ReadLine().Replace(".", ",");
-            decimal availableValue;
-            decimal.TryParse(answer, out availableValue);
+            var availableValue = validator.CheckDecimal(answer);
             Console.WriteLine("Enter discount promo code");
             var promoCode = Console.ReadLine();
             Console.WriteLine("Enter product discount");
             answer = Console.ReadLine().Replace(".", ",");
-            decimal productDiscount;
-            decimal.TryParse(answer, out productDiscount);
+            var productDiscount = validator.CheckDecimal(answer);
             Console.WriteLine("Enter personal discount");
             answer = Console.ReadLine().Replace(".", ",");
-            decimal personalDiscount;
-            decimal.TryParse(answer, out personalDiscount);
+            var personalDiscount = validator.CheckDecimal(answer);
             var product = new Product(id,productName, companyName, price, availableValue, promoCode, productDiscount, personalDiscount);
             Console.WriteLine("The product was succsesfully create:");
             Console.WriteLine("id:"+product.Id+" Name: " + product.Name + " Company: " + product.CompanyName + " Price: " + product.Price + "$ Avalible: " + product.AvailableValue + "items Promo code: " + product.DiscountPromoCode + " Product discount: " + product.ProductDiscount + " Personal discount: " + product.PersonalDiscount);
             return product;
-        }
-
-        public int GetId(ProductData productData)
-        {
-            int result = 0;
-            foreach (var item in productData.Products)
-            {
-                result = item.Id + 1;
-            }
-            return result;
         }
 
         public string ExistMassage()
@@ -77,7 +64,6 @@ namespace FoodDelivery21.UI
             var result = Console.ReadLine();
             return result;
         }
-
         public string ShowOrdersStatus(OrderData orderData, string companyName)
         {
             foreach (var item in orderData.Orders)
@@ -88,7 +74,7 @@ namespace FoodDelivery21.UI
                 }
             }
             Console.WriteLine("Enter the order`s id which status you want to change");
-            string result = Console.ReadLine();
+            var result = Console.ReadLine();
             return result;
         }
 
@@ -100,6 +86,16 @@ namespace FoodDelivery21.UI
                "Enter 3 if the status is Delivered\n" +
                "Enter any other number if you dont want to change the status");
             var result = Console.ReadLine();
+            return result;
+        }
+
+        public int GetId(ProductData productData)
+        {
+            int result = 0;
+            foreach (var item in productData.Products)
+            {
+                result = item.Id + 1;
+            }
             return result;
         }
     }
