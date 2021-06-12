@@ -25,6 +25,7 @@ namespace FoodDelivery21.UI
             var orderData = new OrderData();
             var productData = new ProductData();
             productData.ProductsInit();
+            var logger = new Logger();
             while (!roleValid)
             {
                 Console.WriteLine("Enter 1 if you are a buyer or 2 if you are a seller");
@@ -33,14 +34,17 @@ namespace FoodDelivery21.UI
                 if (role == 1)
                 {
                     roleValid = true;
+                    logger.SaveIntoFile("New session was strarted in buyer mode");
                     var order = new OrderUI();
-                    order.CreateOrder(deliveryData,orderData,productData);
+                    order.CreateOrder(deliveryData,orderData,productData,logger);
+                    logger.SaveIntoFile("New order was successfully saved");
                 }
                 else if (role == 2)
                 {
                     roleValid = true;
                     var seller = new SellerUI();
-                    seller.StartWorking(name,productData);
+                    logger.SaveIntoFile("New session was strarted in seller mode");
+                    seller.StartWorking(name,productData,logger);
                 }
                 else
                 {
@@ -48,6 +52,7 @@ namespace FoodDelivery21.UI
                 }
             }
             Console.WriteLine("Thank you for using our Delivery Service");
+            logger.SaveIntoFile("The session was successfully finished");
         }
     }
 }

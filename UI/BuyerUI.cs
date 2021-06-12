@@ -21,7 +21,7 @@ namespace FoodDelivery21.UI
             return result;
         }
 
-        public void CreateOrder(DeliveryData deliveryData, OrderData orderData, ProductData productData, Buyer buyer)
+        public void CreateOrder(DeliveryData deliveryData, OrderData orderData, ProductData productData, Buyer buyer, Logger logger)
         {
             bool isExist = IsExist(orderData, buyer);
             var answer = 2;
@@ -37,7 +37,7 @@ namespace FoodDelivery21.UI
             }
             if (answer == 2) 
             {
-                order.CreateOrder(deliveryData, orderData, productData);
+                order.CreateOrder(deliveryData, orderData, productData,logger);
             }
         }
         public int GetResult()

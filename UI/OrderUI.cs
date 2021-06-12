@@ -10,19 +10,19 @@ namespace FoodDelivery21.UI
 {
     public class OrderUI
     {  
-        public void CreateOrder(DeliveryData deliveryData,OrderData orderData,ProductData productData)
+        public void CreateOrder(DeliveryData deliveryData,OrderData orderData,ProductData productData, Logger logger)
         {
             bool isContinue = true;
             var buyerClient = new BuyerInterface();
             var orderService = new OrderService();
             while (isContinue)
             {
-                orderData.Orders.Add(orderService.AddOrderItem(productData,1));
+                orderData.Orders.Add(orderService.AddOrderItem(productData,1,logger));
                 isContinue = buyerClient.Continue();
             }
             decimal totalPrice = 0;
             var delivery = new DeliveryUI();
-            totalPrice += delivery.GetDelivery(deliveryData);
+            totalPrice += delivery.GetDelivery(deliveryData,logger);
             buyerClient.ShowOrder(orderData, totalPrice);
         }
 

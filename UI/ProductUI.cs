@@ -10,13 +10,13 @@ namespace FoodDelivery21.UI
 {
     public class ProductUI
     {
-        public decimal UpdateProduct(ProductData productData, int productId, decimal value, string action)
+        public decimal UpdateProduct(ProductData productData, int productId, decimal value, string action, Logger logger)
         {
             var product = new ProductService();
             decimal result = 0;
             if (action == "dec")
             {
-                var isEnough = product.DecrementProducts(productData, value, out value, productId);
+                var isEnough = product.DecrementProducts(productData, value, out value, productId,logger);
                 if (!isEnough)
                 {
                     BuyerInterface buyerClient = new BuyerInterface();
@@ -26,7 +26,7 @@ namespace FoodDelivery21.UI
             }
             if (action == "inc")
             {
-                result = product.IncrementProducts(productData, value, productId);
+                result = product.IncrementProducts(productData, value, productId,logger);
             }
             return result;
         }
