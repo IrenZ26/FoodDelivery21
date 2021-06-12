@@ -30,9 +30,9 @@ namespace FoodDelivery21.UI
         {
             var buyer = new BuyerInterface();
             string answer = buyer.ItemsMassage();
-            var validator = new Validator();
-            decimal val = validator.CheckDecimal(answer);
-            return val;
+            decimal result;
+            decimal.TryParse(answer, out result);
+            return result;
         }
     }
 }

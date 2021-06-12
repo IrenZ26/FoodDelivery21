@@ -44,8 +44,8 @@ namespace FoodDelivery21.UI
         {
             var buyer = new BuyerInterface();
             var answer = buyer.ExistMessage();
-            var validator = new Validator();
-            var result = validator.CheckInt(answer);
+            int result;
+            int.TryParse(answer, out result);
             return result;
         }
     }

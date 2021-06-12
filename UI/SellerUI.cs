@@ -68,8 +68,7 @@ namespace FoodDelivery21.UI
             {
                 var sellerClient = new SellerInterface();
                 var answer = sellerClient.ExistMassage();
-                var validator = new Validator();
-                result = validator.CheckInt(answer);
+                int.TryParse(answer, out result);
             }
             return result;
         }
@@ -85,18 +84,18 @@ namespace FoodDelivery21.UI
         {
             var sellerClient = new SellerInterface();
             var answer = sellerClient.ProductValueMassage();
-            var validator = new Validator();
-            var value = validator.CheckDecimal(answer);
-            return value;
+            decimal result;
+            decimal.TryParse(answer, out result);
+            return result;
 
         }
 
         public int GetProductId(ProductData productData, string companyName)
         {
-            var validator = new Validator();
             var sellerClient = new SellerInterface();
             var answer = sellerClient.ShowProducts(productData, companyName);
-            var result = validator.CheckInt(answer);
+            int result;
+            int.TryParse(answer, out result);
             return result;
         }
     }

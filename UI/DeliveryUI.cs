@@ -14,8 +14,8 @@ namespace FoodDelivery21.UI
         {
             var byer = new BuyerInterface();
             var answer = byer.ShowDeliveries(deliveryData);
-            var validator = new Validator();
-            var result = validator.CheckInt(answer);
+            int result;
+            int.TryParse(answer, out result);
             return result;
         }
 
