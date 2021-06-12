@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FoodDelivery21.Data
 {
-    public class DeliveryData
+    public class DeliveryData:IDeliveryData
     {
         public IList<Delivery> Deliveries { get; set; }
 

@@ -1,4 +1,5 @@
-﻿using FoodDelivery21.Data;
+﻿using FoodDelivery21.Contracts;
+using FoodDelivery21.Data;
 using FoodDelivery21.UI;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Text;
 
 namespace FoodDelivery21.Service
 {
-    public class OrderService
+    public class OrderService: IOrderService
     {
         public Order AddOrderItem(ProductData productData, int id)
         {

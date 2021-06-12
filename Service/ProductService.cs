@@ -1,4 +1,5 @@
-﻿using FoodDelivery21.Data;
+﻿using FoodDelivery21.Contracts;
+using FoodDelivery21.Data;
 using FoodDelivery21.UI;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Text;
 
 namespace FoodDelivery21.Service
 {
-    public class ProductService
+    public class ProductService: IProductService
     {
         public bool DecrementProducts(ProductData productData, decimal value1, out decimal value, int productId)
         {

@@ -1,10 +1,11 @@
-﻿using System;
+﻿using FoodDelivery21.Contracts;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace FoodDelivery21.Data
 {
-    public class ProductData
+    public class ProductData:IProductData
     {
         public IList<Product> Products { get; set; }
 

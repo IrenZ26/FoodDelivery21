@@ -22,7 +22,7 @@ namespace FoodDelivery21.UI
         public decimal GetDelivery(DeliveryData deliveryData)
         {
             decimal price = default;
-            var delivery = new DeliveryService();
+            var delivery = new DeliveryService(deliveryData);
             int k = ShowDelivery(deliveryData);
             price = delivery.GetDeliveryPrice(deliveryData, deliveryData.Deliveries[k - 1].Method);
             return price;

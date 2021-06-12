@@ -1,4 +1,5 @@
-﻿using FoodDelivery21.Data;
+﻿using FoodDelivery21.Contracts;
+using FoodDelivery21.Data;
 using FoodDelivery21.UI;
 using System;
 using System.Collections.Generic;
@@ -6,18 +7,23 @@ using System.Text;
 
 namespace FoodDelivery21.Service
 {
-    public class DeliveryService
+    public class DeliveryService: IDeliveryService
     {
+        private readonly IDeliveryData _deliveryData;
+        public DeliveryService(IDeliveryData deliveryData)
+        {
+            _deliveryData = deliveryData;
+        }
         public void SetDeliveryPrice(DeliveryData deliveryData, string method, decimal price)
         {
             var delivery = new Delivery(method, price);
-            deliveryData.Deliveries.Add(delivery);
+            _deliveryData.Deliveries.Add(delivery);
         }
 
         public decimal GetDeliveryPrice(DeliveryData deliveryData, string method)
         {
             decimal price = default;
-            foreach (var delivery in deliveryData.Deliveries)
+            foreach (var delivery in _deliveryData.Deliveries)
             {
                 if (delivery.Method == method) 
                 {
