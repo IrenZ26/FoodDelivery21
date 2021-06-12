@@ -19,7 +19,7 @@ namespace FoodDelivery21.UI
             Console.WriteLine("Enter your telephone number");
             var telephone = Console.ReadLine();
             var validator = new Validator();
-            bool roleValid = false;
+            var roleValid = false;
             var deliveryData = new DeliveryData();
             deliveryData.DeliveryListInit();
             var orderData = new OrderData();
