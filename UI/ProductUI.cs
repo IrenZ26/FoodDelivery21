@@ -20,7 +20,7 @@ namespace FoodDelivery21.UI
                 if (!isEnough)
                 {
                     BuyerInterface buyerClient = new BuyerInterface();
-                    buyerClient.ShowQuantErrMassage(value);
+                    buyerClient.ShowQuantErrMessage(value);
                 }
                 result = value;
             }

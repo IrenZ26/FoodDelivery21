@@ -8,7 +8,7 @@ namespace FoodDelivery21.Service
 {
     public class OrderService
     {
-        public Order AddOrderItem(ProductData productData, int id)
+        public Order AddOrderItem(ProductData productData, Buyer buyer, int id)
         {
             var product = new Product();
             var productUI = new ProductUI();
@@ -26,7 +26,7 @@ namespace FoodDelivery21.Service
                 discount += product.PersonalDiscount;
             }
             totalPrice = GetDiscount(totalPrice, discount);
-            var order = new Order(id,product, value, discount, 0.0m, totalPrice);
+            var order = new Order(id, product, value, discount, 0.0m, totalPrice, Order.OrderStatus.Undefined, buyer);
             return order;
         }
 

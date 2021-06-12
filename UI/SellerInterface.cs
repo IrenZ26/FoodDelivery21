@@ -10,14 +10,12 @@ namespace FoodDelivery21.UI
     {
         public Product CreateProduct(string companyName,ProductData productData)
         {
-            Console.WriteLine("Enter product id");
-            var answer = Console.ReadLine();
             var validator = new Validator();
-            var id = validator.CheckInt(answer);
+            var id = GetId(productData);
             Console.WriteLine("Enter product name");
             var productName = Console.ReadLine();
             Console.WriteLine("Enter company price");
-            answer = Console.ReadLine().Replace(".", ",");            
+            var answer = Console.ReadLine().Replace(".", ",");            
             var price = validator.CheckDecimal(answer);
             Console.WriteLine("Enter quantity of products");
             answer = Console.ReadLine().Replace(".", ",");
@@ -72,13 +70,14 @@ namespace FoodDelivery21.UI
             {
                 if (item.Product.CompanyName == companyName)
                 {
-                    Console.WriteLine(item.Id + " product: " + item.Product.Name);
+                    Console.WriteLine(item.Id + " product: " + item.Product.Name + " status: " + item.Status);
                 }
             }
             Console.WriteLine("Enter the order`s id which status you want to change");
-            string result = Console.ReadLine();
+            var result = Console.ReadLine();
             return result;
         }
+
         public string ShowStatusMessage()
         {
             Console.WriteLine("What is a new status of selected order?\n" +
@@ -87,6 +86,16 @@ namespace FoodDelivery21.UI
                "Enter 3 if the status is Delivered\n" +
                "Enter any other number if you dont want to change the status");
             var result = Console.ReadLine();
+            return result;
+        }
+
+        public int GetId(ProductData productData)
+        {
+            int result = 0;
+            foreach (var item in productData.Products)
+            {
+                result = item.Id + 1;
+            }
             return result;
         }
     }

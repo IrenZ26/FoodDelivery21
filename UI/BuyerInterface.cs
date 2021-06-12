@@ -26,19 +26,24 @@ namespace FoodDelivery21.UI
             return result;
         }
 
-        public void ShowOrder(OrderData orderData, decimal totalPrice) 
+        public void ShowOrder(OrderData orderData, decimal totalPrice, Buyer buyer, bool isCreate)
         {
+            if (!isCreate)
+            {
+                var delivery = new DeliveryUI();
+                totalPrice += delivery.GetDeliveryPrice(orderData, buyer);
+            }
             Console.WriteLine("Your order: ");
             foreach (var item in orderData.Orders)
             {
                     var discount = item.Discount * 100;
-                    Console.WriteLine(item.Product.Name + " " + item.ProductValue + " items, costs " + item.Product.Price + "$ for one item.\nDiscount = " + discount + "%. Total price = " + item.TotalPrice + "$");
-                    totalPrice += item.TotalPrice;
+                Console.WriteLine(item.Product.Name + " " + item.ProductValue + " items, costs " + item.Product.Price + "$ for one item.\nDiscount = " + discount + "%. Total price = " + item.TotalPrice + "$" + " Order status - " + item.Status);
+                totalPrice += item.TotalPrice;
             }
             Console.WriteLine("Total price of the whole order with delivery = " + totalPrice + "$");
         }
 
-        public string ItemsMassage() 
+        public string ItemsMessage() 
         {
             Console.WriteLine("Enter how many items you want to buy");
             var result = Console.ReadLine();
@@ -73,7 +78,7 @@ namespace FoodDelivery21.UI
             return result;
         }
 
-        public void ShowQuantErrMassage(decimal value)
+        public void ShowQuantErrMessage(decimal value)
         {
             Console.WriteLine("Sorry we don`t have that many items in stock.\n Quantity of ordered products is: " + value);
         }

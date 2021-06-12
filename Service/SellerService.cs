@@ -27,5 +27,12 @@ namespace FoodDelivery21.Service
             productData.Products.Remove(product);
         }
 
+        public void UpdateStatus(OrderData orderData, string companyName)
+        {
+            var orderUI = new OrderUI();
+            var id = orderUI.GetOrderID(orderData, companyName);
+            var status = orderUI.GetNewStatus();
+            orderUI.SetNewStatus(orderData, id, status);
+        }
     }
 }

@@ -15,19 +15,32 @@ namespace FoodDelivery21
         public int Id { get; set; }
         public Buyer Buyer { get; set; }
         public Product Product { get; set; }
+        public OrderStatus Status { get; set; }
         public decimal ProductValue { get; set; }
         public decimal DeliveryPrice { get; set; }
         public decimal TotalPrice { get; set; }
         public decimal Discount { get; set; }
 
-        public Order(int id, Product product, decimal productValue, decimal discount, decimal deliveryPrice, decimal totalPrice)
+        public Order(int id, Product product, decimal productValue, decimal discount, decimal deliveryPrice, decimal totalPrice, OrderStatus status, Buyer buyer)
         {
             Id = id;
-            Product = product;           
+            Product = product;
             ProductValue = productValue;
             Discount = discount;
             DeliveryPrice = deliveryPrice;
             TotalPrice = totalPrice;
+            Status = status;
+            Buyer = buyer;
+        }
+        [System.Text.Json.Serialization.JsonConverter(typeof(JsonStringEnumConverter))]
+        public enum OrderStatus
+        {
+            Undefined,
+
+            Cancelled,
+            Purchased,
+            Delivered,
+            Packed,
         }
     }
 }

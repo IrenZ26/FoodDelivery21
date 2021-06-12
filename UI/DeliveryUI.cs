@@ -32,7 +32,10 @@ namespace FoodDelivery21.UI
         {
             foreach (var item in orderData.Orders)
             {
-                item.DeliveryPrice = deliveryPrice;
+                if ((item.Buyer.Name == buyer.Name) && (item.Buyer.Address == buyer.Address) && (item.Buyer.Telephone == buyer.Telephone))
+                {
+                    if (item.Status == Order.OrderStatus.Undefined) { item.DeliveryPrice = deliveryPrice; item.Status = Order.OrderStatus.Purchased; }
+                }
             }
         }
 
@@ -44,11 +47,14 @@ namespace FoodDelivery21.UI
             {
                 if ((item.Buyer.Name == buyer.Name) && (item.Buyer.Address == buyer.Address) && (item.Buyer.Telephone == buyer.Telephone))
                 {
-                    if (item.Id == id)
+                    if ((item.Status != Order.OrderStatus.Undefined))
+                    {
+                        if (item.Id == id)
                         {
                             result += item.DeliveryPrice;
-                            id = item.Id+1;
+                            id = item.Id + 1;
                         }
+                    }
                 }
             }
             return result;

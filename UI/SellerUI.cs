@@ -22,7 +22,7 @@ namespace FoodDelivery21.UI
             }
             return product;
         }
-        public void StartWorking(string companyName, ProductData productData)
+        public void StartWorking(string companyName, ProductData productData, OrderData orderData)
         {
             var answer = Start(companyName, productData);
             var sellerService = new SellerService();
@@ -45,6 +45,10 @@ namespace FoodDelivery21.UI
                 var product = new Product();
                 product = GetProduct(productData, productId);
                 sellerService.DeleteProduct(productData, product);
+            }
+            if (answer == 4)
+            {
+                sellerService.UpdateStatus(orderData, companyName);
             }
         }
 
