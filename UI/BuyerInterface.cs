@@ -1,4 +1,5 @@
-﻿using FoodDelivery21.Data;
+﻿using FoodDelivery21.Contracts;
+using FoodDelivery21.Data;
 using FoodDelivery21.Service;
 using System;
 using System.Collections.Generic;
@@ -6,11 +7,28 @@ using System.Text;
 
 namespace FoodDelivery21.UI
 {
-    public class BuyerInterface
+    public class ByuerInterface
     {
-       public string ShowProducts(ProductData productData) 
+        private readonly IDeliveryData _deliveryData;
+        private readonly IOrderData _orderData;
+        private readonly IProductData _productData;
+        public ByuerInterface(IDeliveryData deliveryData) 
         {
-            foreach (var item in productData.Products)
+            _deliveryData = deliveryData;         
+        }
+        public ByuerInterface(IOrderData orderData) 
+        {
+            _orderData = orderData;
+        }
+        public ByuerInterface(IProductData productData)
+        {
+            _productData = productData;
+        }
+        public ByuerInterface(){}
+
+        public string ShowProducts() 
+        {
+            foreach (var item in _productData.Products)
             {
                 Console.WriteLine(item.Name + " from " + item.CompanyName + " costs " + item.Price + "$." + "Available: " + item.AvailableValue + " items");
             }
@@ -19,17 +37,17 @@ namespace FoodDelivery21.UI
             return result;
         }
 
-       public string ExistMessage()
+        public string ExistMessage()
         {
             Console.WriteLine("You have existing orders. If you want to watch their status, enter 1. Or enter 2 to create a new one");
             var result = Console.ReadLine();
             return result;
         }
 
-        public void ShowOrder(OrderData orderData, decimal totalPrice) 
+        public void ShowOrder(decimal totalPrice) 
         {
             Console.WriteLine("Your order: ");
-            foreach (var item in orderData.Orders)
+            foreach (var item in _orderData.Orders)
             {
                     var discount = item.Discount * 100;
                     Console.WriteLine(item.Product.Name + " " + item.ProductValue + " items, costs " + item.Product.Price + "$ for one item.\nDiscount = " + discount + "%. Total price = " + item.TotalPrice + "$");
@@ -62,9 +80,9 @@ namespace FoodDelivery21.UI
             return result;
         }
 
-        public string ShowDeliveries(DeliveryData deliveryData)
+        public string ShowDeliveries()
         {
-            foreach (var item in deliveryData.Deliveries)
+            foreach (var item in _deliveryData.Deliveries)
             {
                 Console.WriteLine(item.Method + " costs " + item.Price + "$");
             }

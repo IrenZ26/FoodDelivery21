@@ -9,8 +9,10 @@ namespace FoodDelivery21.Contracts
 {
     public interface IProductService
     {
-        bool DecrementProducts(ProductData productData, decimal value1, out decimal value, int productId);
+        decimal UpdateProduct(int productId, decimal value, string action);
 
-        decimal IncrementProducts(ProductData productData, decimal value, int productId);
+        bool DecrementProducts(decimal value1, out decimal value, int productId);
+
+        decimal IncrementProducts(decimal value, int productId);
     }
 }

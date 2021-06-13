@@ -9,23 +9,29 @@ namespace FoodDelivery21.Service
 {
     public class SellerService: ISellerService
     {
-        public Product CreateProduct(string companyName,ProductData productData)
+        private readonly IProductData _productData;
+        public SellerService(IProductData productData)
+        {
+            _productData = productData;
+        }
+
+        public Product CreateProduct(string companyName)
         {
             var product = new Product();
-            var sellerClient = new SellerInterface();
-            product = sellerClient.CreateProduct(companyName,productData);
+            var sellerClient = new SellerInterface(_productData);
+            product = sellerClient.CreateProduct(companyName);
             return product;            
         }
 
-        public void UpdateProduct(ProductData productData, int productId, decimal value)
+        public void UpdateProduct(int productId, decimal value)
         {
-            var productUI = new ProductUI();
-            productUI.UpdateProduct(productData, productId, value, "inc");
+            var productUI = new ProductService(_productData);
+            productUI.UpdateProduct(productId, value, "inc");
         }
 
-        public void DeleteProduct(ProductData productData, Product product)
+        public void DeleteProduct(Product product)
         {
-            productData.Products.Remove(product);
+            _productData.Products.Remove(product);
         }
 
     }

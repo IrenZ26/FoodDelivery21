@@ -8,6 +8,6 @@ namespace FoodDelivery21.Contracts
 {
     public interface IOrderData
     {
-        public IList<Order> Orders { get; set; }
+        IList<Order> Orders { get; set; }
     }
 }

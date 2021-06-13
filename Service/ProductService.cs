@@ -10,11 +10,16 @@ namespace FoodDelivery21.Service
 {
     public class ProductService: IProductService
     {
-        public bool DecrementProducts(ProductData productData, decimal value1, out decimal value, int productId)
+        private readonly IProductData _productData;
+        public ProductService(IProductData productData)
+        {
+            _productData = productData;
+        }
+        public bool DecrementProducts(decimal value1, out decimal value, int productId)
         {
             bool result = false;
             decimal val = default;
-            foreach (var item in productData.Products.Where(x => x.Id == productId))
+            foreach (var item in _productData.Products.Where(x => x.Id == productId))
             { 
                     if (item.AvailableValue >= value1)
                     {
@@ -33,10 +38,10 @@ namespace FoodDelivery21.Service
             return result;
         }
 
-        public decimal IncrementProducts(ProductData productData, decimal value, int productId)
+        public decimal IncrementProducts(decimal value, int productId)
         {
             decimal result = default;
-            foreach (var item in productData.Products) 
+            foreach (var item in _productData.Products) 
             { 
                 if ((item.Id == productId)&&(item.AvailableValue >= value))
                 {
@@ -44,6 +49,42 @@ namespace FoodDelivery21.Service
                         result = item.AvailableValue;
                 }
             }
+            return result;
+        }
+
+        public decimal UpdateProduct(int productId, decimal value, string action)
+        {
+            decimal result = 0;
+            if (action == "dec")
+            {
+                var isEnough = DecrementProducts( value, out value, productId);
+                if (!isEnough)
+                {
+                    ByuerInterface buyerClient = new ByuerInterface();
+                    buyerClient.ShowQuantErrMassage(value);
+                }
+                result = value;
+            }
+            if (action == "inc")
+            {
+                result = IncrementProducts(value, productId);
+            }
+            return result;
+        }
+
+        public Product AddProductToOrder()
+        {
+            int id = GetProductId();
+            var product = _productData.Products[id - 1];
+            return product;
+        }
+
+        public int GetProductId()
+        {
+            var buyer = new ByuerInterface(_productData);
+            var answer = buyer.ShowProducts();
+            int result;
+            int.TryParse(answer, out result);
             return result;
         }
     }

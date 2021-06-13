@@ -18,7 +18,6 @@ namespace FoodDelivery21.UI
             var address = Console.ReadLine();
             Console.WriteLine("Enter your telephone number");
             var telephone = Console.ReadLine();
-            var validator = new Validator();
             var roleValid = false;
             var deliveryData = new DeliveryData();
             deliveryData.DeliveryListInit();
@@ -29,18 +28,19 @@ namespace FoodDelivery21.UI
             {
                 Console.WriteLine("Enter 1 if you are a buyer or 2 if you are a seller");
                 var answer = Console.ReadLine();
-                var role = validator.CheckInt(answer);
+                int role;
+                int.TryParse(answer, out role);
                 if (role == 1)
                 {
                     roleValid = true;
-                    var order = new OrderUI();
-                    order.CreateOrder(deliveryData,orderData,productData);
+                    var order = new OrderService(orderData);
+                    order.CreateOrder(deliveryData,productData);
                 }
                 else if (role == 2)
                 {
                     roleValid = true;
-                    var seller = new SellerUI();
-                    seller.StartWorking(name,productData);
+                    var seller = new SellerUI(productData);
+                    seller.StartWorking(name);
                 }
                 else
                 {

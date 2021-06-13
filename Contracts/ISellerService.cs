@@ -9,10 +9,10 @@ namespace FoodDelivery21.Contracts
 {
     public interface ISellerService
     {
-        Product CreateProduct(string companyName, ProductData productData);
+        Product CreateProduct(string companyName);
 
-        void UpdateProduct(ProductData productData, int productId, decimal value);
+        void UpdateProduct(int productId, decimal value);
 
-        void DeleteProduct(ProductData productData, Product product);
+        void DeleteProduct(Product product);
     }
 }

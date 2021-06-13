@@ -9,8 +9,12 @@ namespace FoodDelivery21.Contracts
 {
     public interface IDeliveryService
     {
-        void SetDeliveryPrice(DeliveryData deliveryData, string method, decimal price);
+        void SetDeliveryPrice(string method, decimal price);
 
-        decimal GetDeliveryPrice(DeliveryData deliveryData, string method);
+        decimal GetDeliveryPrice(string method);
+
+        int ShowDelivery();
+
+        decimal GetDelivery();
     }
 }

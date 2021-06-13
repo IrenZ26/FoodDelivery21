@@ -8,7 +8,7 @@ namespace FoodDelivery21.Contracts
 {
     public interface IDeliveryData
     {
-        public IList<Delivery> Deliveries { get; set; }
+         IList<Delivery> Deliveries { get; set; }
 
         void DeliveryListInit();
     }

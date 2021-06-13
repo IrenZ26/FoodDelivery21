@@ -1,4 +1,5 @@
-﻿using FoodDelivery21.Data;
+﻿using FoodDelivery21.Contracts;
+using FoodDelivery21.Data;
 using FoodDelivery21.Service;
 using System;
 using System.Collections.Generic;
@@ -8,28 +9,43 @@ namespace FoodDelivery21.UI
 {
     public class SellerInterface
     {
-        public Product CreateProduct(string companyName,ProductData productData)
+        private readonly IProductData _productData;
+        private readonly IOrderData _orderData;
+        public SellerInterface(IProductData productData)
+        {
+            _productData = productData;
+        }
+        public SellerInterface(IOrderData orderData) 
+        {
+            _orderData = orderData;
+        }
+        public SellerInterface() { }
+        public Product CreateProduct(string companyName)
         {
             Console.WriteLine("Enter product id");
             var answer = Console.ReadLine();
-            var validator = new Validator();
-            var id = validator.CheckInt(answer);
+            int id;
+            int.TryParse(answer, out id);
             Console.WriteLine("Enter product name");
             var productName = Console.ReadLine();
             Console.WriteLine("Enter company price");
             answer = Console.ReadLine().Replace(".", ",");            
-            var price = validator.CheckDecimal(answer);
+            decimal price;
+            decimal.TryParse(answer, out price);
             Console.WriteLine("Enter quantity of products");
             answer = Console.ReadLine().Replace(".", ",");
-            var availableValue = validator.CheckDecimal(answer);
+            decimal availableValue;
+            decimal.TryParse(answer, out availableValue);
             Console.WriteLine("Enter discount promo code");
             var promoCode = Console.ReadLine();
             Console.WriteLine("Enter product discount");
             answer = Console.ReadLine().Replace(".", ",");
-            var productDiscount = validator.CheckDecimal(answer);
+            decimal productDiscount;
+            decimal.TryParse(answer, out productDiscount);
             Console.WriteLine("Enter personal discount");
             answer = Console.ReadLine().Replace(".", ",");
-            var personalDiscount = validator.CheckDecimal(answer);
+            decimal personalDiscount;
+            decimal.TryParse(answer, out personalDiscount);
             var product = new Product(id,productName, companyName, price, availableValue, promoCode, productDiscount, personalDiscount);
             Console.WriteLine("The product was succsesfully create:");
             Console.WriteLine("id:"+product.Id+" Name: " + product.Name + " Company: " + product.CompanyName + " Price: " + product.Price + "$ Avalible: " + product.AvailableValue + "items Promo code: " + product.DiscountPromoCode + " Product discount: " + product.ProductDiscount + " Personal discount: " + product.PersonalDiscount);
@@ -53,10 +69,10 @@ namespace FoodDelivery21.UI
             return result;
         }
 
-        public string ShowProducts(ProductData productData, string companyName)
+        public string ShowProducts(string companyName)
         {
             Console.WriteLine("Chose product and enter it`s id:");
-            foreach (var item in productData.Products)
+            foreach (var item in _productData.Products)
             {
                 if (item.CompanyName.Equals(companyName))
                 {
@@ -66,9 +82,10 @@ namespace FoodDelivery21.UI
             var result = Console.ReadLine();
             return result;
         }
-        public string ShowOrdersStatus(OrderData orderData, string companyName)
+
+        public string ShowOrdersStatus(string companyName)
         {
-            foreach (var item in orderData.Orders)
+            foreach (var item in _orderData.Orders)
             {
                 if (item.Product.CompanyName == companyName)
                 {
@@ -79,6 +96,7 @@ namespace FoodDelivery21.UI
             string result = Console.ReadLine();
             return result;
         }
+
         public string ShowStatusMessage()
         {
             Console.WriteLine("What is a new status of selected order?\n" +
