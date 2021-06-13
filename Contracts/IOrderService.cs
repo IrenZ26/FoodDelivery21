@@ -9,7 +9,8 @@ namespace FoodDelivery21.Contracts
 {
     public interface IOrderService
     {
-        Order AddOrderItem(ProductData productData, int id);
-        void CreateOrder(DeliveryData deliveryData, ProductData productData);
+        void SetDeliveryPrice(Buyer buyer, decimal deliveryPrice);
+
+        decimal GetDeliveryPrice(Buyer buyer);
     }
 }

@@ -8,9 +8,7 @@ using System.Threading.Tasks;
 namespace FoodDelivery21.Contracts
 {
     public interface IProductService
-    {
-        decimal UpdateProduct(int productId, decimal value, string action);
-
+    {       
         bool DecrementProducts(decimal value1, out decimal value, int productId);
 
         decimal IncrementProducts(decimal value, int productId);

@@ -51,41 +51,5 @@ namespace FoodDelivery21.Service
             }
             return result;
         }
-
-        public decimal UpdateProduct(int productId, decimal value, string action)
-        {
-            decimal result = 0;
-            if (action == "dec")
-            {
-                var isEnough = DecrementProducts( value, out value, productId);
-                if (!isEnough)
-                {
-                    ByuerInterface buyerClient = new ByuerInterface();
-                    buyerClient.ShowQuantErrMassage(value);
-                }
-                result = value;
-            }
-            if (action == "inc")
-            {
-                result = IncrementProducts(value, productId);
-            }
-            return result;
-        }
-
-        public Product AddProductToOrder()
-        {
-            int id = GetProductId();
-            var product = _productData.Products[id - 1];
-            return product;
-        }
-
-        public int GetProductId()
-        {
-            var buyer = new ByuerInterface(_productData);
-            var answer = buyer.ShowProducts();
-            int result;
-            int.TryParse(answer, out result);
-            return result;
-        }
     }
 }

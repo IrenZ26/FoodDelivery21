@@ -9,7 +9,7 @@ namespace FoodDelivery21
 {
     public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             var identification = new Identification();
             identification.Start();

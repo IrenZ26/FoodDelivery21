@@ -91,7 +91,7 @@ namespace FoodDelivery21.UI
             return result;
         }
 
-        public void ShowQuantErrMassage(decimal value)
+        public void ShowQuantErrMessage(decimal value)
         {
             Console.WriteLine("Sorry we don`t have that many items in stock.\n Quantity of ordered products is: " + value);
         }

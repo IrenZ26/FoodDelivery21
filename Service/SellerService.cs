@@ -15,17 +15,9 @@ namespace FoodDelivery21.Service
             _productData = productData;
         }
 
-        public Product CreateProduct(string companyName)
-        {
-            var product = new Product();
-            var sellerClient = new SellerInterface(_productData);
-            product = sellerClient.CreateProduct(companyName);
-            return product;            
-        }
-
         public void UpdateProduct(int productId, decimal value)
         {
-            var productUI = new ProductService(_productData);
+            var productUI = new ProductUI(_productData);
             productUI.UpdateProduct(productId, value, "inc");
         }
 

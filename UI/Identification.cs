@@ -33,8 +33,8 @@ namespace FoodDelivery21.UI
                 if (role == 1)
                 {
                     roleValid = true;
-                    var order = new OrderService(orderData);
-                    order.CreateOrder(deliveryData,productData);
+                    var order = new OrderUI(orderData,productData,deliveryData);
+                    order.CreateOrder();
                 }
                 else if (role == 2)
                 {

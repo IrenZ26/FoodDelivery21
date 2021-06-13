@@ -44,7 +44,7 @@ namespace FoodDelivery21.UI
             {
                 var product = new Product();
                 _productData.Products.Add(product);
-                product = sellerService.CreateProduct(companyName);
+                product = CreateProduct(companyName);
             }
             if (answer == 3)
             {
@@ -54,7 +54,13 @@ namespace FoodDelivery21.UI
                 sellerService.DeleteProduct(product);
             }
         }
-
+        public Product CreateProduct(string companyName)
+        {
+            var product = new Product();
+            var sellerClient = new SellerInterface(_productData);
+            product = sellerClient.CreateProduct(companyName);
+            return product;
+        }
         public bool IsExist(string companyName)
         {
             bool result = false;
