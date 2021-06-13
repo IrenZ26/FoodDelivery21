@@ -1,4 +1,4 @@
-﻿using FoodDelivery21.Data;
+﻿using FoodDelivery21.Contracts;
 using FoodDelivery21.Service;
 using System;
 using System.Collections.Generic;
@@ -9,86 +9,103 @@ using System.Threading.Tasks;
 namespace FoodDelivery21.UI
 {
     public class OrderUI
-    {  
-        public void CreateOrder(DeliveryData deliveryData,OrderData orderData,ProductData productData, Buyer buyer)
+    {
+        private readonly IOrderData _orderData;
+        private readonly IProductData _productData;
+        private readonly IDeliveryData _deliveryData;
+        public OrderUI(IOrderData orderData, IProductData productData, IDeliveryData deliveryData)
         {
-            bool isContinue = true;
-            var buyerClient = new BuyerInterface();
-            var orderService = new OrderService();
-            var delivery = new DeliveryUI();
-            int id = GetId(orderData);
-            while (isContinue)
-            {
-                orderData.Orders.Add(orderService.AddOrderItem(productData, buyer, id));
-                isContinue = buyerClient.Continue();
-            }
-            decimal totalPrice = delivery.GetDeliveryPrice(orderData, buyer);
-            decimal deliveryPrice = delivery.GetDelivery(deliveryData);
-            delivery.SetDeliveryPrice(orderData, buyer, deliveryPrice);
-            totalPrice += deliveryPrice;
-            buyerClient.ShowOrder(orderData, totalPrice, buyer, true);
-            var logger = new Logger();
-            logger.SaveIntoFile("The total order`s price was calculated");
+            _orderData = orderData;
+            _productData = productData;
+            _deliveryData = deliveryData;
         }
-
-        public int GetId(OrderData orderData)
-        {
-            int result = 0;
-            foreach (var item in orderData.Orders)
-            {
-                result = item.Id+1;
-            }
-            return result;
-        }
-
-        public int GetOrderID(OrderData orderData, string companyName)
-        {
-            var seller = new SellerInterface();
-            var answer = seller.ShowOrdersStatus(orderData, companyName);
-            int result;
-            int.TryParse(answer, out result);
-            return result;
-        }
-
-        public int GetNewStatus()
-        {
-            var seller = new SellerInterface();
-            var answer = seller.ShowStatusMessage();
-            int result;
-            int.TryParse(answer, out result);
-            return result;
-        }
-
-        public void SetNewStatus(OrderData orderData, int id, int status)
-        {
-            foreach (var item in orderData.Orders)
-            {
-                if (item.Id == id)
-                {
-                    switch (status)
-                    {
-                        case 1:
-                            item.Status = Order.OrderStatus.Cancelled;
-                            break;
-                        case 2:
-                            item.Status = Order.OrderStatus.Packed;
-                            break;
-                        case 3:
-                            item.Status = Order.OrderStatus.Delivered;
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            }
-        }
-
         public decimal GetItemsCount()
         {
-            var buyer = new BuyerInterface();
+            var buyer = new ByuerInterface();
             string answer = buyer.ItemsMassage();
             decimal result;
             decimal.TryParse(answer, out result);
+            return result;
+        }
+
+        public Order AddOrderItem(int id)
+        {
+            var product = new Product();
+            var productService = new ProductUI(_productData);
+            product = productService.AddProductToOrder();
+            var buyerClient = new ByuerInterface();
+            var totalPrice = product.Price;
+            var val = GetItemsCount();
+            var value = productService.UpdateProduct(product.Id, val, "dec");
+            totalPrice *= value;
+            var promo = buyerClient.GetPromo();
+            var discount = product.ProductDiscount;
+            if (product.DiscountPromoCode.Equals(promo))
+            {
+                discount += product.PersonalDiscount;
+            }
+            totalPrice = GetDiscount(totalPrice, discount);
+            var order = new Order(id, product, value, discount, 0.0m, totalPrice);
+            return order;
+        }
+
+        private decimal GetDiscount(decimal price, decimal discount)
+        {
+            decimal result = Math.Round(price - (price * discount), 2);
+            return result;
+        }
+
+        public void CreateOrder()
+        {
+            bool isContinue = true;
+            var buyerClient = new ByuerInterface(_orderData);
+            while (isContinue)
+            {
+                _orderData.Orders.Add(AddOrderItem(1));
+                isContinue = buyerClient.Continue();
+            }
+            decimal totalPrice = 0;
+            var delivery = new DeliveryUI(_deliveryData);
+            totalPrice += delivery.GetDelivery();
+            buyerClient.ShowOrder(totalPrice);
+        }
+
+        public void CreateOrder(Buyer buyer)
+        {
+            bool isExist = IsExist(buyer);
+            var answer = 2;
+            if (isExist)
+            {
+                answer = GetResult();
+            }
+            if (answer == 1)
+            {
+                var buyerClient = new ByuerInterface(_orderData);
+                buyerClient.ShowOrder(default);
+            }
+            if (answer == 2)
+            {
+                CreateOrder();
+            }
+        }
+
+        public bool IsExist(Buyer buyer)
+        {
+            var result = false;
+
+            foreach (var item in _orderData.Orders)
+            {
+                if ((item.Buyer.Name == buyer.Name) && (item.Buyer.Address == buyer.Address) && (item.Buyer.Telephone == buyer.Telephone)) { result = true; }
+            }
+            return result;
+        }
+
+        public int GetResult()
+        {
+            var buyer = new ByuerInterface();
+            var answer = buyer.ExistMessage();
+            int result;
+            int.TryParse(answer, out result);
             return result;
         }
     }

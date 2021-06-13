@@ -1,4 +1,5 @@
-﻿using FoodDelivery21.Data;
+﻿using FoodDelivery21.Contracts;
+using FoodDelivery21.Data;
 using FoodDelivery21.Service;
 using System;
 using System.Collections.Generic;
@@ -10,15 +11,15 @@ namespace FoodDelivery21.UI
 {
     public class SellerUI
     {
-        public void CreateSeller(int id, string name, string address, string telephone)
+        private readonly IProductData _productData;
+        public SellerUI(IProductData productData)
         {
-            var seller = new Seller(id, name, address, telephone);
+            _productData = productData;
         }
-
-        public Product GetProduct(ProductData productData, int productId)
+        public Product GetProduct(int productId)
         {
             var product = new Product();
-            foreach (var item in productData.Products)
+            foreach (var item in _productData.Products)
             {
                 if (item.Id == productId)
                 {
@@ -28,44 +29,42 @@ namespace FoodDelivery21.UI
             return product;
         }
 
-        public void StartWorking(string companyName, ProductData productData,OrderData orderData)
+        public void StartWorking(string companyName)
         {
-            var answer = Start(companyName, productData);
-            var sellerService = new SellerService();
-            var logger = new Logger();
+            var answer = Start(companyName);
+            var sellerService = new SellerService(_productData);
             if (answer == 1)
             {
-                var productId = GetProductId(productData, companyName);
+                var productId = GetProductId(companyName);
                 var productValue = GetProductValue();
-                logger.SaveIntoFile("The seller choose to change the quantity of " + productData.Products.ElementAt(productId - 1).Name);
-                sellerService.UpdateProduct(productData, productId, productValue);
+                sellerService.UpdateProduct(productId, productValue);
 
             }
             if (answer == 2)
             {
                 var product = new Product();
-                logger.SaveIntoFile("The seller choose to create the new product");
-                product = sellerService.CreateProduct(companyName,productData);
-                productData.Products.Add(product);
+                _productData.Products.Add(product);
+                product = CreateProduct(companyName);
             }
             if (answer == 3)
             {
-                var productId = GetProductId(productData, companyName);
+                var productId = GetProductId(companyName);
                 var product = new Product();
-                product = GetProduct(productData, productId);
-                logger.SaveIntoFile("The seller choose to delete the product");
-                sellerService.DeleteProduct(productData, product);
-            }
-            if (answer == 4)
-            {
-                sellerService.UpdateStatus(orderData, companyName);
+                product = GetProduct(productId);
+                sellerService.DeleteProduct(product);
             }
         }
-
-        public bool IsExist(ProductData productData, string companyName)
+        public Product CreateProduct(string companyName)
+        {
+            var product = new Product();
+            var sellerClient = new SellerInterface(_productData);
+            product = sellerClient.CreateProduct(companyName);
+            return product;
+        }
+        public bool IsExist(string companyName)
         {
             bool result = false;
-            foreach (var item in productData.Products)
+            foreach (var item in _productData.Products)
             {
                 if (item.CompanyName.Equals(companyName))
                 {
@@ -87,18 +86,9 @@ namespace FoodDelivery21.UI
             return result;
         }
 
-        public int Start(string companyName, ProductData productData)
+        public int Start(string companyName)
         {
-            bool isExist = IsExist(productData,companyName);
-            var logger = new Logger();
-            if (isExist) 
-            {
-                logger.SaveIntoFile("Seller is already exist");
-            }
-            else
-            {
-                logger.SaveIntoFile("It`s a new seller");
-            }
+            bool isExist = IsExist(companyName);
             var result = GetResult(isExist);
             return result;
         }
@@ -112,10 +102,10 @@ namespace FoodDelivery21.UI
             return result;
         }
 
-        public int GetProductId(ProductData productData, string companyName)
+        public int GetProductId(string companyName)
         {
-            var sellerClient = new SellerInterface();
-            var answer = sellerClient.ShowProducts(productData, companyName);
+            var sellerClient = new SellerInterface(_productData);
+            var answer = sellerClient.ShowProducts(companyName);
             int result;
             int.TryParse(answer, out result);
             return result;

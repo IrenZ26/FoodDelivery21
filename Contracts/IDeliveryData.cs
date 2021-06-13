@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace FoodDelivery21.Contracts
 {
-    interface ILogger
+    public interface IDeliveryData
     {
-        void SaveIntoFile(string message);
+         IList<Delivery> Deliveries { get; set; }
+
+        void DeliveryListInit();
     }
 }

@@ -7,9 +7,9 @@ using System.Linq;
 
 namespace FoodDelivery21
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
 <<<<<<< HEAD
             var identification = new Identification();

@@ -1,4 +1,4 @@
-﻿using FoodDelivery21.Data;
+﻿using FoodDelivery21.Contracts;
 using FoodDelivery21.Service;
 using System;
 using System.Collections.Generic;
@@ -10,56 +10,27 @@ namespace FoodDelivery21.UI
 {
     public class DeliveryUI
     {
-        public int ShowDelivery(DeliveryData deliveryData)
+        private readonly IDeliveryData _deliveryData;
+        public DeliveryUI(IDeliveryData deliveryData)
         {
-            var byer = new BuyerInterface();
-            var answer = byer.ShowDeliveries(deliveryData);
+            _deliveryData = deliveryData;
+        }
+        public int ShowDelivery()
+        {
+            var byer = new ByuerInterface(_deliveryData);
+            var answer = byer.ShowDeliveries();
             int result;
             int.TryParse(answer, out result);
             return result;
         }
 
-        public decimal GetDelivery(DeliveryData deliveryData)
+        public decimal GetDelivery()
         {
             decimal price = default;
-            var delivery = new DeliveryService();
-            int k = ShowDelivery(deliveryData);
-            price = delivery.GetDeliveryPrice(deliveryData, deliveryData.Deliveries[k - 1].Method);
-            var logger = new Logger();
-            logger.SaveIntoFile("The delivery method was selected as " + deliveryData.Deliveries.ElementAt(k - 1).Method);
+            int k = ShowDelivery();
+            var delivery = new DeliveryService(_deliveryData);
+            price = delivery.GetDeliveryPrice(_deliveryData.Deliveries[k - 1].Method);
             return price;
-        }
-
-        public void SetDeliveryPrice(OrderData orderData, Buyer buyer, decimal deliveryPrice)
-        {
-            foreach (var item in orderData.Orders)
-            {
-                if ((item.Buyer.Name == buyer.Name) && (item.Buyer.Address == buyer.Address) && (item.Buyer.Telephone == buyer.Telephone))
-                {
-                    if (item.Status == Order.OrderStatus.Undefined) { item.DeliveryPrice = deliveryPrice; item.Status = Order.OrderStatus.Purchased; }
-                }
-            }
-        }
-
-        public decimal GetDeliveryPrice(OrderData orderData, Buyer buyer)
-        {
-            decimal result = 0;
-            int id = 0;
-            foreach (var item in orderData.Orders)
-            {
-                if ((item.Buyer.Name == buyer.Name) && (item.Buyer.Address == buyer.Address) && (item.Buyer.Telephone == buyer.Telephone))
-                {
-                    if ((item.Status != Order.OrderStatus.Undefined)) 
-                    {
-                        if (item.Id == id)
-                        {
-                            result += item.DeliveryPrice;
-                            id = item.Id+1;
-                        }
-                    }
-                }
-            }
-            return result;
         }
     }
 }

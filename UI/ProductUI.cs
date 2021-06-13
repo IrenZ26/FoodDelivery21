@@ -1,4 +1,4 @@
-﻿using FoodDelivery21.Data;
+﻿using FoodDelivery21.Contracts;
 using FoodDelivery21.Service;
 using System;
 using System.Collections.Generic;
@@ -10,38 +10,43 @@ namespace FoodDelivery21.UI
 {
     public class ProductUI
     {
-        public decimal UpdateProduct(ProductData productData, int productId, decimal value, string action)
+        private readonly IProductData _productData;
+        public ProductUI(IProductData productData)
         {
-            var product = new ProductService();
+            _productData = productData;
+        }
+        public decimal UpdateProduct(int productId, decimal value, string action)
+        {
             decimal result = 0;
+            var productService = new ProductService(_productData);
             if (action == "dec")
             {
-                var isEnough = product.DecrementProducts(productData, value, out value, productId);
+                var isEnough = productService.DecrementProducts(value, out value, productId);
                 if (!isEnough)
                 {
-                    BuyerInterface buyerClient = new BuyerInterface();
-                    buyerClient.ShowQuantErrMassage(value);
+                    ByuerInterface buyerClient = new ByuerInterface();
+                    buyerClient.ShowQuantErrMessage(value);
                 }
                 result = value;
             }
             if (action == "inc")
             {
-                result = product.IncrementProducts(productData, value, productId);
+                result = productService.IncrementProducts(value, productId);
             }
             return result;
         }
 
-        public Product AddProductToOrder(ProductData productData)
+        public Product AddProductToOrder()
         {
-            int id = GetProductId(productData);
-            var product = productData.Products[id - 1];
+            int id = GetProductId();
+            var product = _productData.Products[id - 1];
             return product;
         }
 
-        public int GetProductId(ProductData productData)
+        public int GetProductId()
         {
-            var buyer = new BuyerInterface();
-            var answer = buyer.ShowProducts(productData);
+            var buyer = new ByuerInterface(_productData);
+            var answer = buyer.ShowProducts();
             int result;
             int.TryParse(answer, out result);
             return result;

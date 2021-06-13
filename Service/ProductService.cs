@@ -1,4 +1,5 @@
-﻿using FoodDelivery21.Data;
+﻿using FoodDelivery21.Contracts;
+using FoodDelivery21.Data;
 using FoodDelivery21.UI;
 using System;
 using System.Collections.Generic;
@@ -7,13 +8,18 @@ using System.Text;
 
 namespace FoodDelivery21.Service
 {
-    public class ProductService
+    public class ProductService: IProductService
     {
-        public bool DecrementProducts(ProductData productData, decimal value1, out decimal value, int productId)
+        private readonly IProductData _productData;
+        public ProductService(IProductData productData)
+        {
+            _productData = productData;
+        }
+        public bool DecrementProducts(decimal value1, out decimal value, int productId)
         {
             bool result = false;
             decimal val = default;
-            foreach (var item in productData.Products.Where(x => x.Id == productId))
+            foreach (var item in _productData.Products.Where(x => x.Id == productId))
             { 
                     if (item.AvailableValue >= value1)
                     {
@@ -32,10 +38,10 @@ namespace FoodDelivery21.Service
             return result;
         }
 
-        public decimal IncrementProducts(ProductData productData, decimal value, int productId)
+        public decimal IncrementProducts(decimal value, int productId)
         {
             decimal result = default;
-            foreach (var item in productData.Products) 
+            foreach (var item in _productData.Products) 
             { 
                 if ((item.Id == productId)&&(item.AvailableValue >= value))
                 {

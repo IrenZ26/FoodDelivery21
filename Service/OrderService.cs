@@ -1,4 +1,5 @@
-﻿using FoodDelivery21.Data;
+﻿using FoodDelivery21.Contracts;
+using FoodDelivery21.Data;
 using FoodDelivery21.UI;
 using System;
 using System.Collections.Generic;
@@ -6,36 +7,43 @@ using System.Text;
 
 namespace FoodDelivery21.Service
 {
-    public class OrderService
+    public class OrderService: IOrderService
     {
-        public Order AddOrderItem(ProductData productData, Buyer buyer, int id)
+        private readonly IOrderData _orderData;
+        private readonly IProductData _productData;
+        private readonly IDeliveryData _deliveryData;
+        public OrderService(IOrderData orderData, IProductData productData,IDeliveryData deliveryData)
         {
-            var product = new Product();
-            var productUI = new ProductUI();
-            product = productUI.AddProductToOrder(productData);
-            var buyerClient = new BuyerInterface();
-            var orderUI = new OrderUI();
-            var totalPrice = product.Price;
-            var val = orderUI.GetItemsCount();
-            var logger = new Logger();
-            logger.SaveIntoFile(product.Name + " was added to the order");
-            var value = productUI.UpdateProduct(productData,product.Id, val,"dec");
-            totalPrice *= value;
-            var promo = buyerClient.GetPromo();
-            var discount = product.ProductDiscount;
-            if (product.DiscountPromoCode.Equals(promo))
-            {
-                discount += product.PersonalDiscount;
-            }
-            totalPrice = GetDiscount(totalPrice, discount);
-            var order = new Order(id,product, value, discount, 0.0m, totalPrice, Order.OrderStatus.Undefined, buyer);
-            return order;
+            _orderData = orderData;
+            _productData = productData;
+            _deliveryData = deliveryData;
         }
 
-        private decimal GetDiscount(decimal price, decimal discount)
+        public void SetDeliveryPrice(Buyer buyer, decimal deliveryPrice)
         {
-            decimal result = Math.Round(price - (price * discount), 2);
+            foreach (var item in _orderData.Orders)
+            {
+                item.DeliveryPrice = deliveryPrice;
+            }
+        }
+
+        public decimal GetDeliveryPrice(Buyer buyer)
+        {
+            decimal result = 0;
+            int id = 0;
+            foreach (var item in _orderData.Orders)
+            {
+                if ((item.Buyer.Name == buyer.Name) && (item.Buyer.Address == buyer.Address) && (item.Buyer.Telephone == buyer.Telephone))
+                {
+                    if (item.Id == id)
+                    {
+                        result += item.DeliveryPrice;
+                        id = item.Id + 1;
+                    }
+                }
+            }
             return result;
         }
     }
+
 }

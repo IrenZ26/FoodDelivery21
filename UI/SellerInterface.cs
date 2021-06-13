@@ -1,4 +1,5 @@
-﻿using FoodDelivery21.Data;
+﻿using FoodDelivery21.Contracts;
+using FoodDelivery21.Data;
 using FoodDelivery21.Service;
 using System;
 using System.Collections.Generic;
@@ -8,13 +9,27 @@ namespace FoodDelivery21.UI
 {
     public class SellerInterface
     {
-        public Product CreateProduct(string companyName,ProductData productData)
+        private readonly IProductData _productData;
+        private readonly IOrderData _orderData;
+        public SellerInterface(IProductData productData)
         {
-            var id = GetId(productData);
+            _productData = productData;
+        }
+        public SellerInterface(IOrderData orderData) 
+        {
+            _orderData = orderData;
+        }
+        public SellerInterface() { }
+        public Product CreateProduct(string companyName)
+        {
+            Console.WriteLine("Enter product id");
+            var answer = Console.ReadLine();
+            int id;
+            int.TryParse(answer, out id);
             Console.WriteLine("Enter product name");
             var productName = Console.ReadLine();
             Console.WriteLine("Enter company price");
-            var answer = Console.ReadLine().Replace(".", ",");
+            answer = Console.ReadLine().Replace(".", ",");            
             decimal price;
             decimal.TryParse(answer, out price);
             Console.WriteLine("Enter quantity of products");
@@ -37,16 +52,6 @@ namespace FoodDelivery21.UI
             return product;
         }
 
-        public int GetId(ProductData productData)
-        {
-            int result = 0;
-            foreach (var item in productData.Products)
-            {
-                result = item.Id + 1;
-            }
-            return result;
-        }
-
         public string ExistMassage()
         {
             Console.WriteLine("If you want to update your products enter 1\n" +
@@ -64,10 +69,10 @@ namespace FoodDelivery21.UI
             return result;
         }
 
-        public string ShowProducts(ProductData productData, string companyName)
+        public string ShowProducts(string companyName)
         {
             Console.WriteLine("Chose product and enter it`s id:");
-            foreach (var item in productData.Products)
+            foreach (var item in _productData.Products)
             {
                 if (item.CompanyName.Equals(companyName))
                 {
@@ -78,13 +83,13 @@ namespace FoodDelivery21.UI
             return result;
         }
 
-        public string ShowOrdersStatus(OrderData orderData, string companyName)
+        public string ShowOrdersStatus(string companyName)
         {
-            foreach (var item in orderData.Orders)
+            foreach (var item in _orderData.Orders)
             {
                 if (item.Product.CompanyName == companyName)
                 {
-                    Console.WriteLine(item.Id + " product: " + item.Product.Name + " status: " + item.Status);
+                    Console.WriteLine(item.Id + " product: " + item.Product.Name);
                 }
             }
             Console.WriteLine("Enter the order`s id which status you want to change");
