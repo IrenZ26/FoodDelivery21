@@ -10,33 +10,36 @@ namespace FoodDelivery21.UI
 {
     public class OrderUI
     {
-        private readonly IOrderData _orderData;
-        private readonly IProductData _productData;
-        private readonly IDeliveryData _deliveryData;
-        public OrderUI(IOrderData orderData, IProductData productData, IDeliveryData deliveryData)
+        private readonly IDeliveryService _deliveryService;
+        private readonly IOrderService _orderService;
+        private readonly IProductService _productService;
+        private readonly IBuyerService _buyerService;
+        public OrderUI(IOrderService orderService, IProductService productService,IDeliveryService deliveryService,IBuyerService buyerService)
         {
-            _orderData = orderData;
-            _productData = productData;
-            _deliveryData = deliveryData;
+            _deliveryService = deliveryService;
+            _orderService = orderService;
+            _productService = productService;
+            _buyerService = buyerService;
         }
+
         public decimal GetItemsCount()
         {
             var buyer = new ByuerInterface();
-            string answer = buyer.ItemsMassage();
+            string answer = buyer.ItemsMessage();
             decimal result;
             decimal.TryParse(answer, out result);
             return result;
         }
 
-        public Order AddOrderItem(int id)
+        public Order AddOrderItem(Buyer buyer,int id)
         {
             var product = new Product();
-            var productService = new ProductUI(_productData);
-            product = productService.AddProductToOrder();
+            var productUI = new ProductUI(_orderService,_productService,_deliveryService);
+            product = productUI.AddProductToOrder();
             var buyerClient = new ByuerInterface();
             var totalPrice = product.Price;
             var val = GetItemsCount();
-            var value = productService.UpdateProduct(product.Id, val, "dec");
+            var value = productUI.UpdateProduct(product.Id, val, "dec");
             totalPrice *= value;
             var promo = buyerClient.GetPromo();
             var discount = product.ProductDiscount;
@@ -45,7 +48,7 @@ namespace FoodDelivery21.UI
                 discount += product.PersonalDiscount;
             }
             totalPrice = GetDiscount(totalPrice, discount);
-            var order = new Order(id, product, value, discount, 0.0m, totalPrice);
+            var order = new Order(id, product, value, discount, 0.0m, totalPrice,buyer,Order.OrderStatus.Undefined);
             return order;
         }
 
@@ -55,24 +58,25 @@ namespace FoodDelivery21.UI
             return result;
         }
 
-        public void CreateOrder()
+        public void CreateOrder(Buyer buyer)
         {
             bool isContinue = true;
-            var buyerClient = new ByuerInterface(_orderData);
+            var buyerClient = new ByuerInterface(_orderService,_productService,_deliveryService);
             while (isContinue)
             {
-                _orderData.Orders.Add(AddOrderItem(1));
+                var order = AddOrderItem(buyer,1);
+                _orderService.CreateOrder(order);
                 isContinue = buyerClient.Continue();
             }
             decimal totalPrice = 0;
-            var delivery = new DeliveryUI(_deliveryData);
+            var delivery = new DeliveryService(_orderService,_productService,_deliveryService);
             totalPrice += delivery.GetDelivery();
-            buyerClient.ShowOrder(totalPrice);
+            _orderService.ShowOrder(totalPrice,buyer,true);
         }
 
-        public void CreateOrder(Buyer buyer)
+        public void Create(Buyer buyer)
         {
-            bool isExist = IsExist(buyer);
+            bool isExist = _buyerService.IsExist(buyer);
             var answer = 2;
             if (isExist)
             {
@@ -80,24 +84,13 @@ namespace FoodDelivery21.UI
             }
             if (answer == 1)
             {
-                var buyerClient = new ByuerInterface(_orderData);
-                buyerClient.ShowOrder(default);
+                var buyerClient = new ByuerInterface(_orderService,_productService,_deliveryService);
+                _orderService.ShowOrder(default,buyer,false);
             }
             if (answer == 2)
             {
-                CreateOrder();
+                CreateOrder(buyer);
             }
-        }
-
-        public bool IsExist(Buyer buyer)
-        {
-            var result = false;
-
-            foreach (var item in _orderData.Orders)
-            {
-                if ((item.Buyer.Name == buyer.Name) && (item.Buyer.Address == buyer.Address) && (item.Buyer.Telephone == buyer.Telephone)) { result = true; }
-            }
-            return result;
         }
 
         public int GetResult()

@@ -9,8 +9,10 @@ namespace FoodDelivery21.Contracts
 {
     public interface IOrderService
     {
-        void SetDeliveryPrice(Buyer buyer, decimal deliveryPrice);
-
         decimal GetDeliveryPrice(Buyer buyer);
+
+        void CreateOrder(Order order);
+
+        void ShowOrder(decimal totalPrice, Buyer buyer, bool isCreate);
     }
 }

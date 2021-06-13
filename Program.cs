@@ -11,9 +11,19 @@ namespace FoodDelivery21
     {
         public static void Main(string[] args)
         {
-            var identification = new Identification();
+            var deliveryData = new DeliveryData();
+            deliveryData.DeliveryListInit();
+            var productData = new ProductData();
+            productData.ProductsInit();
+            var deliveryService = new Service.DeliveryService(deliveryData);
+            var productService = new ProductService(productData);
+            var orderData = new OrderData();
+            var orderService = new OrderService(orderData, productData, deliveryData);
+            var sellerService = new SellerService(productData);
+            var byerService = new BuyerService(orderData);
+            var identification = new Identification(orderService, productService, deliveryService,sellerService,byerService);
+
             identification.Start();
         }
-
     }
 }

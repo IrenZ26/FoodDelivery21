@@ -9,6 +9,19 @@ namespace FoodDelivery21.UI
 {
     public class Identification : IUserInterface
     {
+        private readonly ISellerService _sellerService;
+        private readonly IDeliveryService _deliveryService;
+        private readonly IOrderService _orderService;
+        private readonly IProductService _productService;
+        private readonly IBuyerService _buyerService;
+        public Identification(IOrderService orderService, IProductService productService, IDeliveryService deliveryService,ISellerService sellerService,IBuyerService buyerService)
+        {
+            _deliveryService = deliveryService;
+            _orderService = orderService;
+            _productService = productService;
+            _sellerService = sellerService;
+            _buyerService = buyerService;
+        }
         public void Start()
         {
             Console.WriteLine("Welcome to the food delivery service. Please, identify yourself");
@@ -19,11 +32,6 @@ namespace FoodDelivery21.UI
             Console.WriteLine("Enter your telephone number");
             var telephone = Console.ReadLine();
             var roleValid = false;
-            var deliveryData = new DeliveryData();
-            deliveryData.DeliveryListInit();
-            var orderData = new OrderData();
-            var productData = new ProductData();
-            productData.ProductsInit();
             while (!roleValid)
             {
                 Console.WriteLine("Enter 1 if you are a buyer or 2 if you are a seller");
@@ -33,13 +41,14 @@ namespace FoodDelivery21.UI
                 if (role == 1)
                 {
                     roleValid = true;
-                    var order = new OrderUI(orderData,productData,deliveryData);
-                    order.CreateOrder();
+                    Buyer buyer = _buyerService.CreateBuyer(name, address, telephone);
+                    var order = new OrderUI(_orderService, _productService, _deliveryService,_buyerService);
+                    order.CreateOrder(buyer);
                 }
                 else if (role == 2)
                 {
                     roleValid = true;
-                    var seller = new SellerUI(productData);
+                    var seller = new SellerUI(_productService,_sellerService,_orderService,_deliveryService);
                     seller.StartWorking(name);
                 }
                 else

@@ -9,29 +9,22 @@ namespace FoodDelivery21.UI
 {
     public class ByuerInterface
     {
-        private readonly IDeliveryData _deliveryData;
-        private readonly IOrderData _orderData;
-        private readonly IProductData _productData;
-        public ByuerInterface(IDeliveryData deliveryData) 
+        private readonly IDeliveryService _deliveryService;
+        private readonly IOrderService _orderService;
+        private readonly IProductService _productService;
+
+        public ByuerInterface(IOrderService orderService, IProductService productService, IDeliveryService deliveryService)
         {
-            _deliveryData = deliveryData;         
+            _deliveryService = deliveryService;
+            _orderService = orderService;
+            _productService = productService;
         }
-        public ByuerInterface(IOrderData orderData) 
-        {
-            _orderData = orderData;
-        }
-        public ByuerInterface(IProductData productData)
-        {
-            _productData = productData;
-        }
+
         public ByuerInterface(){}
 
         public string ShowProducts() 
         {
-            foreach (var item in _productData.Products)
-            {
-                Console.WriteLine(item.Name + " from " + item.CompanyName + " costs " + item.Price + "$." + "Available: " + item.AvailableValue + " items");
-            }
+            _productService.ShowProducts(); 
             Console.WriteLine("Enter products`s id");
             var result = Console.ReadLine();
             return result;
@@ -44,19 +37,7 @@ namespace FoodDelivery21.UI
             return result;
         }
 
-        public void ShowOrder(decimal totalPrice) 
-        {
-            Console.WriteLine("Your order: ");
-            foreach (var item in _orderData.Orders)
-            {
-                    var discount = item.Discount * 100;
-                    Console.WriteLine(item.Product.Name + " " + item.ProductValue + " items, costs " + item.Product.Price + "$ for one item.\nDiscount = " + discount + "%. Total price = " + item.TotalPrice + "$");
-                    totalPrice += item.TotalPrice;
-            }
-            Console.WriteLine("Total price of the whole order with delivery = " + totalPrice + "$");
-        }
-
-        public string ItemsMassage() 
+        public string ItemsMessage() 
         {
             Console.WriteLine("Enter how many items you want to buy");
             var result = Console.ReadLine();
@@ -82,10 +63,7 @@ namespace FoodDelivery21.UI
 
         public string ShowDeliveries()
         {
-            foreach (var item in _deliveryData.Deliveries)
-            {
-                Console.WriteLine(item.Method + " costs " + item.Price + "$");
-            }
+            _deliveryService.ShowDeliveries();
             Console.WriteLine("Enter delivery method`s id");
             var result = Console.ReadLine();
             return result;

@@ -11,67 +11,51 @@ namespace FoodDelivery21.UI
 {
     public class SellerUI
     {
-        private readonly IProductData _productData;
-        public SellerUI(IProductData productData)
+        private readonly IDeliveryService _deliveryService;
+        private readonly IProductService _productService;
+        private readonly IOrderService _orderService;
+        private readonly ISellerService _sellerService;
+        public SellerUI(IProductService productService,ISellerService sellerService,IOrderService orderService, IDeliveryService deliveryService)
         {
-            _productData = productData;
+            _deliveryService = deliveryService;
+            _orderService = orderService;
+            _productService = productService;
+            _sellerService = sellerService;
         }
-        public Product GetProduct(int productId)
-        {
-            var product = new Product();
-            foreach (var item in _productData.Products)
-            {
-                if (item.Id == productId)
-                {
-                    product = item;
-                }
-            }
-            return product;
-        }
-
+      
         public void StartWorking(string companyName)
         {
             var answer = Start(companyName);
-            var sellerService = new SellerService(_productData);
             if (answer == 1)
             {
                 var productId = GetProductId(companyName);
                 var productValue = GetProductValue();
-                sellerService.UpdateProduct(productId, productValue);
+                var productUI = new ProductUI(_orderService,_productService,_deliveryService);
+                productUI.UpdateProduct(productId, productValue, "inc");
 
             }
             if (answer == 2)
             {
                 var product = new Product();
-                _productData.Products.Add(product);
                 product = CreateProduct(companyName);
+                _sellerService.CreateProduct(product);
             }
             if (answer == 3)
             {
                 var productId = GetProductId(companyName);
                 var product = new Product();
-                product = GetProduct(productId);
-                sellerService.DeleteProduct(product);
+                product = _productService.GetProductByID(productId);
+                _sellerService.DeleteProduct(product);
             }
+            _productService.ShowProducts();
         }
+
         public Product CreateProduct(string companyName)
         {
             var product = new Product();
-            var sellerClient = new SellerInterface(_productData);
+            var sellerClient = new SellerInterface(_orderService,_productService);
             product = sellerClient.CreateProduct(companyName);
             return product;
-        }
-        public bool IsExist(string companyName)
-        {
-            bool result = false;
-            foreach (var item in _productData.Products)
-            {
-                if (item.CompanyName.Equals(companyName))
-                {
-                    result = true;
-                }
-            }
-            return result;
         }
 
         public int GetResult(bool isExist)
@@ -80,7 +64,7 @@ namespace FoodDelivery21.UI
             if (isExist)
             {
                 var sellerClient = new SellerInterface();
-                var answer = sellerClient.ExistMassage();
+                var answer = sellerClient.ExistMessage();
                 int.TryParse(answer, out result);
             }
             return result;
@@ -88,7 +72,7 @@ namespace FoodDelivery21.UI
 
         public int Start(string companyName)
         {
-            bool isExist = IsExist(companyName);
+            bool isExist = _sellerService.IsExist(companyName);
             var result = GetResult(isExist);
             return result;
         }
@@ -96,7 +80,7 @@ namespace FoodDelivery21.UI
         public decimal GetProductValue()
         {
             var sellerClient = new SellerInterface();
-            var answer = sellerClient.ProductValueMassage();
+            var answer = sellerClient.ProductValueMessage();
             decimal result;
             decimal.TryParse(answer, out result);
             return result;
@@ -104,7 +88,7 @@ namespace FoodDelivery21.UI
 
         public int GetProductId(string companyName)
         {
-            var sellerClient = new SellerInterface(_productData);
+            var sellerClient = new SellerInterface(_orderService,_productService);
             var answer = sellerClient.ShowProducts(companyName);
             int result;
             int.TryParse(answer, out result);

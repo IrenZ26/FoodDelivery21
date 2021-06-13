@@ -10,18 +10,23 @@ namespace FoodDelivery21.UI
 {
     public class ProductUI
     {
-        private readonly IProductData _productData;
-        public ProductUI(IProductData productData)
+        private readonly IDeliveryService _deliveryService;
+        private readonly IOrderService _orderService;
+        private readonly IProductService _productService;
+
+        public ProductUI(IOrderService orderService, IProductService productService, IDeliveryService deliveryService)
         {
-            _productData = productData;
+            _deliveryService = deliveryService;
+            _orderService = orderService;
+            _productService = productService;
         }
+
         public decimal UpdateProduct(int productId, decimal value, string action)
         {
             decimal result = 0;
-            var productService = new ProductService(_productData);
             if (action == "dec")
             {
-                var isEnough = productService.DecrementProducts(value, out value, productId);
+                var isEnough = _productService.DecrementProducts(value, out value, productId);
                 if (!isEnough)
                 {
                     ByuerInterface buyerClient = new ByuerInterface();
@@ -31,7 +36,7 @@ namespace FoodDelivery21.UI
             }
             if (action == "inc")
             {
-                result = productService.IncrementProducts(value, productId);
+                result = _productService.IncrementProducts(value, productId);
             }
             return result;
         }
@@ -39,13 +44,13 @@ namespace FoodDelivery21.UI
         public Product AddProductToOrder()
         {
             int id = GetProductId();
-            var product = _productData.Products[id - 1];
+            var product = _productService.GetProduct(id - 1);
             return product;
         }
 
         public int GetProductId()
         {
-            var buyer = new ByuerInterface(_productData);
+            var buyer = new ByuerInterface(_orderService, _productService, _deliveryService);
             var answer = buyer.ShowProducts();
             int result;
             int.TryParse(answer, out result);

@@ -18,15 +18,27 @@ namespace FoodDelivery21.Service
             _productData = productData;
             _deliveryData = deliveryData;
         }
-
-        public void SetDeliveryPrice(Buyer buyer, decimal deliveryPrice)
+        public void CreateOrder(Order order) 
         {
-            foreach (var item in _orderData.Orders)
-            {
-                item.DeliveryPrice = deliveryPrice;
-            }
+            _orderData.Orders.Add(order);
         }
 
+        public void ShowOrder(decimal totalPrice, Buyer buyer, bool isCreate)
+        {
+            if (!isCreate)
+            {
+                totalPrice += GetDeliveryPrice(buyer);
+            }
+
+            Console.WriteLine("Your order: ");
+            foreach (var item in _orderData.Orders)
+            {
+                var discount = item.Discount * 100;
+                Console.WriteLine(item.Product.Name + " " + item.ProductValue + " items, costs " + item.Product.Price + "$ for one item.\nDiscount = " + discount + "%. Total price = " + item.TotalPrice + "$");
+                totalPrice += item.TotalPrice;
+            }
+            Console.WriteLine("Total price of the whole order with delivery = " + totalPrice + "$");
+        }
         public decimal GetDeliveryPrice(Buyer buyer)
         {
             decimal result = 0;
@@ -35,10 +47,13 @@ namespace FoodDelivery21.Service
             {
                 if ((item.Buyer.Name == buyer.Name) && (item.Buyer.Address == buyer.Address) && (item.Buyer.Telephone == buyer.Telephone))
                 {
-                    if (item.Id == id)
+                    if ((item.Status != Order.OrderStatus.Undefined))
                     {
-                        result += item.DeliveryPrice;
-                        id = item.Id + 1;
+                        if (item.Id == id)
+                        {
+                            result += item.DeliveryPrice;
+                            id = item.Id + 1;
+                        }
                     }
                 }
             }

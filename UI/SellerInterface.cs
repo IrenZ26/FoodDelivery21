@@ -9,12 +9,16 @@ namespace FoodDelivery21.UI
 {
     public class SellerInterface
     {
-        private readonly IProductData _productData;
         private readonly IOrderData _orderData;
-        public SellerInterface(IProductData productData)
+        private readonly IOrderService _orderService;
+        private readonly IProductService _productService;
+
+        public SellerInterface(IOrderService orderService, IProductService productService)
         {
-            _productData = productData;
+            _orderService = orderService;
+            _productService = productService;
         }
+
         public SellerInterface(IOrderData orderData) 
         {
             _orderData = orderData;
@@ -52,17 +56,16 @@ namespace FoodDelivery21.UI
             return product;
         }
 
-        public string ExistMassage()
+        public string ExistMessage()
         {
             Console.WriteLine("If you want to update your products enter 1\n" +
                 "If you want to add new products enter 2\n" +
-                "If you want to delete your products enter 3\n" +
-                "If you want to see your product`s orders enter 4");
+                "If you want to delete your products enter 3");
             var result = Console.ReadLine();
             return result;
         }
 
-        public string ProductValueMassage()
+        public string ProductValueMessage()
         {
             Console.WriteLine("Enter how many items do you want to add");
             var result = Console.ReadLine();
@@ -71,14 +74,7 @@ namespace FoodDelivery21.UI
 
         public string ShowProducts(string companyName)
         {
-            Console.WriteLine("Chose product and enter it`s id:");
-            foreach (var item in _productData.Products)
-            {
-                if (item.CompanyName.Equals(companyName))
-                {
-                    Console.WriteLine(item.Id + " " + item.Name);
-                }
-            }
+            _productService.ShowProducts(companyName);
             var result = Console.ReadLine();
             return result;
         }

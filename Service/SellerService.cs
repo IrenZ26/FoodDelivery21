@@ -15,10 +15,17 @@ namespace FoodDelivery21.Service
             _productData = productData;
         }
 
-        public void UpdateProduct(int productId, decimal value)
+        public bool IsExist(string companyName)
         {
-            var productUI = new ProductUI(_productData);
-            productUI.UpdateProduct(productId, value, "inc");
+            bool result = false;
+            foreach (var item in _productData.Products)
+            {
+                if (item.CompanyName.Equals(companyName))
+                {
+                    result = true;
+                }
+            }
+            return result;
         }
 
         public void DeleteProduct(Product product)
@@ -26,5 +33,9 @@ namespace FoodDelivery21.Service
             _productData.Products.Remove(product);
         }
 
+        public void CreateProduct(Product product)
+        {
+            _productData.Products.Add(product);
+        }
     }
 }

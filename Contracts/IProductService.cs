@@ -12,5 +12,13 @@ namespace FoodDelivery21.Contracts
         bool DecrementProducts(decimal value1, out decimal value, int productId);
 
         decimal IncrementProducts(decimal value, int productId);
+
+        void ShowProducts(string companyName);
+
+        Product GetProduct(int id);
+
+        Product GetProductByID(int productId);
+        
+        void ShowProducts();
     }
 }

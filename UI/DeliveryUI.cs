@@ -8,16 +8,21 @@ using System.Threading.Tasks;
 
 namespace FoodDelivery21.UI
 {
-    public class DeliveryUI
+    public class DeliveryService
     {
-        private readonly IDeliveryData _deliveryData;
-        public DeliveryUI(IDeliveryData deliveryData)
+        private readonly IDeliveryService _deliveryService;
+        private readonly IProductService _productService;
+        private readonly IOrderService _orderService;
+        public DeliveryService(IOrderService orderService, IProductService productService, IDeliveryService deliveryService)
         {
-            _deliveryData = deliveryData;
+            _deliveryService = deliveryService;
+            _orderService = orderService;
+            _productService = productService;
         }
+
         public int ShowDelivery()
         {
-            var byer = new ByuerInterface(_deliveryData);
+            var byer = new ByuerInterface(_orderService,_productService,_deliveryService);
             var answer = byer.ShowDeliveries();
             int result;
             int.TryParse(answer, out result);
@@ -27,9 +32,8 @@ namespace FoodDelivery21.UI
         public decimal GetDelivery()
         {
             decimal price = default;
-            int k = ShowDelivery();
-            var delivery = new DeliveryService(_deliveryData);
-            price = delivery.GetDeliveryPrice(_deliveryData.Deliveries[k - 1].Method);
+            int id = ShowDelivery();
+            price = _deliveryService.GetDeliveryPrice(id-1);
             return price;
         }
     }

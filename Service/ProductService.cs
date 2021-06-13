@@ -38,6 +38,41 @@ namespace FoodDelivery21.Service
             return result;
         }
 
+        public void ShowProducts()
+        {
+            foreach (var item in _productData.Products)
+            {
+                Console.WriteLine(item.Name + " from " + item.CompanyName + " costs " + item.Price + "$." + "Available: " + item.AvailableValue + " items");
+            }
+        }
+        public void ShowProducts(string companyName)
+        {
+            Console.WriteLine("Chose product and enter it`s id:");
+            foreach (var item in _productData.Products)
+            {
+                if (item.CompanyName.Equals(companyName))
+                {
+                    Console.WriteLine(item.Id + " " + item.Name);
+                }
+            }
+        }
+        public Product GetProductByID(int productId)
+        {
+            var product = new Product();
+            foreach (var item in _productData.Products)
+            {
+                if (item.Id == productId)
+                {
+                    product = item;
+                }
+            }
+            return product;
+        }
+        public Product GetProduct(int id)
+        {
+            var product = _productData.Products[id];
+            return product;
+        }
         public decimal IncrementProducts(decimal value, int productId)
         {
             decimal result = default;

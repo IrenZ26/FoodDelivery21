@@ -19,8 +19,9 @@ namespace FoodDelivery21
         public decimal DeliveryPrice { get; set; }
         public decimal TotalPrice { get; set; }
         public decimal Discount { get; set; }
+        public OrderStatus Status { get; set; }
 
-        public Order(int id, Product product, decimal productValue, decimal discount, decimal deliveryPrice, decimal totalPrice)
+        public Order(int id, Product product, decimal productValue, decimal discount, decimal deliveryPrice, decimal totalPrice,Buyer buyer, OrderStatus orderStatus)
         {
             Id = id;
             Product = product;           
@@ -28,6 +29,17 @@ namespace FoodDelivery21
             Discount = discount;
             DeliveryPrice = deliveryPrice;
             TotalPrice = totalPrice;
+            Status = orderStatus;
+            Buyer = buyer;
+        }
+        public enum OrderStatus
+        {
+            Undefined,
+
+            Cancelled,
+            Purchased,
+            Delivered,
+            Packed,
         }
     }
 }

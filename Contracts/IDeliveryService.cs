@@ -11,6 +11,7 @@ namespace FoodDelivery21.Contracts
     {
         void SetDeliveryPrice(string method, decimal price);
 
-        decimal GetDeliveryPrice(string method);
+        void ShowDeliveries();
+        decimal GetDeliveryPrice(int id);
     }
 }
